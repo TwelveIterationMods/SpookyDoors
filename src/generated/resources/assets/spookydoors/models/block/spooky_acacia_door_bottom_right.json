@@ -1,0 +1,7 @@
+{
+  "parent": "spookydoors:block/door_bottom_right",
+  "textures": {
+    "bottom": "spookydoors:block/spooky_acacia_door_bottom",
+    "top": "spookydoors:block/spooky_acacia_door_top"
+  }
+}

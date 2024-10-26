@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.blay09.mods.spookydoors.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "spookydoors.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+    "MouseHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

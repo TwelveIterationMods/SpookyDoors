@@ -1,0 +1,36 @@
+{
+  "door_creak": {
+    "sounds": [
+      {
+        "name": "spookydoors:door_creak_01"
+      },
+      {
+        "name": "spookydoors:door_creak_02"
+      },
+      {
+        "name": "spookydoors:door_creak_03"
+      },
+      {
+        "name": "spookydoors:door_creak_04"
+      },
+      {
+        "name": "spookydoors:door_creak_05"
+      },
+      {
+        "name": "spookydoors:door_creak_06"
+      },
+      {
+        "name": "spookydoors:door_creak_07"
+      },
+      {
+        "name": "spookydoors:door_creak_08"
+      },
+      {
+        "name": "spookydoors:door_creak_09"
+      },
+      {
+        "name": "spookydoors:door_creak_10"
+      }
+    ]
+  }
+}

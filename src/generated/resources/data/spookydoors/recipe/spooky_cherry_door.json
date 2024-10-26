@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:cherry_door"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "spookydoors:spooky_cherry_door"
+  }
+}
