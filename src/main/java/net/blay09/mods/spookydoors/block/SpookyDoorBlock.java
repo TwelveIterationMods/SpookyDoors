@@ -4,10 +4,7 @@ import net.blay09.mods.spookydoors.ModBlockEntities;
 import net.blay09.mods.spookydoors.block.entity.SpookyDoorBlockEntity;
 import net.blay09.mods.spookydoors.client.SpookyDoorsClient;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -19,7 +16,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -54,8 +50,6 @@ public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
                 return closedShape;
             } else if (openness < 1f) {
                 return Shapes.join(closedShape, openShape, BooleanOp.AND);
-                // final var centerShape = Shapes.box(0.4f, 0f, 0.4f, 0.6f, 1f, 0.6f);
-                // return Shapes.join(Shapes.join(closedShape, openShape, BooleanOp.AND), centerShape, BooleanOp.OR);
             } else {
                 return openShape;
             }
@@ -100,26 +94,18 @@ public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
                 var openness = baseDoor.getOpenness();
 
                 if (openness > 0 && openness < 1) {
-                    // Get the direction the door is facing and the opposite direction
                     var doorFacingDirection = Vec3.atLowerCornerOf(facing.getNormal()).normalize();
                     var entityPosition = entity.position();
                     var doorPosition = Vec3.atCenterOf(pos);
 
-                    // Vector pointing from the door to the entity
                     var doorToEntity = entityPosition.subtract(doorPosition).normalize();
 
-                    // Calculate movement projection onto door's facing direction
                     var entityVelocity = entity.getDeltaMovement();
-                    if (entity instanceof Mob) {
-                        System.out.println(entityVelocity);
-                    }
                     double movementTowardsFacing = doorFacingDirection.dot(entityVelocity);
 
-                    // Check if the entity is in the opposite direction of the door's facing
                     double positionAlignment = doorFacingDirection.dot(doorToEntity);
 
-                    // Use the entity's speed to determine how fast the door opens/closes
-                    float adjustmentSpeed = (float) Math.abs(movementTowardsFacing) * 0.9f; // Scale the adjustment speed
+                    float adjustmentSpeed = (float) Math.abs(movementTowardsFacing) * 0.9f;
 
                     if (positionAlignment < 0 && movementTowardsFacing > 0) {
                         openness = Math.min(openness + adjustmentSpeed, 1f);

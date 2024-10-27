@@ -24,7 +24,6 @@ import org.joml.Math;
 public class SpookyDoorBlockEntity extends BlockEntity {
 
     private static final int SYNC_INTERVAL = 20;
-    private static final int CREAK_SOUND_INTERVAL = 1;
     private int ticksSinceLastSync = 0;
     private int soundCooldownTicks = 0;
     private boolean isDirty;

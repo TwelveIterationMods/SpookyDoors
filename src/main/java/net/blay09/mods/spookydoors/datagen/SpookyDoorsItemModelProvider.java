@@ -3,7 +3,6 @@ package net.blay09.mods.spookydoors.datagen;
 import net.blay09.mods.spookydoors.ModItems;
 import net.blay09.mods.spookydoors.SpookyDoors;
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 

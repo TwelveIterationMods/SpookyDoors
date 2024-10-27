@@ -55,18 +55,14 @@ public class SpookyDoorsClient {
             final var hinge = state.getValue(SpookyDoorBlock.HINGE);
             var openness = activeDoor.getOpenness();
 
-            // Calculate the horizontal mouse movement (delta x).
             double deltaX = x - lastMouseX;
 
-            // Get the player's position and the door's position.
             final var player = Minecraft.getInstance().player;
             final var doorPos = activeDoor.getBlockPos();
 
-            // Calculate the relative position of the player to the door.
             final double relativeX = player.getX() - doorPos.getX();
             final double relativeZ = player.getZ() - doorPos.getZ();
 
-            // Determine if the player is on the "front" or "back" side of the door.
             boolean isPlayerBehind = switch (facing) {
                 case NORTH -> relativeZ < 0;
                 case SOUTH -> relativeZ > 0;
@@ -75,25 +71,20 @@ public class SpookyDoorsClient {
                 default -> false;
             };
 
-            // Adjust deltaX based on the door's facing, hinge, and player position.
-            // If the player is behind the door, invert the direction of deltaX.
             if (isPlayerBehind) {
                 deltaX = -deltaX;
             }
 
-            // Further adjust deltaX based on hinge.
             deltaX = hinge == DoorHingeSide.LEFT ? -deltaX : deltaX;
 
-            // Scale the deltaX for smoother adjustment and clamp the openness.
-            final double sensitivity = 0.005; // Adjust sensitivity for a smoother or faster drag response
+            final double sensitivity = 0.005;
             openness += (float) (deltaX * sensitivity);
 
-            // Update the door's openness and store the current mouse position for the next move.
             activeDoor.setOpennessBy(openness, player);
             isDirty = true;
             lastMouseX = x;
 
-            return true; // Indicate that the mouse movement was handled.
+            return true;
         }
         return false;
     }

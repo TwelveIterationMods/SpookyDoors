@@ -8,7 +8,6 @@ import net.neoforged.fml.common.Mod;
 public class SpookyDoors {
     public static final String MOD_ID = "spookydoors";
 
-    // TODO sounds
     // TODO test multiplayer
     // TODO quick open
 
