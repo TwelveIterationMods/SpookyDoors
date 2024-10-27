@@ -23,7 +23,7 @@ import org.joml.Math;
 
 public class SpookyDoorBlockEntity extends BlockEntity {
 
-    private static final int SYNC_INTERVAL = 10;
+    private static final int SYNC_INTERVAL = 1;
     private int ticksSinceLastSync = 0;
     private int soundCooldownTicks = 0;
     private boolean isDirty;
@@ -83,9 +83,11 @@ public class SpookyDoorBlockEntity extends BlockEntity {
     public void setOpennessBy(float openness, @Nullable Entity entity) {
         final var prevOpenness = this.openness;
         this.openness = Math.clamp(0f, 1f, openness);
-        setChanged();
-        updateBlockState();
-        playSounds(entity, prevOpenness, this.openness);
+        if (prevOpenness != this.openness) {
+            setChanged();
+            updateBlockState();
+            playSounds(entity, prevOpenness, this.openness);
+        }
     }
 
     public void playSounds(Entity entity, float prevOpenness, float openness) {

@@ -26,7 +26,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 @Mod(value = SpookyDoors.MOD_ID, dist = Dist.CLIENT)
 public class SpookyDoorsClient {
 
-    private static final int SYNC_INTERVAL = 10;
+    private static final int SYNC_INTERVAL = 1;
     private static SpookyDoorsClient INSTANCE;
 
     public static SpookyDoorsClient getInstance() {
