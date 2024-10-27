@@ -8,9 +8,6 @@ import net.neoforged.fml.common.Mod;
 public class SpookyDoors {
     public static final String MOD_ID = "spookydoors";
 
-    // TODO test multiplayer
-    // TODO quick open
-
     public SpookyDoors(IEventBus modEventBus, ModContainer modContainer) {
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
