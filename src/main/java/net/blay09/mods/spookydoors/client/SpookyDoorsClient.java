@@ -1,6 +1,7 @@
 package net.blay09.mods.spookydoors.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.blay09.mods.spookydoors.SpookyDoors;
 import net.blay09.mods.spookydoors.block.SpookyDoorBlock;
 import net.blay09.mods.spookydoors.block.entity.SpookyDoorBlockEntity;
@@ -9,6 +10,7 @@ import net.blay09.mods.spookydoors.network.ServerboundOpenCloseDoorPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -17,14 +19,15 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.client.event.InputEvent;
-import net.neoforged.neoforge.client.event.RenderHighlightEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 @Mod(value = SpookyDoors.MOD_ID, dist = Dist.CLIENT)
 public class SpookyDoorsClient {
+
+    private static final ResourceLocation UI_HINT_TEXTURE = ResourceLocation.fromNamespaceAndPath(SpookyDoors.MOD_ID, "textures/gui/door_ui_hint.png");
+    private static final int UI_HINT_TICKS = 20;
 
     private static final int SYNC_INTERVAL = 1;
     private static SpookyDoorsClient INSTANCE;
@@ -35,9 +38,12 @@ public class SpookyDoorsClient {
 
     private double lastMouseX;
     private boolean isDragging;
+    private float accumulatedOpennessChange;
     private SpookyDoorBlockEntity activeDoor;
     private int ticksSinceLastSync;
     private boolean isDirty;
+
+    private int uiHintTicksLeft = 0;
 
     public SpookyDoorsClient(IEventBus modEventBus, ModContainer modContainer) {
         NeoForge.EVENT_BUS.register(this);
@@ -80,6 +86,8 @@ public class SpookyDoorsClient {
             final double sensitivity = 0.005;
             openness += (float) (deltaX * sensitivity);
 
+            final var currentOpenness = activeDoor.getOpenness();
+            accumulatedOpennessChange += Math.abs(openness - currentOpenness);
             activeDoor.setOpennessBy(openness, player);
             isDirty = true;
             lastMouseX = x;
@@ -87,6 +95,24 @@ public class SpookyDoorsClient {
             return true;
         }
         return false;
+    }
+
+    @SubscribeEvent
+    void onDrawGui(RenderGuiEvent.Post event) {
+        if (uiHintTicksLeft > 0) {
+            final var guiGraphics = event.getGuiGraphics();
+            final var poseStack = guiGraphics.pose();
+            RenderSystem.enableBlend();
+            poseStack.pushPose();
+            final var screenCenterX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
+            final var screenCenterY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
+            poseStack.translate(screenCenterX, screenCenterY, 0);
+            poseStack.scale(0.4f, 0.4f, 0.4f);
+            final var alpha = uiHintTicksLeft / (float) UI_HINT_TICKS;
+            guiGraphics.setColor(1f, 1f, 1f, alpha);
+            guiGraphics.blit(UI_HINT_TEXTURE, -23, -16 - 38, 0, 0, 46, 32, 46, 32);
+            poseStack.popPose();
+        }
     }
 
     @SubscribeEvent
@@ -140,6 +166,9 @@ public class SpookyDoorsClient {
             }
             ticksSinceLastSync = 0;
         }
+        if (uiHintTicksLeft > 0) {
+            uiHintTicksLeft--;
+        }
     }
 
     @SubscribeEvent
@@ -170,6 +199,10 @@ public class SpookyDoorsClient {
                         isDirty = false;
                     }
                     activeDoor.setClientControl(false);
+                    if (accumulatedOpennessChange < 0.1) {
+                        uiHintTicksLeft = UI_HINT_TICKS;
+                    }
+                    accumulatedOpennessChange = 0f;
                 }
                 isDragging = false;
                 activeDoor = null;
