@@ -1,10 +1,12 @@
 package net.blay09.mods.spookydoors;
 
-import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.balm.api.block.BalmBlocks;
 import net.blay09.mods.spookydoors.block.SpookyDoorBlock;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -24,37 +26,38 @@ public class ModBlocks {
     public static SpookyDoorBlock spookyBambooDoor;
 
     public static void initialize(BalmBlocks blocks) {
-        blocks.register(() -> spookyOakDoor = new SpookyDoorBlock(BlockSetType.OAK, doorProperties(Blocks.OAK_PLANKS)),
-                () -> itemBlock(spookyOakDoor),
+        blocks.register((identifier) -> spookyOakDoor = new SpookyDoorBlock(BlockSetType.OAK, doorProperties(identifier, Blocks.OAK_PLANKS)),
+                ModBlocks::itemBlock,
                 id("spooky_oak_door"));
-        blocks.register(() -> spookySpruceDoor = new SpookyDoorBlock(BlockSetType.SPRUCE, doorProperties(Blocks.SPRUCE_PLANKS)),
-                () -> itemBlock(spookySpruceDoor),
+        blocks.register((identifier) -> spookySpruceDoor = new SpookyDoorBlock(BlockSetType.SPRUCE, doorProperties(identifier, Blocks.SPRUCE_PLANKS)),
+                ModBlocks::itemBlock,
                 id("spooky_spruce_door"));
-        blocks.register(() -> spookyBirchDoor = new SpookyDoorBlock(BlockSetType.BIRCH, doorProperties(Blocks.BIRCH_PLANKS)),
-                () -> itemBlock(spookyBirchDoor),
+        blocks.register((identifier) -> spookyBirchDoor = new SpookyDoorBlock(BlockSetType.BIRCH, doorProperties(identifier, Blocks.BIRCH_PLANKS)),
+                ModBlocks::itemBlock,
                 id("spooky_birch_door"));
-        blocks.register(() -> spookyJungleDoor = new SpookyDoorBlock(BlockSetType.JUNGLE, doorProperties(Blocks.JUNGLE_PLANKS)),
-                () -> itemBlock(spookyJungleDoor),
+        blocks.register((identifier) -> spookyJungleDoor = new SpookyDoorBlock(BlockSetType.JUNGLE, doorProperties(identifier, Blocks.JUNGLE_PLANKS)),
+                ModBlocks::itemBlock,
                 id("spooky_jungle_door"));
-        blocks.register(() -> spookyAcaciaDoor = new SpookyDoorBlock(BlockSetType.ACACIA, doorProperties(Blocks.ACACIA_PLANKS)),
-                () -> itemBlock(spookyAcaciaDoor),
+        blocks.register((identifier) -> spookyAcaciaDoor = new SpookyDoorBlock(BlockSetType.ACACIA, doorProperties(identifier, Blocks.ACACIA_PLANKS)),
+                ModBlocks::itemBlock,
                 id("spooky_acacia_door"));
-        blocks.register(() -> spookyCherryDoor = new SpookyDoorBlock(BlockSetType.CHERRY, doorProperties(Blocks.CHERRY_PLANKS)),
-                () -> itemBlock(spookyCherryDoor),
+        blocks.register((identifier) -> spookyCherryDoor = new SpookyDoorBlock(BlockSetType.CHERRY, doorProperties(identifier, Blocks.CHERRY_PLANKS)),
+                ModBlocks::itemBlock,
                 id("spooky_cherry_door"));
-        blocks.register(() -> spookyDarkOakDoor = new SpookyDoorBlock(BlockSetType.DARK_OAK, doorProperties(Blocks.DARK_OAK_PLANKS)),
-                () -> itemBlock(spookyDarkOakDoor),
+        blocks.register((identifier) -> spookyDarkOakDoor = new SpookyDoorBlock(BlockSetType.DARK_OAK, doorProperties(identifier, Blocks.DARK_OAK_PLANKS)),
+                ModBlocks::itemBlock,
                 id("spooky_dark_oak_door"));
-        blocks.register(() -> spookyMangroveDoor = new SpookyDoorBlock(BlockSetType.MANGROVE, doorProperties(Blocks.MANGROVE_PLANKS)),
-                () -> itemBlock(spookyMangroveDoor),
+        blocks.register((identifier) -> spookyMangroveDoor = new SpookyDoorBlock(BlockSetType.MANGROVE, doorProperties(identifier, Blocks.MANGROVE_PLANKS)),
+                ModBlocks::itemBlock,
                 id("spooky_mangrove_door"));
-        blocks.register(() -> spookyBambooDoor = new SpookyDoorBlock(BlockSetType.BAMBOO, doorProperties(Blocks.BAMBOO)),
-                () -> itemBlock(spookyBambooDoor),
+        blocks.register((identifier) -> spookyBambooDoor = new SpookyDoorBlock(BlockSetType.BAMBOO, doorProperties(identifier, Blocks.BAMBOO)),
+                ModBlocks::itemBlock,
                 id("spooky_bamboo_door"));
     }
 
-    private static BlockBehaviour.Properties doorProperties(Block baseBlock) {
+    private static BlockBehaviour.Properties doorProperties(ResourceLocation identifier, Block baseBlock) {
         return BlockBehaviour.Properties.of()
+                .setId(blockId(identifier))
                 .mapColor(baseBlock.defaultMapColor())
                 .instrument(NoteBlockInstrument.BASS)
                 .strength(3f)
@@ -63,11 +66,24 @@ public class ModBlocks {
                 .pushReaction(PushReaction.DESTROY);
     }
 
-    private static BlockItem itemBlock(Block block) {
-        return new BlockItem(block, Balm.getItems().itemProperties());
+    private static BlockItem itemBlock(Block block, ResourceLocation name) {
+        return new BlockItem(block, defaultItemProperties(name));
+    }
+
+    private static Item.Properties defaultItemProperties(ResourceLocation identifier) {
+        return new Item.Properties().setId(itemId(identifier));
     }
 
     private static ResourceLocation id(String name) {
         return ResourceLocation.fromNamespaceAndPath(SpookyDoors.MOD_ID, name);
     }
+
+    private static ResourceKey<Block> blockId(ResourceLocation identifier) {
+        return ResourceKey.create(Registries.BLOCK, identifier);
+    }
+
+    private static ResourceKey<Item> itemId(ResourceLocation identifier) {
+        return ResourceKey.create(Registries.ITEM, identifier);
+    }
+
 }

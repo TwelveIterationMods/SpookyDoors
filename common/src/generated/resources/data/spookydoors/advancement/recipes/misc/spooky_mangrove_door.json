@@ -3,17 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "spookydoors:spooky_dark_oak_door"
+        "recipe": "spookydoors:spooky_mangrove_door"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "spooky_dark_oak_door": {
+    "spooky_mangrove_door": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:dark_oak_door"
-            ]
+            "items": "minecraft:mangrove_door"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "spooky_dark_oak_door",
-      "has_the_recipe"
+      "has_the_recipe",
+      "spooky_mangrove_door"
     ]
   ],
   "rewards": {
     "recipes": [
-      "spookydoors:spooky_dark_oak_door"
+      "spookydoors:spooky_mangrove_door"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

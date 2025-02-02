@@ -8,7 +8,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
@@ -20,22 +20,32 @@ public class SpookyDoorsRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    public void buildRecipes(RecipeOutput output) {
-        shapelessDoor(output, Blocks.OAK_DOOR, ModBlocks.spookyOakDoor);
-        shapelessDoor(output, Blocks.SPRUCE_DOOR, ModBlocks.spookySpruceDoor);
-        shapelessDoor(output, Blocks.BIRCH_DOOR, ModBlocks.spookyBirchDoor);
-        shapelessDoor(output, Blocks.JUNGLE_DOOR, ModBlocks.spookyJungleDoor);
-        shapelessDoor(output, Blocks.ACACIA_DOOR, ModBlocks.spookyAcaciaDoor);
-        shapelessDoor(output, Blocks.CHERRY_DOOR, ModBlocks.spookyCherryDoor);
-        shapelessDoor(output, Blocks.DARK_OAK_DOOR, ModBlocks.spookyDarkOakDoor);
-        shapelessDoor(output, Blocks.MANGROVE_DOOR, ModBlocks.spookyMangroveDoor);
-        shapelessDoor(output, Blocks.BAMBOO_DOOR, ModBlocks.spookyBambooDoor);
+    protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
+        return new RecipeProvider(provider, recipeOutput) {
+            @Override
+            public void buildRecipes() {
+                shapelessDoor(output, Blocks.OAK_DOOR, ModBlocks.spookyOakDoor);
+                shapelessDoor(output, Blocks.SPRUCE_DOOR, ModBlocks.spookySpruceDoor);
+                shapelessDoor(output, Blocks.BIRCH_DOOR, ModBlocks.spookyBirchDoor);
+                shapelessDoor(output, Blocks.JUNGLE_DOOR, ModBlocks.spookyJungleDoor);
+                shapelessDoor(output, Blocks.ACACIA_DOOR, ModBlocks.spookyAcaciaDoor);
+                shapelessDoor(output, Blocks.CHERRY_DOOR, ModBlocks.spookyCherryDoor);
+                shapelessDoor(output, Blocks.DARK_OAK_DOOR, ModBlocks.spookyDarkOakDoor);
+                shapelessDoor(output, Blocks.MANGROVE_DOOR, ModBlocks.spookyMangroveDoor);
+                shapelessDoor(output, Blocks.BAMBOO_DOOR, ModBlocks.spookyBambooDoor);
+            }
+
+            private void shapelessDoor(RecipeOutput output, Block block, SpookyDoorBlock spookyBlock) {
+                shapeless(RecipeCategory.MISC, spookyBlock)
+                        .requires(block)
+                        .unlockedBy(BuiltInRegistries.BLOCK.getKey(spookyBlock).getPath(), has(block))
+                        .save(output);
+            }
+        };
     }
 
-    private static void shapelessDoor(RecipeOutput output, Block block, SpookyDoorBlock spookyBlock) {
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, spookyBlock)
-                .requires(block)
-                .unlockedBy(BuiltInRegistries.BLOCK.getKey(spookyBlock).getPath(), has(block))
-                .save(output);
+    @Override
+    public String getName() {
+        return "spookydoors";
     }
 }

@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:acacia_door"
-            ]
+            "items": "minecraft:acacia_door"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "spooky_acacia_door",
-      "has_the_recipe"
+      "has_the_recipe",
+      "spooky_acacia_door"
     ]
   ],
   "rewards": {
     "recipes": [
       "spookydoors:spooky_acacia_door"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

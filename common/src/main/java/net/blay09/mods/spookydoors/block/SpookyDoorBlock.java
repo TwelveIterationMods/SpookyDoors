@@ -31,7 +31,7 @@ public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
 
     @Override
     public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.ENTITYBLOCK_ANIMATED;
+        return RenderShape.INVISIBLE;
     }
 
     @Override
@@ -95,7 +95,7 @@ public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
                 var openness = baseDoor.getOpenness();
 
                 if (openness > 0 && openness < 1) {
-                    var doorFacingDirection = Vec3.atLowerCornerOf(facing.getNormal()).normalize();
+                    var doorFacingDirection = Vec3.atLowerCornerOf(facing.getUnitVec3i()).normalize();
                     var entityPosition = entity.position();
                     var doorPosition = Vec3.atCenterOf(pos);
 

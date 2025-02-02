@@ -2,14 +2,14 @@ package net.blay09.mods.spookydoors.datagen;
 
 import net.blay09.mods.spookydoors.ModBlocks;
 import net.blay09.mods.spookydoors.SpookyDoors;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.model.ModelTemplates;
-import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 
@@ -19,20 +19,20 @@ public class SpookyDoorsModelProvider extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
-        spookyDoor(blockStateModelGenerator, ModBlocks.spookyOakDoor);
-        spookyDoor(blockStateModelGenerator, ModBlocks.spookySpruceDoor);
-        spookyDoor(blockStateModelGenerator, ModBlocks.spookyBirchDoor);
-        spookyDoor(blockStateModelGenerator, ModBlocks.spookyJungleDoor);
-        spookyDoor(blockStateModelGenerator, ModBlocks.spookyAcaciaDoor);
-        spookyDoor(blockStateModelGenerator, ModBlocks.spookyCherryDoor);
-        spookyDoor(blockStateModelGenerator, ModBlocks.spookyDarkOakDoor);
-        spookyDoor(blockStateModelGenerator, ModBlocks.spookyMangroveDoor);
-        spookyDoor(blockStateModelGenerator, ModBlocks.spookyBambooDoor);
+    public void generateBlockStateModels(BlockModelGenerators blockModelGenerators) {
+        spookyDoor(blockModelGenerators, ModBlocks.spookyOakDoor);
+        spookyDoor(blockModelGenerators, ModBlocks.spookySpruceDoor);
+        spookyDoor(blockModelGenerators, ModBlocks.spookyBirchDoor);
+        spookyDoor(blockModelGenerators, ModBlocks.spookyJungleDoor);
+        spookyDoor(blockModelGenerators, ModBlocks.spookyAcaciaDoor);
+        spookyDoor(blockModelGenerators, ModBlocks.spookyCherryDoor);
+        spookyDoor(blockModelGenerators, ModBlocks.spookyDarkOakDoor);
+        spookyDoor(blockModelGenerators, ModBlocks.spookyMangroveDoor);
+        spookyDoor(blockModelGenerators, ModBlocks.spookyBambooDoor);
     }
 
     @Override
-    public void generateItemModels(ItemModelGenerators itemModelGenerator) {
+    public void generateItemModels(ItemModelGenerators itemModelGenerators) {
     }
 
     public void spookyDoor(BlockModelGenerators blockStateModelGenerator, Block block) {
@@ -48,7 +48,7 @@ public class SpookyDoorsModelProvider extends FabricModelProvider {
         final var resourceLocation6 = ModelTemplates.DOOR_TOP_LEFT_OPEN.create(block, textureMapping, blockStateModelGenerator.modelOutput);
         final var resourceLocation7 = ModelTemplates.DOOR_TOP_RIGHT.create(block, textureMapping, blockStateModelGenerator.modelOutput);
         final var resourceLocation8 = ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(block, textureMapping, blockStateModelGenerator.modelOutput);
-        blockStateModelGenerator.createSimpleFlatItemModel(block.asItem());
+        blockStateModelGenerator.registerSimpleFlatItemModel(block.asItem());
         blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createDoor(block,
                 resourceLocation,
                 resourceLocation2,

@@ -3,17 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "spookydoors:spooky_bamboo_door"
+        "recipe": "spookydoors:spooky_jungle_door"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "spooky_bamboo_door": {
+    "spooky_jungle_door": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:bamboo_door"
-            ]
+            "items": "minecraft:jungle_door"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "spooky_bamboo_door",
-      "has_the_recipe"
+      "has_the_recipe",
+      "spooky_jungle_door"
     ]
   ],
   "rewards": {
     "recipes": [
-      "spookydoors:spooky_bamboo_door"
+      "spookydoors:spooky_jungle_door"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -3,17 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "spookydoors:spooky_jungle_door"
+        "recipe": "spookydoors:spooky_dark_oak_door"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "spooky_jungle_door": {
+    "spooky_dark_oak_door": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:jungle_door"
-            ]
+            "items": "minecraft:dark_oak_door"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "spooky_jungle_door",
-      "has_the_recipe"
+      "has_the_recipe",
+      "spooky_dark_oak_door"
     ]
   ],
   "rewards": {
     "recipes": [
-      "spookydoors:spooky_jungle_door"
+      "spookydoors:spooky_dark_oak_door"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

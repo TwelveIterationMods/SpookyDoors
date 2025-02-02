@@ -2,11 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:bamboo_door"
-    }
+    "minecraft:spruce_door"
   ],
   "result": {
-    "item": "spookydoors:spooky_bamboo_door"
+    "count": 1,
+    "id": "spookydoors:spooky_spruce_door"
   }
 }

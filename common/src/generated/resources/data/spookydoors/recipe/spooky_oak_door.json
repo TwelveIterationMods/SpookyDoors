@@ -2,11 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:mangrove_door"
-    }
+    "minecraft:oak_door"
   ],
   "result": {
-    "item": "spookydoors:spooky_mangrove_door"
+    "count": 1,
+    "id": "spookydoors:spooky_oak_door"
   }
 }

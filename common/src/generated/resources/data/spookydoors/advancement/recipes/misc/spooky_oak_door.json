@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:oak_door"
-            ]
+            "items": "minecraft:oak_door"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "spooky_oak_door",
-      "has_the_recipe"
+      "has_the_recipe",
+      "spooky_oak_door"
     ]
   ],
   "rewards": {
     "recipes": [
       "spookydoors:spooky_oak_door"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

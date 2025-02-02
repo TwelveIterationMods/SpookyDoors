@@ -3,17 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "spookydoors:spooky_spruce_door"
+        "recipe": "spookydoors:spooky_bamboo_door"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "spooky_spruce_door": {
+    "spooky_bamboo_door": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:spruce_door"
-            ]
+            "items": "minecraft:bamboo_door"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "spooky_spruce_door",
-      "has_the_recipe"
+      "has_the_recipe",
+      "spooky_bamboo_door"
     ]
   ],
   "rewards": {
     "recipes": [
-      "spookydoors:spooky_spruce_door"
+      "spookydoors:spooky_bamboo_door"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

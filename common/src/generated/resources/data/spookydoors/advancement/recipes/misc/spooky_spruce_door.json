@@ -3,17 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "spookydoors:spooky_cherry_door"
+        "recipe": "spookydoors:spooky_spruce_door"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "spooky_cherry_door": {
+    "spooky_spruce_door": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:cherry_door"
-            ]
+            "items": "minecraft:spruce_door"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "spooky_cherry_door",
-      "has_the_recipe"
+      "has_the_recipe",
+      "spooky_spruce_door"
     ]
   ],
   "rewards": {
     "recipes": [
-      "spookydoors:spooky_cherry_door"
+      "spookydoors:spooky_spruce_door"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

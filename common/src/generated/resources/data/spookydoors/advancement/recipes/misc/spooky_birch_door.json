@@ -3,17 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "spookydoors:spooky_mangrove_door"
+        "recipe": "spookydoors:spooky_birch_door"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "spooky_mangrove_door": {
+    "spooky_birch_door": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:mangrove_door"
-            ]
+            "items": "minecraft:birch_door"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "spooky_mangrove_door",
-      "has_the_recipe"
+      "has_the_recipe",
+      "spooky_birch_door"
     ]
   ],
   "rewards": {
     "recipes": [
-      "spookydoors:spooky_mangrove_door"
+      "spookydoors:spooky_birch_door"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

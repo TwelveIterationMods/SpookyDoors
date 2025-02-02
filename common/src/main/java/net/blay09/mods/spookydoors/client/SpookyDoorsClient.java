@@ -16,6 +16,7 @@ import net.blay09.mods.spookydoors.network.ServerboundOpenCloseDoorPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.ShapeRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.phys.BlockHitResult;
@@ -93,20 +94,20 @@ public class SpookyDoorsClient {
     }
 
     private static void onDrawGui(GuiDrawEvent.Post event) {
-        // TODO which element
-        if (uiHintTicksLeft > 0) {
-            final var guiGraphics = event.getGuiGraphics();
-            final var poseStack = guiGraphics.pose();
-            RenderSystem.enableBlend();
-            poseStack.pushPose();
-            final var screenCenterX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
-            final var screenCenterY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
-            poseStack.translate(screenCenterX, screenCenterY, 0);
-            poseStack.scale(0.4f, 0.4f, 0.4f);
-            final var alpha = uiHintTicksLeft / (float) UI_HINT_TICKS;
-            guiGraphics.setColor(1f, 1f, 1f, alpha);
-            guiGraphics.blit(UI_HINT_TEXTURE, -23, -16 - 38, 0, 0, 46, 32, 46, 32);
-            poseStack.popPose();
+        if (event.getElement() == GuiDrawEvent.Element.ALL) {
+            if (uiHintTicksLeft > 0) {
+                final var guiGraphics = event.getGuiGraphics();
+                final var poseStack = guiGraphics.pose();
+                RenderSystem.enableBlend();
+                poseStack.pushPose();
+                final var screenCenterX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
+                final var screenCenterY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
+                poseStack.translate(screenCenterX, screenCenterY, 0);
+                poseStack.scale(0.4f, 0.4f, 0.4f);
+                final var alpha = uiHintTicksLeft / (float) UI_HINT_TICKS;
+                guiGraphics.blit(RenderType::guiTextured, UI_HINT_TEXTURE, -23, -16 - 38, 0, 0, 46, 32, 46, 32, 0xFFFFFF | (int) (alpha * 255) << 24);
+                poseStack.popPose();
+            }
         }
     }
 
@@ -138,7 +139,7 @@ public class SpookyDoorsClient {
                         state.getValue(SpookyDoorBlock.FACING),
                         state.getValue(SpookyDoorBlock.HINGE));
                 final var shape = SpookyDoorBlock.getOutlineShape(state);
-                LevelRenderer.renderVoxelShape(poseStack, vertexConsumer, shape, 0, 0, 0, 0f, 0f, 0f, 0.4f, false);
+                ShapeRenderer.renderShape(poseStack, vertexConsumer, shape, 0, 0, 0, 0x66000000);
                 poseStack.popPose();
             }
             event.setCanceled(true);
