@@ -1,21 +1,21 @@
 {
   "schemaVersion": 1,
-  "id": "spookydoors",
+  "id": "${mod_id}",
   "version": "${version}",
 
-  "name": "Spooky Doors",
-  "description": "Doors, but they're scary like in Horror Games",
+  "name": "${mod_name}",
+  "description": "${description}",
   "authors": [
     "BlayTheNinth"
   ],
   "contact": {
-    "homepage": "https://mods.twelveiterations.com/mc/spookydoors",
-    "sources": "https://github.com/TwelveIterationMods/SpookyDoors",
-    "issues": "https://github.com/TwelveIterationMods/SpookyDoors/issues"
+    "homepage": "${homepage}",
+    "sources": "${sources}",
+    "issues": "${issues}"
   },
 
-  "license": "All Rights Reserved",
-  "icon": "spookydoors-icon.png",
+  "license": "${license}",
+  "icon": "${mod_id}.png",
 
   "environment": "*",
   "entrypoints": {
@@ -33,7 +33,8 @@
     ]
   },
   "mixins": [
-    "spookydoors.mixins.json"
+    "spookydoors.mixins.json",
+    "spookydoors.fabric.mixins.json"
   ],
   "depends": {
     "balm-fabric": ">=7.0.0",

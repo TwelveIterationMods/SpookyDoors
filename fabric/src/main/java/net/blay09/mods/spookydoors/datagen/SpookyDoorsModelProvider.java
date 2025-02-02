@@ -61,6 +61,6 @@ public class SpookyDoorsModelProvider extends FabricModelProvider {
     }
 
     private static ResourceLocation modLoc(String path) {
-        return new ResourceLocation(SpookyDoors.MOD_ID, path);
+        return ResourceLocation.fromNamespaceAndPath(SpookyDoors.MOD_ID, path);
     }
 }

@@ -40,14 +40,14 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.saveAdditional(tag, provider);
         tag.putFloat("Openness", openness);
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.loadAdditional(tag, provider);
         if (!clientControl) {
             setOpennessBy(tag.getFloat("Openness"), null);
         }

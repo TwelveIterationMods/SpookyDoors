@@ -9,6 +9,6 @@ public class ModSounds {
     public static DeferredObject<SoundEvent> doorCreak;
 
     public static void initialize(BalmSounds sounds) {
-        doorCreak = sounds.register(new ResourceLocation(SpookyDoors.MOD_ID, "door_creak"));
+        doorCreak = sounds.register(ResourceLocation.fromNamespaceAndPath(SpookyDoors.MOD_ID, "door_creak"));
     }
 }

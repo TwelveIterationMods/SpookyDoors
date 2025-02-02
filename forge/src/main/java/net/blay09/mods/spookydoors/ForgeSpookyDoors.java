@@ -1,6 +1,7 @@
 package net.blay09.mods.spookydoors;
 
 import net.blay09.mods.balm.api.Balm;
+import net.blay09.mods.balm.api.EmptyLoadContext;
 import net.blay09.mods.balm.api.client.BalmClient;
 import net.blay09.mods.spookydoors.client.SpookyDoorsClient;
 import net.minecraftforge.api.distmarker.Dist;
@@ -11,8 +12,8 @@ import net.minecraftforge.fml.common.Mod;
 public class ForgeSpookyDoors {
 
     public ForgeSpookyDoors() {
-        Balm.initialize(SpookyDoors.MOD_ID, SpookyDoors::initialize);
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> BalmClient.initialize(SpookyDoors.MOD_ID, SpookyDoorsClient::initialize));
+        Balm.initialize(SpookyDoors.MOD_ID, EmptyLoadContext.INSTANCE, SpookyDoors::initialize);
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> BalmClient.initialize(SpookyDoors.MOD_ID, EmptyLoadContext.INSTANCE, SpookyDoorsClient::initialize));
     }
 
 }

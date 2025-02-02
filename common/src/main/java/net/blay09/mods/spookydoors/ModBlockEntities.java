@@ -12,7 +12,7 @@ public class ModBlockEntities {
     public static DeferredObject<BlockEntityType<SpookyDoorBlockEntity>> spookyDoor;
 
     public static void initialize(BalmBlockEntities blockEntities) {
-        spookyDoor = blockEntities.registerBlockEntity(new ResourceLocation(SpookyDoors.MOD_ID, "spooky_door"), SpookyDoorBlockEntity::new, () -> new Block[]{
+        spookyDoor = blockEntities.registerBlockEntity(ResourceLocation.fromNamespaceAndPath(SpookyDoors.MOD_ID, "spooky_door"), SpookyDoorBlockEntity::new, () -> new Block[]{
                 ModBlocks.spookyOakDoor,
                 ModBlocks.spookySpruceDoor,
                 ModBlocks.spookyBirchDoor,

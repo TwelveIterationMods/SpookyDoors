@@ -14,6 +14,6 @@ public class ModItems {
     }
 
     private static ResourceLocation id(String name) {
-        return new ResourceLocation(SpookyDoors.MOD_ID, name);
+        return ResourceLocation.fromNamespaceAndPath(SpookyDoors.MOD_ID, name);
     }
 }

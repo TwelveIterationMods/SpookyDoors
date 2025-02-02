@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
     public SpookyDoorBlock(BlockSetType type, Properties properties) {
-        super(properties, type);
+        super(type, properties);
     }
 
     @Override

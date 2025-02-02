@@ -1,74 +1,65 @@
 plugins {
-    id('java')
-    id('org.spongepowered.gradle.vanilla') version '0.2.1-SNAPSHOT'
-    id 'maven-publish'
+    id 'multiloader-common'
+    id 'net.neoforged.moddev'
 }
 
-group = mod_group
-version = mod_version
-archivesBaseName = "${mod_id}-common-${minecraft_version}"
+base {
+    archivesName = "${mod_id}-common-${minecraft_version}"
+}
 
-minecraft {
-    version(minecraft_version)
+neoForge {
+    neoFormVersion = neo_form_version
+    // Automatically enable AccessTransformers if the file exists
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers.add(at.absolutePath)
+    }
+    parchment {
+        minecraftVersion = parchment_minecraft
+        mappingsVersion = parchment_version
+    }
 }
 
 dependencies {
     compileOnly "org.spongepowered:mixin:$mixin_version"
+}
 
-    compileOnly("net.blay09.mods:balm-common:$balm_version") {
-        exclude(group: "net.blay09.mods", module: "shared-bridge")
-        changing = balm_version.endsWith("SNAPSHOT")
+apply from: rootProject.file('repositories.gradle')
+apply from: 'dependencies.gradle'
+
+configurations {
+    commonJava {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+    commonResources {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+    commonGeneratedResources {
+        canBeResolved = false
+        canBeConsumed = true
     }
 }
 
+sourceSets {
+    generated {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+    }
+}
+
+artifacts {
+    commonJava sourceSets.main.java.sourceDirectories.singleFile
+    commonResources sourceSets.main.resources.sourceDirectories.singleFile
+    commonGeneratedResources sourceSets.generated.resources.sourceDirectories.singleFile
+}
 
 sourceSets {
     main {
-        resources {
-            srcDirs "src/generated/resources"
-        }
-    }
-}
-
-apply from: 'dependencies.gradle'
-
-jar {
-    from(rootProject.file("LICENSE")) {
-        rename { "${it}_${mod_id}" }
-    }
-}
-
-sourcesJar {
-    from(rootProject.file("LICENSE")) {
-        rename { "${it}_${mod_id}" }
-    }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId = mod_id + "-common"
-            version = project.version + (!project.version.endsWith("SNAPSHOT") ? "+" + minecraft_version : "")
-
-            artifact jar
-
-            artifact sourcesJar {
-                archiveClassifier = 'sources'
-            }
-
-            artifact project.javadocJar {
-                archiveClassifier = 'javadoc'
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            var releasesRepoUrl = "https://maven.twelveiterations.com/repository/maven-releases/"
-            var snapshotsRepoUrl = "https://maven.twelveiterations.com/repository/maven-snapshots/"
-            url = uri(version.toString().endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl)
-            name = "twelveIterationsNexus"
-            credentials(PasswordCredentials)
+        java {
+            srcDir 'src/shell/java'
         }
     }
 }

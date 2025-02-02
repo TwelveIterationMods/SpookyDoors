@@ -23,7 +23,7 @@ import net.minecraft.world.phys.HitResult;
 
 public class SpookyDoorsClient {
 
-    private static final ResourceLocation UI_HINT_TEXTURE = new ResourceLocation(SpookyDoors.MOD_ID, "textures/gui/door_ui_hint.png");
+    private static final ResourceLocation UI_HINT_TEXTURE = ResourceLocation.fromNamespaceAndPath(SpookyDoors.MOD_ID, "textures/gui/door_ui_hint.png");
     private static final int UI_HINT_TICKS = 20;
 
     private static final int SYNC_INTERVAL = 1;
