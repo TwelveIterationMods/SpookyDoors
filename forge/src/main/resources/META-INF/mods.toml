@@ -1,0 +1,35 @@
+modLoader="javafml"
+loaderVersion="${forge_loader_version_range}"
+license="All rights reserved"
+issueTrackerURL="https://github.com/TwelveIterationMods/SpookyDoors/issues"
+
+[[mods]]
+modId="spookydoors"
+version="${mod_version}"
+displayName="Spooky Doors"
+displayURL="https://mods.twelveiterations.com/mc/spookydoors"
+logoFile="spookydoors-icon.png"
+credits="BlayTheNinth"
+authors="BlayTheNinth"
+description='''
+Doors, but they're scary like in Horror Games
+'''
+
+[[dependencies.spookydoors]]
+    modId="forge"
+    mandatory=true
+    versionRange="${forge_version_range}"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.spookydoors]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.spookydoors]]
+    modId="balm"
+    mandatory=true
+    versionRange="${balm_version_range}"
+    ordering="NONE"
+    side="BOTH"

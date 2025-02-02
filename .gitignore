@@ -20,9 +20,6 @@ build
 # other
 eclipse
 run
-runs
-run-data
+logs
 
-repo
-
-src/generated/resources/.cache
+common/src/generated/resources/.cache
