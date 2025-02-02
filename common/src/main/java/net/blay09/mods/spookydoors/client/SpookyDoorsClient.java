@@ -93,20 +93,21 @@ public class SpookyDoorsClient {
     }
 
     private static void onDrawGui(GuiDrawEvent.Post event) {
-        // TODO which element
-        if (uiHintTicksLeft > 0) {
-            final var guiGraphics = event.getGuiGraphics();
-            final var poseStack = guiGraphics.pose();
-            RenderSystem.enableBlend();
-            poseStack.pushPose();
-            final var screenCenterX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
-            final var screenCenterY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
-            poseStack.translate(screenCenterX, screenCenterY, 0);
-            poseStack.scale(0.4f, 0.4f, 0.4f);
-            final var alpha = uiHintTicksLeft / (float) UI_HINT_TICKS;
-            guiGraphics.setColor(1f, 1f, 1f, alpha);
-            guiGraphics.blit(UI_HINT_TEXTURE, -23, -16 - 38, 0, 0, 46, 32, 46, 32);
-            poseStack.popPose();
+        if (event.getElement() == GuiDrawEvent.Element.ALL) {
+            if (uiHintTicksLeft > 0) {
+                final var guiGraphics = event.getGuiGraphics();
+                final var poseStack = guiGraphics.pose();
+                RenderSystem.enableBlend();
+                poseStack.pushPose();
+                final var screenCenterX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
+                final var screenCenterY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
+                poseStack.translate(screenCenterX, screenCenterY, 0);
+                poseStack.scale(0.4f, 0.4f, 0.4f);
+                final var alpha = uiHintTicksLeft / (float) UI_HINT_TICKS;
+                guiGraphics.setColor(1f, 1f, 1f, alpha);
+                guiGraphics.blit(UI_HINT_TEXTURE, -23, -16 - 38, 0, 0, 46, 32, 46, 32);
+                poseStack.popPose();
+            }
         }
     }
 
