@@ -17,6 +17,18 @@ public class SpookyDoorsBlockTagsProvider extends FabricTagProvider<Block> {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_AXE).add(
+                ModBlocks.spookyOakDoor,
+                ModBlocks.spookySpruceDoor,
+                ModBlocks.spookyBirchDoor,
+                ModBlocks.spookyJungleDoor,
+                ModBlocks.spookyAcaciaDoor,
+                ModBlocks.spookyCherryDoor,
+                ModBlocks.spookyDarkOakDoor,
+                ModBlocks.spookyMangroveDoor,
+                ModBlocks.spookyBambooDoor
+        );
+
         getOrCreateTagBuilder(BlockTags.WOODEN_DOORS).add(
                 ModBlocks.spookyOakDoor,
                 ModBlocks.spookySpruceDoor,
