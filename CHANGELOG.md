@@ -1,1 +1,2 @@
-- Updated to Minecraft 1.21.4
+- Fixed spooky doors not dropping when broken
+- Fixed spooky doors not considering axe as valid tool
