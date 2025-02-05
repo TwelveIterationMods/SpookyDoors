@@ -1,1 +1,3 @@
-- Updated to Minecraft 1.21.1
+- Fixed spooky doors not being craftable
+- Fixed spooky doors not dropping when broken
+- Fixed spooky doors not considering axe as valid tool
