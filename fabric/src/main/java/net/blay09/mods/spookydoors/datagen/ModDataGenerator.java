@@ -9,6 +9,7 @@ public class ModDataGenerator implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         final var pack = fabricDataGenerator.createPack();
 
+        pack.addProvider(SpookyDoorsLootTableProvider::new);
         pack.addProvider(SpookyDoorsModelProvider::new);
         pack.addProvider(SpookyDoorsBlockTagsProvider::new);
         pack.addProvider(SpookyDoorsItemTagsProvider::new);
