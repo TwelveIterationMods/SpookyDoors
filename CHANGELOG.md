@@ -1,2 +1,1 @@
-- Fixed spooky doors not dropping when broken
-- Fixed spooky doors not considering axe as valid tool
+- Fixed doors not opening correctly when powered by redstone
