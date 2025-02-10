@@ -137,4 +137,25 @@ public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
         return level.isClientSide ? SpookyDoorBlockEntity::clientTick : SpookyDoorBlockEntity::serverTick;
     }
 
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState previousState, boolean wat) {
+        float openness = -1f;
+        // When initially placed, respect the openness from the state
+        if (!previousState.is(state.getBlock())) {
+            openness = state.getValue(OPEN) ? 1f : 0f;
+        } else {
+            // If powered was toggled, respect the openness from the state
+            // We don't just blindly always slam the door open/shut on OPEN changes because we also toggle open=true at the halfway point of openness
+            final var previouslyPowered = previousState.getValue(POWERED);
+            final var powered = state.getValue(POWERED);
+            if (powered != previouslyPowered) {
+                openness = state.getValue(OPEN) ? 1f : 0f;
+            }
+        }
+        if (openness != -1f) {
+            if (level.getBlockEntity(pos) instanceof SpookyDoorBlockEntity spookyDoor) {
+                spookyDoor.setOpennessBy(openness, null);
+            }
+        }
+    }
 }

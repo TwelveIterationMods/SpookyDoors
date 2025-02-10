@@ -116,7 +116,8 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
 
     public void updateBlockState() {
         if (level != null) {
-            final var state = getBlockState();
+            // Refetch state instead of using cached getBlockState() to ensure we have accurate POWERED value
+            final var state = level.getBlockState(worldPosition);
             final var newState = state.setValue(SpookyDoorBlock.OPEN, openness > 0.5f);
             if (state.getValue(SpookyDoorBlock.OPEN) != newState.getValue(SpookyDoorBlock.OPEN)) {
                 level.setBlock(worldPosition, newState, 10);
