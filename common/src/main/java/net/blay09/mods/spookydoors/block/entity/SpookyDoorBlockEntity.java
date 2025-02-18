@@ -3,6 +3,7 @@ package net.blay09.mods.spookydoors.block.entity;
 import net.blay09.mods.balm.api.block.entity.CustomRenderBoundingBox;
 import net.blay09.mods.balm.common.BalmBlockEntity;
 import net.blay09.mods.spookydoors.ModBlockEntities;
+import net.blay09.mods.spookydoors.ModBlocks;
 import net.blay09.mods.spookydoors.ModSounds;
 import net.blay09.mods.spookydoors.block.SpookyDoorBlock;
 import net.minecraft.core.BlockPos;
@@ -116,11 +117,13 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
 
     public void updateBlockState() {
         if (level != null) {
-            // Refetch state instead of using cached getBlockState() to ensure we have accurate POWERED value
+            // Re-fetch state instead of using cached getBlockState() to ensure we have accurate POWERED value
             final var state = level.getBlockState(worldPosition);
-            final var newState = state.setValue(SpookyDoorBlock.OPEN, openness > 0.5f);
-            if (state.getValue(SpookyDoorBlock.OPEN) != newState.getValue(SpookyDoorBlock.OPEN)) {
-                level.setBlock(worldPosition, newState, 10);
+            if (state.hasProperty(SpookyDoorBlock.OPEN)) {
+                final var newState = state.setValue(SpookyDoorBlock.OPEN, openness > 0.5f);
+                if (state.getValue(SpookyDoorBlock.OPEN) != newState.getValue(SpookyDoorBlock.OPEN)) {
+                    level.setBlock(worldPosition, newState, 10);
+                }
             }
         }
     }
