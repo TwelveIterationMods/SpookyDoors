@@ -1,1 +1,1 @@
-- Fixed doors not opening correctly when powered by redstone
+- Fixed crash when spooky doors are loaded
