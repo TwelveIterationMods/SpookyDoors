@@ -4,10 +4,13 @@ import net.blay09.mods.spookydoors.ModBlockEntities;
 import net.blay09.mods.spookydoors.block.entity.SpookyDoorBlockEntity;
 import net.blay09.mods.spookydoors.client.SpookyDoorsClient;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -24,7 +27,11 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
+
 public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
+    private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.boxZ(16f, 13f, 16f));
+
     public SpookyDoorBlock(BlockSetType type, Properties properties) {
         super(type, properties);
     }
@@ -75,16 +82,11 @@ public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
 
     public static VoxelShape getOutlineShape(BlockState state) {
         final var direction = state.getValue(FACING);
-        return switch (direction) {
-            case NORTH -> NORTH_AABB;
-            case WEST -> WEST_AABB;
-            case SOUTH -> SOUTH_AABB;
-            default -> EAST_AABB;
-        };
+        return SHAPES.get(direction);
     }
 
     @Override
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
         final var isLocalClientPlayer = level.isClientSide && entity instanceof Player player && player.isLocalPlayer();
         final var isRemoteMob = !level.isClientSide && !(entity instanceof Player);
         if (isLocalClientPlayer || isRemoteMob) {
@@ -121,7 +123,7 @@ public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
                 }
             }
         }
-        super.entityInside(state, level, pos, entity);
+        super.entityInside(state, level, pos, entity, effectApplier);
     }
 
     @Override

@@ -98,7 +98,6 @@ public class SpookyDoorsClient {
             if (uiHintTicksLeft > 0) {
                 final var guiGraphics = event.getGuiGraphics();
                 final var poseStack = guiGraphics.pose();
-                RenderSystem.enableBlend();
                 poseStack.pushPose();
                 final var screenCenterX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
                 final var screenCenterY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;

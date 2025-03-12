@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.phys.Vec3;
 import org.joml.AxisAngle4d;
 import org.joml.Quaternionf;
 
@@ -27,7 +28,7 @@ public class SpookyDoorBlockEntityRenderer implements BlockEntityRenderer<Spooky
     }
 
     @Override
-    public void render(SpookyDoorBlockEntity blockEntity, float delta, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, int overlay) {
+    public void render(SpookyDoorBlockEntity blockEntity, float delta, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, int overlay, Vec3 cameraPos) {
         final var level = blockEntity.getLevel();
         if (level == null) {
             return;
@@ -47,7 +48,7 @@ public class SpookyDoorBlockEntityRenderer implements BlockEntityRenderer<Spooky
         poseStack.pushPose();
         applyDoorPose(poseStack, baseDoor.getOpenness(), state.getValue(SpookyDoorBlock.FACING), state.getValue(SpookyDoorBlock.HINGE));
         final var stateForRender = state.setValue(SpookyDoorBlock.OPEN, false);
-        blockRenderDispatcher.getModelRenderer().tesselateBlock(level, blockRenderDispatcher.getBlockModel(stateForRender), stateForRender, pos, poseStack, vertexConsumer, false, randomSource, stateForRender.getSeed(pos), OverlayTexture.NO_OVERLAY);
+        blockRenderDispatcher.getModelRenderer().tesselateBlock(level, blockRenderDispatcher.getBlockModel(stateForRender).collectParts(randomSource), stateForRender, pos, poseStack, vertexConsumer, false, OverlayTexture.NO_OVERLAY);
         poseStack.popPose();
     }
 

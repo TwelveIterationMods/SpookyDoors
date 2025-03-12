@@ -2,6 +2,7 @@ package net.blay09.mods.spookydoors;
 
 import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.spookydoors.network.ModNetworking;
+import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,4 +20,7 @@ public class SpookyDoors {
         ModSounds.initialize(Balm.getSounds());
     }
 
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    }
 }

@@ -1,27 +1,25 @@
 package net.blay09.mods.spookydoors.network;
 
-import net.blay09.mods.spookydoors.SpookyDoors;
 import net.blay09.mods.spookydoors.block.entity.SpookyDoorBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+
+import static net.blay09.mods.spookydoors.SpookyDoors.id;
 
 public record ServerboundOpenCloseDoorPacket(BlockPos pos, float openness) implements CustomPacketPayload {
 
-    public static Type<ServerboundOpenCloseDoorPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(SpookyDoors.MOD_ID, "open_close_door"));
-
-    public static void encode(FriendlyByteBuf buf, ServerboundOpenCloseDoorPacket message) {
-        buf.writeBlockPos(message.pos);
-        buf.writeFloat(message.openness);
-    }
-
-    public static ServerboundOpenCloseDoorPacket decode(FriendlyByteBuf buf) {
-        final var pos = buf.readBlockPos();
-        final var openness = buf.readFloat();
-        return new ServerboundOpenCloseDoorPacket(pos, openness);
-    }
+    public static final Type<ServerboundOpenCloseDoorPacket> TYPE = new Type<>(id("open_close_door"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, ServerboundOpenCloseDoorPacket> STREAM_CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC,
+            ServerboundOpenCloseDoorPacket::pos,
+            ByteBufCodecs.FLOAT,
+            ServerboundOpenCloseDoorPacket::openness,
+            ServerboundOpenCloseDoorPacket::new
+    );
 
     public static void handle(ServerPlayer player, ServerboundOpenCloseDoorPacket message) {
         if (!player.isSpectator() && player.isAlive()) {

@@ -1,1 +1,1 @@
-- Fixed crash when spooky doors are loaded
+- Updated to Minecraft 1.21.5
