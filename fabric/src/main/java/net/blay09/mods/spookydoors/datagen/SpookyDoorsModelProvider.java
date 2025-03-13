@@ -13,6 +13,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 
+import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
+
 public class SpookyDoorsModelProvider extends FabricModelProvider {
     public SpookyDoorsModelProvider(FabricDataOutput output) {
         super(output);
@@ -50,14 +52,14 @@ public class SpookyDoorsModelProvider extends FabricModelProvider {
         final var resourceLocation8 = ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(block, textureMapping, blockStateModelGenerator.modelOutput);
         blockStateModelGenerator.registerSimpleFlatItemModel(block.asItem());
         blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createDoor(block,
-                resourceLocation,
-                resourceLocation2,
-                resourceLocation3,
-                resourceLocation4,
-                resourceLocation5,
-                resourceLocation6,
-                resourceLocation7,
-                resourceLocation8));
+                plainVariant(resourceLocation),
+                plainVariant(resourceLocation2),
+                plainVariant(resourceLocation3),
+                plainVariant(resourceLocation4),
+                plainVariant(resourceLocation5),
+                plainVariant(resourceLocation6),
+                plainVariant(resourceLocation7),
+                plainVariant(resourceLocation8)));
     }
 
     private static ResourceLocation modLoc(String path) {
