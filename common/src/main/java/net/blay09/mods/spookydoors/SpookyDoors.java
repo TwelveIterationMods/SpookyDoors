@@ -3,12 +3,8 @@ package net.blay09.mods.spookydoors;
 import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.spookydoors.network.ModNetworking;
 import net.minecraft.resources.ResourceLocation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class SpookyDoors {
-
-    public static final Logger logger = LoggerFactory.getLogger(SpookyDoors.class);
 
     public static final String MOD_ID = "spookydoors";
 
