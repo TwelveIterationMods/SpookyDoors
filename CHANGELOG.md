@@ -1,1 +1,1 @@
-- Fixed crash when spooky doors are loaded
+- Fixed startup crash on Forge
