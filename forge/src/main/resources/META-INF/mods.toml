@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/TwelveIterationMods/SpookyDoors/issues"
 
 [[mods]]
 modId="spookydoors"
-version="${mod_version}"
+version="${version}"
 displayName="Spooky Doors"
 displayURL="https://mods.twelveiterations.com/mc/spooky-doors"
 logoFile="spookydoors-icon.png"
