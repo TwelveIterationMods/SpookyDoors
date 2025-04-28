@@ -14,6 +14,7 @@ import net.blay09.mods.spookydoors.block.entity.SpookyDoorBlockEntity;
 import net.blay09.mods.spookydoors.client.render.SpookyDoorBlockEntityRenderer;
 import net.blay09.mods.spookydoors.network.ServerboundOpenCloseDoorPacket;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -148,7 +149,8 @@ public class SpookyDoorsClient {
 
     private static void onClientTick(Minecraft client) {
         if (!isDragging && activeDoor != null) {
-            if (!Minecraft.getInstance().player.blockPosition().equals(activeDoor.getBlockPos())) {
+            final var player = Minecraft.getInstance().player;
+            if (player == null || !player.blockPosition().equals(activeDoor.getBlockPos())) {
                 activeDoor = null;
             }
         }
@@ -171,17 +173,19 @@ public class SpookyDoorsClient {
                 final var hitResult = Minecraft.getInstance().hitResult;
                 if (hitResult != null && hitResult.getType() == HitResult.Type.BLOCK) {
                     final var blockHitResult = ((BlockHitResult) hitResult);
-                    final var level = Minecraft.getInstance().level;
                     final var pos = blockHitResult.getBlockPos();
-                    final var blockEntity = level.getBlockEntity(pos);
-                    if (blockEntity instanceof SpookyDoorBlockEntity spookyDoor) {
-                        final var entity = Minecraft.getInstance().getCameraEntity();
-                        if (entity != null) {
-                            lastMouseX = Minecraft.getInstance().mouseHandler.xpos();
-                            activeDoor = spookyDoor.getBaseDoor();
-                            activeDoor.setClientControl(true);
-                            isDragging = true;
-                            return true;
+                    final var level = Minecraft.getInstance().level;
+                    if (level != null) {
+                        final var blockEntity = level.getBlockEntity(pos);
+                        if (blockEntity instanceof SpookyDoorBlockEntity spookyDoor) {
+                            final var entity = Minecraft.getInstance().getCameraEntity();
+                            if (entity != null) {
+                                lastMouseX = Minecraft.getInstance().mouseHandler.xpos();
+                                activeDoor = spookyDoor.getBaseDoor();
+                                activeDoor.setClientControl(true);
+                                isDragging = true;
+                                return true;
+                            }
                         }
                     }
                 }
