@@ -1,1 +1,1 @@
-- Fixed crash when spooky doors are loaded
+- Fixed crash in when handling input on main menu
