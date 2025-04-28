@@ -1,1 +1,1 @@
-- Fixed startup crash on Forge
+- Fixed crash in when handling input on main menu
