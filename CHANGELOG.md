@@ -1,1 +1,1 @@
-- Fixed crash in when handling input on main menu
+- Updated to Minecraft 1.21.6

@@ -7,6 +7,6 @@ import net.fabricmc.api.ModInitializer;
 public class FabricSpookyDoors implements ModInitializer {
     @Override
     public void onInitialize() {
-        Balm.initialize(SpookyDoors.MOD_ID, EmptyLoadContext.INSTANCE, SpookyDoors::initialize);
+        Balm.initializeMod(SpookyDoors.MOD_ID, EmptyLoadContext.INSTANCE, SpookyDoors::initialize);
     }
 }

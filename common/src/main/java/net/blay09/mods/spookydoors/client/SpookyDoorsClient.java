@@ -16,6 +16,7 @@ import net.blay09.mods.spookydoors.network.ServerboundOpenCloseDoorPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShapeRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -99,14 +100,14 @@ public class SpookyDoorsClient {
             if (uiHintTicksLeft > 0) {
                 final var guiGraphics = event.getGuiGraphics();
                 final var poseStack = guiGraphics.pose();
-                poseStack.pushPose();
+                poseStack.pushMatrix();
                 final var screenCenterX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
                 final var screenCenterY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
-                poseStack.translate(screenCenterX, screenCenterY, 0);
-                poseStack.scale(0.4f, 0.4f, 0.4f);
+                poseStack.translate(screenCenterX, screenCenterY);
+                poseStack.scale(0.4f, 0.4f);
                 final var alpha = uiHintTicksLeft / (float) UI_HINT_TICKS;
-                guiGraphics.blit(RenderType::guiTextured, UI_HINT_TEXTURE, -23, -16 - 38, 0, 0, 46, 32, 46, 32, 0xFFFFFF | (int) (alpha * 255) << 24);
-                poseStack.popPose();
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, UI_HINT_TEXTURE, -23, -16 - 38, 0, 0, 46, 32, 46, 32, 0xFFFFFF | (int) (alpha * 255) << 24);
+                poseStack.popMatrix();
             }
         }
     }

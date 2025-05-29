@@ -21,6 +21,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Math;
@@ -41,16 +43,16 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.saveAdditional(tag, provider);
-        tag.putFloat("Openness", openness);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.putFloat("Openness", openness);
     }
 
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.loadAdditional(tag, provider);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
         if (!clientControl) {
-            setOpennessBy(tag.getFloatOr("Openness", 0f), null);
+            setOpennessBy(input.getFloatOr("Openness", 0f), null);
         }
     }
 
@@ -60,8 +62,8 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
     }
 
     @Override
-    protected void writeUpdateTag(CompoundTag tag) {
-        tag.putFloat("Openness", openness);
+    protected void writeUpdateTag(ValueOutput output) {
+        output.putFloat("Openness", openness);
     }
 
     @Override
