@@ -15,7 +15,7 @@ public class ForgeSpookyDoors {
     public ForgeSpookyDoors(FMLJavaModLoadingContext context) {
         final var loadContext = new ForgeLoadContext(context.getModEventBus());
         Balm.initializeMod(SpookyDoors.MOD_ID, loadContext, SpookyDoors::initialize);
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> BalmClient.initialize(SpookyDoors.MOD_ID, loadContext, SpookyDoorsClient::initialize));
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> BalmClient.initializeMod(SpookyDoors.MOD_ID, loadContext, SpookyDoorsClient::initialize));
     }
 
 }
