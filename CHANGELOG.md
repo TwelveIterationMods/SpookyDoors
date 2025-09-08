@@ -1,1 +1,1 @@
-- Fixed crash in when handling input on main menu
+- Fixed door peeking not working right when different mouse button is configured for use
