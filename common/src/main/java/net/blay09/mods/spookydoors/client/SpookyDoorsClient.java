@@ -168,19 +168,20 @@ public class SpookyDoorsClient {
     }
 
     public static boolean onMouseInput(int button, int action) {
-        if (button == InputConstants.MOUSE_BUTTON_RIGHT) {
+        final var minecraft = Minecraft.getInstance();
+        if (minecraft.options.keyUse.matchesMouse(button)) {
             if (action == InputConstants.PRESS) {
-                final var hitResult = Minecraft.getInstance().hitResult;
+                final var hitResult = minecraft.hitResult;
                 if (hitResult != null && hitResult.getType() == HitResult.Type.BLOCK) {
                     final var blockHitResult = ((BlockHitResult) hitResult);
                     final var pos = blockHitResult.getBlockPos();
-                    final var level = Minecraft.getInstance().level;
+                    final var level = minecraft.level;
                     if (level != null) {
                         final var blockEntity = level.getBlockEntity(pos);
                         if (blockEntity instanceof SpookyDoorBlockEntity spookyDoor) {
-                            final var entity = Minecraft.getInstance().getCameraEntity();
+                            final var entity = minecraft.getCameraEntity();
                             if (entity != null) {
-                                lastMouseX = Minecraft.getInstance().mouseHandler.xpos();
+                                lastMouseX = minecraft.mouseHandler.xpos();
                                 activeDoor = spookyDoor.getBaseDoor();
                                 activeDoor.setClientControl(true);
                                 isDragging = true;
