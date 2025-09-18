@@ -131,7 +131,7 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
     }
 
     public void sync() {
-        if (level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide()) {
             ((ServerLevel) level).getChunkSource().blockChanged(worldPosition);
         }
     }

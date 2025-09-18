@@ -3,32 +3,45 @@ package net.blay09.mods.spookydoors.client.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.blay09.mods.spookydoors.block.SpookyDoorBlock;
 import net.blay09.mods.spookydoors.block.entity.SpookyDoorBlockEntity;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import org.joml.AxisAngle4d;
 import org.joml.Quaternionf;
 
-public class SpookyDoorBlockEntityRenderer implements BlockEntityRenderer<SpookyDoorBlockEntity> {
+public class SpookyDoorBlockEntityRenderer implements BlockEntityRenderer<SpookyDoorBlockEntity, SpookyDoorBlockEntityRenderer.SpookyDoorRenderState> {
 
     private final BlockRenderDispatcher blockRenderDispatcher;
-    private final RandomSource randomSource;
+
+    public static class SpookyDoorRenderState extends BlockEntityRenderState {
+        public float openness;
+    }
 
     public SpookyDoorBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        blockRenderDispatcher = context.getBlockRenderDispatcher();
-        randomSource = RandomSource.create();
+        this.blockRenderDispatcher = context.blockRenderDispatcher();
     }
 
     @Override
-    public void render(SpookyDoorBlockEntity blockEntity, float delta, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, int overlay, Vec3 cameraPos) {
+    public SpookyDoorRenderState createRenderState() {
+        return new SpookyDoorRenderState();
+    }
+
+    @Override
+    public void extractRenderState(SpookyDoorBlockEntity blockEntity, SpookyDoorRenderState renderState, float delta, Vec3 vec, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
+        BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, delta, vec, crumblingOverlay);
+
         final var level = blockEntity.getLevel();
         if (level == null) {
             return;
@@ -44,11 +57,17 @@ public class SpookyDoorBlockEntityRenderer implements BlockEntityRenderer<Spooky
             }
         }
 
-        final var vertexConsumer = multiBufferSource.getBuffer(RenderType.cutout());
+        renderState.openness = baseDoor.getOpenness();
+        renderState.blockState = state.setValue(SpookyDoorBlock.OPEN, false);
+    }
+
+    @Override
+    public void submit(SpookyDoorRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
         poseStack.pushPose();
-        applyDoorPose(poseStack, baseDoor.getOpenness(), state.getValue(SpookyDoorBlock.FACING), state.getValue(SpookyDoorBlock.HINGE));
-        final var stateForRender = state.setValue(SpookyDoorBlock.OPEN, false);
-        blockRenderDispatcher.getModelRenderer().tesselateBlock(level, blockRenderDispatcher.getBlockModel(stateForRender).collectParts(randomSource), stateForRender, pos, poseStack, vertexConsumer, false, OverlayTexture.NO_OVERLAY);
+        final var state = renderState.blockState;
+        applyDoorPose(poseStack, renderState.openness, state.getValue(SpookyDoorBlock.FACING), state.getValue(SpookyDoorBlock.HINGE));
+        final var model = blockRenderDispatcher.getBlockModel(renderState.blockState);
+        submitNodeCollector.submitBlockModel(poseStack, RenderType.entitySolid(TextureAtlas.LOCATION_BLOCKS), model, 1f, 1f, 1f, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();
     }
 

@@ -1,7 +1,6 @@
 package net.blay09.mods.spookydoors.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.balm.api.client.BalmClient;
 import net.blay09.mods.balm.api.event.TickPhase;
@@ -14,8 +13,8 @@ import net.blay09.mods.spookydoors.block.entity.SpookyDoorBlockEntity;
 import net.blay09.mods.spookydoors.client.render.SpookyDoorBlockEntityRenderer;
 import net.blay09.mods.spookydoors.network.ServerboundOpenCloseDoorPacket;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.MouseButtonInfo;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShapeRenderer;
@@ -52,7 +51,7 @@ public class SpookyDoorsClient {
         SpookyDoorsClient.activeDoor = activeDoor;
     }
 
-    public static boolean onMoveMouse(long windowPointer, double x, double y) {
+    public static boolean onMoveMouse(long windowHandle, double x, double y) {
         if (activeDoor != null && isDragging) {
             final var state = activeDoor.getBlockState();
             final var facing = state.getValue(SpookyDoorBlock.FACING);
@@ -167,9 +166,9 @@ public class SpookyDoorsClient {
         }
     }
 
-    public static boolean onMouseInput(int button, int action) {
+    public static boolean onMouseInput(MouseButtonInfo mouseButtonInfo, int action) {
         final var minecraft = Minecraft.getInstance();
-        if (minecraft.options.keyUse.matchesMouse(button)) {
+        if (minecraft.options.keyUse.matchesMouse(new MouseButtonEvent(0, 0, mouseButtonInfo))) {
             if (action == InputConstants.PRESS) {
                 final var hitResult = minecraft.hitResult;
                 if (hitResult != null && hitResult.getType() == HitResult.Type.BLOCK) {
