@@ -1,1 +1,1 @@
-- Fixed door peeking not working right when different mouse button is configured for use
+- Updated to Minecraft 1.21.9
