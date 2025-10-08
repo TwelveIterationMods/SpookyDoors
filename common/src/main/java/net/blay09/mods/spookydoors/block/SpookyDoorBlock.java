@@ -86,7 +86,7 @@ public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
     }
 
     @Override
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean wat) {
         final var isLocalClientPlayer = level.isClientSide() && entity instanceof Player player && player.isLocalPlayer();
         final var isRemoteMob = !level.isClientSide() && !(entity instanceof Player);
         if (isLocalClientPlayer || isRemoteMob) {
@@ -123,7 +123,7 @@ public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
                 }
             }
         }
-        super.entityInside(state, level, pos, entity, effectApplier);
+        super.entityInside(state, level, pos, entity, effectApplier, wat);
     }
 
     @Override
