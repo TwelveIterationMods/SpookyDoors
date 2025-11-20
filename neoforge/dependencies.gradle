@@ -1,9 +1,5 @@
 dependencies {
-    implementation("net.blay09.mods:balm-neoforge:${balm_version}") {
-        changing = balm_version.contains("SNAPSHOT")
+    implementation(libs.balmNeoForge) {
+        changing = libs.versions.balm.get().endsWith("SNAPSHOT")
     }
-}
-
-configurations {
-    testCompileOnly.extendsFrom compileOnly // for some reason needed for EMI
 }
