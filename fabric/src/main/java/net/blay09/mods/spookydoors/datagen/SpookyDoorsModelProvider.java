@@ -10,7 +10,7 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 
 import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
@@ -62,7 +62,7 @@ public class SpookyDoorsModelProvider extends FabricModelProvider {
                 plainVariant(resourceLocation8)));
     }
 
-    private static ResourceLocation modLoc(String path) {
-        return ResourceLocation.fromNamespaceAndPath(SpookyDoors.MOD_ID, path);
+    private static Identifier modLoc(String path) {
+        return Identifier.fromNamespaceAndPath(SpookyDoors.MOD_ID, path);
     }
 }

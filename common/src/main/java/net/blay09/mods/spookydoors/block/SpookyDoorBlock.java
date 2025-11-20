@@ -128,7 +128,7 @@ public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        if (blockEntityType != ModBlockEntities.spookyDoor.get()) {
+        if (blockEntityType != ModBlockEntities.spookyDoor.value()) {
             return null;
         }
 

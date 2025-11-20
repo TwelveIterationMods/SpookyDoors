@@ -1,22 +1,24 @@
 package net.blay09.mods.spookydoors;
 
-import net.blay09.mods.balm.api.Balm;
+import net.blay09.mods.balm.Balm;
+import net.blay09.mods.balm.core.BalmRegistrars;
 import net.blay09.mods.spookydoors.network.ModNetworking;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 
 public class SpookyDoors {
 
     public static final String MOD_ID = "spookydoors";
 
-    public static void initialize() {
-        ModBlocks.initialize(Balm.getBlocks());
-        ModBlockEntities.initialize(Balm.getBlockEntities());
-        ModItems.initialize(Balm.getItems());
-        ModNetworking.initialize(Balm.getNetworking());
-        ModSounds.initialize(Balm.getSounds());
+    public static void initialize(BalmRegistrars registrars) {
+        registrars.blocks(ModBlocks::initialize);
+        registrars.blockEntityTypes(ModBlockEntities::initialize);
+        registrars.creativeModeTabs(ModItems::initialize);
+        registrars.registrar(Registries.SOUND_EVENT, ModSounds::initialize);
+        ModNetworking.initialize(Balm.networking());
     }
 
-    public static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    public static Identifier id(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 }

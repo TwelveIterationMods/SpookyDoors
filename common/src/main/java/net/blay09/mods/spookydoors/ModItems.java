@@ -1,19 +1,20 @@
 package net.blay09.mods.spookydoors;
 
-import net.blay09.mods.balm.api.DeferredObject;
-import net.blay09.mods.balm.api.item.BalmItems;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.*;
+import net.blay09.mods.balm.world.item.BalmCreativeModeTabRegistrar;
+import net.minecraft.network.chat.Component;
 
 public class ModItems {
 
-    public static DeferredObject<CreativeModeTab> creativeModeTab;
-
-    public static void initialize(BalmItems items) {
-        creativeModeTab = items.registerCreativeModeTab(() -> new ItemStack(ModBlocks.spookyOakDoor), id("spookydoors"));
+    public static void initialize(BalmCreativeModeTabRegistrar creativeModeTabs) {
+        creativeModeTabs.register(SpookyDoors.MOD_ID, (id, builder) ->
+                builder.title(Component.translatable(id.toLanguageKey("itemGroup")))
+                        .icon(() -> ModBlocks.spookyDoors.get(ModBlocks.DoorType.OAK).createStack())
+                        .displayItems(((itemDisplayParameters, output) -> {
+                            for (final var spookyDoor : ModBlocks.spookyDoors.values()) {
+                                output.accept(spookyDoor.asItem());
+                            }
+                        }))
+        );
     }
 
-    private static ResourceLocation id(String name) {
-        return ResourceLocation.fromNamespaceAndPath(SpookyDoors.MOD_ID, name);
-    }
 }

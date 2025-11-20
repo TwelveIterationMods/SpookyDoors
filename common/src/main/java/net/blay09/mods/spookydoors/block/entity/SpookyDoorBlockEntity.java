@@ -1,9 +1,7 @@
 package net.blay09.mods.spookydoors.block.entity;
 
-import net.blay09.mods.balm.api.block.entity.CustomRenderBoundingBox;
-import net.blay09.mods.balm.common.BalmBlockEntity;
+import net.blay09.mods.balm.world.level.block.entity.BalmBlockEntityUtils;
 import net.blay09.mods.spookydoors.ModBlockEntities;
-import net.blay09.mods.spookydoors.ModBlocks;
 import net.blay09.mods.spookydoors.ModSounds;
 import net.blay09.mods.spookydoors.block.SpookyDoorBlock;
 import net.minecraft.core.BlockPos;
@@ -27,7 +25,7 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Math;
 
-public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRenderBoundingBox {
+public class SpookyDoorBlockEntity extends BlockEntity {
 
     private static final int SYNC_INTERVAL = 1;
     private int ticksSinceLastSync = 0;
@@ -39,7 +37,7 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
     private boolean clientControl;
 
     public SpookyDoorBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlockEntities.spookyDoor.get(), pos, blockState);
+        super(ModBlockEntities.spookyDoor.value(), pos, blockState);
     }
 
     @Override
@@ -58,12 +56,13 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
 
     @Override
     public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
+        return BalmBlockEntityUtils.createUpdatePacket(this);
     }
 
     @Override
-    protected void writeUpdateTag(ValueOutput output) {
-        output.putFloat("Openness", openness);
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return BalmBlockEntityUtils.createUpdateTag(registries, output
+                -> output.putFloat("Openness", openness));
     }
 
     @Override
@@ -108,7 +107,7 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
             } else if (soundCooldownTicks <= 0) {
                 level.playSound(entity,
                         worldPosition,
-                        ModSounds.doorCreak.get(),
+                        ModSounds.doorCreak.value(),
                         SoundSource.BLOCKS,
                         level.getRandom().nextFloat() * 0.2f + 0.5f,
                         level.getRandom().nextFloat() * 0.4f + 0.8f);
@@ -130,17 +129,11 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
         }
     }
 
-    public void sync() {
-        if (level != null && !level.isClientSide()) {
-            ((ServerLevel) level).getChunkSource().blockChanged(worldPosition);
-        }
-    }
-
     public void serverTick() {
         ticksSinceLastSync++;
         if (ticksSinceLastSync >= SYNC_INTERVAL) {
             if (isDirty) {
-                sync();
+                BalmBlockEntityUtils.sync(this);
             }
             ticksSinceLastSync = 0;
             isDirty = false;
@@ -183,8 +176,4 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
         this.clientControl = clientControl;
     }
 
-    @Override
-    public AABB getRenderBoundingBox() {
-        return new AABB(getBlockPos()).inflate(1);
-    }
 }

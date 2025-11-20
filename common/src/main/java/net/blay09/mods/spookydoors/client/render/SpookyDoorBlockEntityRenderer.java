@@ -3,13 +3,13 @@ package net.blay09.mods.spookydoors.client.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.blay09.mods.spookydoors.block.SpookyDoorBlock;
 import net.blay09.mods.spookydoors.block.entity.SpookyDoorBlockEntity;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
@@ -67,7 +67,7 @@ public class SpookyDoorBlockEntityRenderer implements BlockEntityRenderer<Spooky
         final var state = renderState.blockState;
         applyDoorPose(poseStack, renderState.openness, state.getValue(SpookyDoorBlock.FACING), state.getValue(SpookyDoorBlock.HINGE));
         final var model = blockRenderDispatcher.getBlockModel(renderState.blockState);
-        submitNodeCollector.submitBlockModel(poseStack, RenderType.entitySolid(TextureAtlas.LOCATION_BLOCKS), model, 1f, 1f, 1f, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+        submitNodeCollector.submitBlockModel(poseStack, RenderTypes.entitySolid(TextureAtlas.LOCATION_BLOCKS), model, 1f, 1f, 1f, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();
     }
 
