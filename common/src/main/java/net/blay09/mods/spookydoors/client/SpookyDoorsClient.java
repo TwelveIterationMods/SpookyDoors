@@ -7,7 +7,6 @@ import net.blay09.mods.balm.Balm;
 import net.blay09.mods.balm.client.BalmClientRegistrars;
 import net.blay09.mods.balm.client.platform.event.callback.ClientTickCallback;
 import net.blay09.mods.balm.client.platform.event.callback.RenderCallback;
-import net.blay09.mods.balm.platform.event.EventHandling;
 import net.blay09.mods.spookydoors.SpookyDoors;
 import net.blay09.mods.spookydoors.block.SpookyDoorBlock;
 import net.blay09.mods.spookydoors.block.entity.SpookyDoorBlockEntity;
@@ -112,10 +111,10 @@ public class SpookyDoorsClient {
         }
     }
 
-    private static EventHandling onDrawHighlight(BlockHitResult hitResult, PoseStack poseStack, MultiBufferSource multiBufferSource, Camera camera) {
+    private static boolean onDrawHighlight(BlockHitResult hitResult, PoseStack poseStack, MultiBufferSource multiBufferSource, Camera camera) {
         final var level = Minecraft.getInstance().level;
         if (level == null) {
-            return EventHandling.RESUME;
+            return true;
         }
 
         final var pos = hitResult.getBlockPos();
@@ -142,9 +141,9 @@ public class SpookyDoorsClient {
                 ShapeRenderer.renderShape(poseStack, vertexConsumer, shape, 0, 0, 0, 0x66000000, 7f);
                 poseStack.popPose();
             }
-            return EventHandling.CANCEL;
+            return false;
         }
-        return EventHandling.RESUME;
+        return true;
     }
 
     private static void onClientTick(Minecraft client) {

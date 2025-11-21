@@ -22,15 +22,7 @@ public class SpookyDoorsModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockModelGenerators) {
-        spookyDoor(blockModelGenerators, ModBlocks.spookyOakDoor);
-        spookyDoor(blockModelGenerators, ModBlocks.spookySpruceDoor);
-        spookyDoor(blockModelGenerators, ModBlocks.spookyBirchDoor);
-        spookyDoor(blockModelGenerators, ModBlocks.spookyJungleDoor);
-        spookyDoor(blockModelGenerators, ModBlocks.spookyAcaciaDoor);
-        spookyDoor(blockModelGenerators, ModBlocks.spookyCherryDoor);
-        spookyDoor(blockModelGenerators, ModBlocks.spookyDarkOakDoor);
-        spookyDoor(blockModelGenerators, ModBlocks.spookyMangroveDoor);
-        spookyDoor(blockModelGenerators, ModBlocks.spookyBambooDoor);
+        ModBlocks.spookyDoors.forEach((type, block) -> spookyDoor(blockModelGenerators, block.asBlock()));
     }
 
     @Override

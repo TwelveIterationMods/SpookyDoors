@@ -17,15 +17,7 @@ public class SpookyDoorsItemTagsProvider extends IntrinsicHolderTagsProvider<Ite
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(ItemTags.WOODEN_DOORS)
-                .add(ModBlocks.spookyOakDoor.asItem(),
-                        ModBlocks.spookySpruceDoor.asItem(),
-                        ModBlocks.spookyBirchDoor.asItem(),
-                        ModBlocks.spookyJungleDoor.asItem(),
-                        ModBlocks.spookyAcaciaDoor.asItem(),
-                        ModBlocks.spookyCherryDoor.asItem(),
-                        ModBlocks.spookyDarkOakDoor.asItem(),
-                        ModBlocks.spookyMangroveDoor.asItem(),
-                        ModBlocks.spookyBambooDoor.asItem());
+        final var woodenDoors = tag(ItemTags.WOODEN_DOORS);
+        ModBlocks.spookyDoors.forEach((type, block) -> woodenDoors.add(block.asItem()));
     }
 }

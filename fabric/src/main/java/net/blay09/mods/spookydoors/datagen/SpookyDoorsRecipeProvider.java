@@ -1,5 +1,6 @@
 package net.blay09.mods.spookydoors.datagen;
 
+import net.blay09.mods.balm.world.level.block.DeferredBlock;
 import net.blay09.mods.spookydoors.ModBlocks;
 import net.blay09.mods.spookydoors.block.SpookyDoorBlock;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -24,21 +25,13 @@ public class SpookyDoorsRecipeProvider extends FabricRecipeProvider {
         return new RecipeProvider(provider, recipeOutput) {
             @Override
             public void buildRecipes() {
-                shapelessDoor(output, Blocks.OAK_DOOR, ModBlocks.spookyOakDoor);
-                shapelessDoor(output, Blocks.SPRUCE_DOOR, ModBlocks.spookySpruceDoor);
-                shapelessDoor(output, Blocks.BIRCH_DOOR, ModBlocks.spookyBirchDoor);
-                shapelessDoor(output, Blocks.JUNGLE_DOOR, ModBlocks.spookyJungleDoor);
-                shapelessDoor(output, Blocks.ACACIA_DOOR, ModBlocks.spookyAcaciaDoor);
-                shapelessDoor(output, Blocks.CHERRY_DOOR, ModBlocks.spookyCherryDoor);
-                shapelessDoor(output, Blocks.DARK_OAK_DOOR, ModBlocks.spookyDarkOakDoor);
-                shapelessDoor(output, Blocks.MANGROVE_DOOR, ModBlocks.spookyMangroveDoor);
-                shapelessDoor(output, Blocks.BAMBOO_DOOR, ModBlocks.spookyBambooDoor);
+                ModBlocks.spookyDoors.forEach((type, block) -> shapelessDoor(output, Blocks.OAK_DOOR, block));
             }
 
-            private void shapelessDoor(RecipeOutput output, Block block, SpookyDoorBlock spookyBlock) {
+            private void shapelessDoor(RecipeOutput output, Block block, DeferredBlock spookyBlock) {
                 shapeless(RecipeCategory.MISC, spookyBlock)
                         .requires(block)
-                        .unlockedBy(BuiltInRegistries.BLOCK.getKey(spookyBlock).getPath(), has(block))
+                        .unlockedBy(BuiltInRegistries.BLOCK.getKey(spookyBlock.asBlock()).getPath(), has(block))
                         .save(output);
             }
         };

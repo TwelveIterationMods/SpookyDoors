@@ -1,8 +1,6 @@
 package net.blay09.mods.spookydoors.datagen;
 
 import net.blay09.mods.spookydoors.ModBlocks;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -19,27 +17,11 @@ public class SpookyDoorsBlockTagsProvider extends IntrinsicHolderTagsProvider<Bl
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(BlockTags.MINEABLE_WITH_AXE).add(
-                ModBlocks.spookyOakDoor,
-                ModBlocks.spookySpruceDoor,
-                ModBlocks.spookyBirchDoor,
-                ModBlocks.spookyJungleDoor,
-                ModBlocks.spookyAcaciaDoor,
-                ModBlocks.spookyCherryDoor,
-                ModBlocks.spookyDarkOakDoor,
-                ModBlocks.spookyMangroveDoor,
-                ModBlocks.spookyBambooDoor
-        );
-
-        tag(BlockTags.WOODEN_DOORS).add(
-                ModBlocks.spookyOakDoor,
-                ModBlocks.spookySpruceDoor,
-                ModBlocks.spookyBirchDoor,
-                ModBlocks.spookyJungleDoor,
-                ModBlocks.spookyAcaciaDoor,
-                ModBlocks.spookyCherryDoor,
-                ModBlocks.spookyDarkOakDoor,
-                ModBlocks.spookyMangroveDoor,
-                ModBlocks.spookyBambooDoor);
+        final var mineableWithAxe = tag(BlockTags.MINEABLE_WITH_AXE);
+        final var woodenDoors = tag(BlockTags.WOODEN_DOORS);
+        ModBlocks.spookyDoors.forEach((type, block) -> {
+            mineableWithAxe.add(block.asBlock());
+            woodenDoors.add(block.asBlock());
+        });
     }
 }

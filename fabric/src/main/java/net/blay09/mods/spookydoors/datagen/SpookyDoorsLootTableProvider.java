@@ -14,15 +14,7 @@ public class SpookyDoorsLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        add(ModBlocks.spookyOakDoor, this::createDoorTable);
-        add(ModBlocks.spookySpruceDoor, this::createDoorTable);
-        add(ModBlocks.spookyBirchDoor, this::createDoorTable);
-        add(ModBlocks.spookyJungleDoor, this::createDoorTable);
-        add(ModBlocks.spookyAcaciaDoor, this::createDoorTable);
-        add(ModBlocks.spookyCherryDoor, this::createDoorTable);
-        add(ModBlocks.spookyDarkOakDoor, this::createDoorTable);
-        add(ModBlocks.spookyMangroveDoor, this::createDoorTable);
-        add(ModBlocks.spookyBambooDoor, this::createDoorTable);
+        ModBlocks.spookyDoors.forEach((type, block) -> add(block.asBlock(), this::createDoorTable));
     }
 
 }
