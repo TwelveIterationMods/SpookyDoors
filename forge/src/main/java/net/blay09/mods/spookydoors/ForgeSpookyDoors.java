@@ -1,8 +1,8 @@
 package net.blay09.mods.spookydoors;
 
 import net.blay09.mods.balm.api.Balm;
-import net.blay09.mods.balm.api.client.BalmClient;
-import net.blay09.mods.balm.forge.ForgeLoadContext;
+import net.blay09.mods.balm.client.BalmClient;
+import net.blay09.mods.balm.forge.platform.runtime.ForgeLoadContext;
 import net.blay09.mods.spookydoors.client.SpookyDoorsClient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
