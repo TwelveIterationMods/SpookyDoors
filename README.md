@@ -6,7 +6,7 @@ Minecraft Mod. Doors, but they're scary like in Horror Games.
 
 #### Downloads
 
-[![Versions](http://cf.way2muchnoise.eu/versions/1128353_latest.svg)](https://minecraft.curseforge.com/projects/spooky-doors) [![Downloads](http://cf.way2muchnoise.eu/full_1128353_downloads.svg)](https://minecraft.curseforge.com/projects/spooky-doors)
+[![Versions](http://cf.way2muchnoise.eu/versions/1128353_latest.svg)](https://www.curseforge.com/minecraft/mc-mods/spooky-doors) [![Downloads](http://cf.way2muchnoise.eu/full_1128353_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/spooky-doors)
 
 ## Contributing
 
