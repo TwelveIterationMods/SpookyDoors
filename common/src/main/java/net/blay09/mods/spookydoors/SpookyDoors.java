@@ -17,6 +17,7 @@ public class SpookyDoors {
         ModItems.initialize(Balm.getItems());
         ModNetworking.initialize(Balm.getNetworking());
         ModSounds.initialize(Balm.getSounds());
+        SpookyDoorsConfig.initialize();
     }
 
 }

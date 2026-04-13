@@ -3,11 +3,10 @@ package net.blay09.mods.spookydoors.block.entity;
 import net.blay09.mods.balm.api.block.entity.CustomRenderBoundingBox;
 import net.blay09.mods.balm.common.BalmBlockEntity;
 import net.blay09.mods.spookydoors.ModBlockEntities;
-import net.blay09.mods.spookydoors.ModBlocks;
 import net.blay09.mods.spookydoors.ModSounds;
+import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.block.SpookyDoorBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -22,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Math;
 
@@ -30,6 +30,7 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
     private static final int SYNC_INTERVAL = 1;
     private int ticksSinceLastSync = 0;
     private int soundCooldownTicks = 0;
+    private int spookCooldownTicks = 400;
     private boolean isDirty;
 
     private float openness;
@@ -135,6 +136,23 @@ public class SpookyDoorBlockEntity extends BalmBlockEntity implements CustomRend
     }
 
     public void serverTick() {
+        if (SpookyDoorsConfig.getActive().random_spook && this.getOpenness() == 0f && this.level != null) {
+            if (spookCooldownTicks > 0) {
+                spookCooldownTicks--;
+            } else {
+                spookCooldownTicks = 400;
+                if (this.level.random.nextInt(10) == 0) {
+                    boolean beingWatched = this.level.players().stream().anyMatch(player -> {
+                        Vec3 doorPlayerVec = worldPosition.getCenter().subtract(player.position());
+                        return doorPlayerVec.lengthSqr() < 1024 && player.getLookAngle().dot(doorPlayerVec.normalize()) > 0f;
+                    });
+                    if (!beingWatched) {
+                        this.setOpennessBy(0.3f, null);
+                    }
+                }
+            }
+        }
+
         ticksSinceLastSync++;
         if (ticksSinceLastSync >= SYNC_INTERVAL) {
             if (isDirty) {
