@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -156,6 +157,16 @@ public class SpookyDoorBlock extends DoorBlock implements EntityBlock {
             if (level.getBlockEntity(pos) instanceof SpookyDoorBlockEntity spookyDoor) {
                 spookyDoor.setOpennessBy(openness, null);
             }
+        }
+    }
+
+    @Override
+    public void setOpen(@Nullable Entity entity, Level level, BlockState state, BlockPos pos, boolean value) {
+        if (state.is(this) && state.getValue(OPEN) != value) {
+            if (level.getBlockEntity(pos) instanceof SpookyDoorBlockEntity spookyDoor) {
+                spookyDoor.setOpennessBy(value ? 1f : 0f, entity);
+            }
+            level.gameEvent(entity, value ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
         }
     }
 }
