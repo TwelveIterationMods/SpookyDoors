@@ -8,6 +8,6 @@ import net.blay09.mods.balm.api.config.ExpectedType;
 @Config(SpookyDoors.MOD_ID)
 public class SpookyDoorsConfigData implements BalmConfigData {
     @Comment("Make the doors randomly open slightly. Doesn't affect gameplay.")
-    @ExpectedType(Boolean.class)
-    public Boolean random_spook = Boolean.FALSE;
+    @ExpectedType(boolean.class)
+    public boolean random_spook = false;
 }
