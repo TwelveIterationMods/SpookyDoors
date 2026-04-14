@@ -3,6 +3,8 @@ package net.blay09.mods.spookydoors.client.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.blay09.mods.spookydoors.block.SpookyDoorBlock;
 import net.blay09.mods.spookydoors.block.entity.SpookyDoorBlockEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
@@ -10,7 +12,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.joml.AxisAngle4d;
@@ -19,11 +20,9 @@ import org.joml.Quaternionf;
 public class SpookyDoorBlockEntityRenderer implements BlockEntityRenderer<SpookyDoorBlockEntity> {
 
     private final BlockRenderDispatcher blockRenderDispatcher;
-    private final RandomSource randomSource;
 
     public SpookyDoorBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         blockRenderDispatcher = context.getBlockRenderDispatcher();
-        randomSource = RandomSource.create();
     }
 
     @Override
@@ -47,7 +46,11 @@ public class SpookyDoorBlockEntityRenderer implements BlockEntityRenderer<Spooky
         poseStack.pushPose();
         applyDoorPose(poseStack, baseDoor.getOpenness(), state.getValue(SpookyDoorBlock.FACING), state.getValue(SpookyDoorBlock.HINGE));
         final var stateForRender = state.setValue(SpookyDoorBlock.OPEN, false);
-        blockRenderDispatcher.getModelRenderer().tesselateBlock(level, blockRenderDispatcher.getBlockModel(stateForRender), stateForRender, pos, poseStack, vertexConsumer, false, randomSource, stateForRender.getSeed(pos), OverlayTexture.NO_OVERLAY);
+        int color = Minecraft.getInstance().getBlockColors().getColor(stateForRender, level, pos, 0);
+        float r = (float)(color >> 16 & 0xFF) / 255.0F;
+        float g = (float)(color >> 8 & 0xFF) / 255.0F;
+        float b = (float)(color & 0xFF) / 255.0F;
+        blockRenderDispatcher.getModelRenderer().renderModel(poseStack.last(), vertexConsumer, stateForRender, blockRenderDispatcher.getBlockModel(stateForRender), r, g, b, LevelRenderer.getLightColor(level, stateForRender, pos), OverlayTexture.NO_OVERLAY);
         poseStack.popPose();
     }
 
