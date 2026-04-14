@@ -4,13 +4,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.blay09.mods.spookydoors.block.SpookyDoorBlock;
 import net.blay09.mods.spookydoors.block.entity.SpookyDoorBlockEntity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -42,25 +40,17 @@ public class SpookyDoorBlockEntityRenderer implements BlockEntityRenderer<Spooky
             }
         }
 
-        final var vertexConsumer = multiBufferSource.getBuffer(RenderType.cutout());
         poseStack.pushPose();
         applyDoorPose(poseStack, baseDoor.getOpenness(), state.getValue(SpookyDoorBlock.FACING), state.getValue(SpookyDoorBlock.HINGE));
         final var stateForRender = state.setValue(SpookyDoorBlock.OPEN, false);
+        final var vertexConsumer = multiBufferSource.getBuffer(ItemBlockRenderTypes.getRenderType(state, false));
 
         int color = Minecraft.getInstance().getBlockColors().getColor(stateForRender, level, pos, 0);
         float r = (float)(color >> 16 & 0xFF) / 255.0F;
         float g = (float)(color >> 8 & 0xFF) / 255.0F;
         float b = (float)(color & 0xFF) / 255.0F;
 
-        int blockLight = (light >> 4) & 0xF;
-        int skyLight = (light >> 20) & 0xF;
-        // slightly decrease lighting
-        int shade = Math.round(1F / level.getShade(stateForRender.getValue(SpookyDoorBlock.FACING), true) + 0.1F) + 1;
-        blockLight = Math.max(0, blockLight - shade);
-        skyLight = Math.max(0, skyLight - shade);
-        int fixedLight = (blockLight << 4) | (skyLight << 20);
-
-        blockRenderDispatcher.getModelRenderer().renderModel(poseStack.last(), vertexConsumer, stateForRender, blockRenderDispatcher.getBlockModel(stateForRender), r, g, b, fixedLight, overlay);
+        blockRenderDispatcher.getModelRenderer().renderModel(poseStack.last(), vertexConsumer, stateForRender, blockRenderDispatcher.getBlockModel(stateForRender), r, g, b, light, overlay);
         poseStack.popPose();
     }
 
