@@ -46,11 +46,21 @@ public class SpookyDoorBlockEntityRenderer implements BlockEntityRenderer<Spooky
         poseStack.pushPose();
         applyDoorPose(poseStack, baseDoor.getOpenness(), state.getValue(SpookyDoorBlock.FACING), state.getValue(SpookyDoorBlock.HINGE));
         final var stateForRender = state.setValue(SpookyDoorBlock.OPEN, false);
+
         int color = Minecraft.getInstance().getBlockColors().getColor(stateForRender, level, pos, 0);
         float r = (float)(color >> 16 & 0xFF) / 255.0F;
         float g = (float)(color >> 8 & 0xFF) / 255.0F;
         float b = (float)(color & 0xFF) / 255.0F;
-        blockRenderDispatcher.getModelRenderer().renderModel(poseStack.last(), vertexConsumer, stateForRender, blockRenderDispatcher.getBlockModel(stateForRender), r, g, b, LevelRenderer.getLightColor(level, stateForRender, pos), OverlayTexture.NO_OVERLAY);
+
+        int blockLight = (light >> 4) & 0xF;
+        int skyLight = (light >> 20) & 0xF;
+        // slightly decrease lighting
+        int shade = Math.round(1F / level.getShade(stateForRender.getValue(SpookyDoorBlock.FACING), true) + 0.1F) + 1;
+        blockLight = Math.max(0, blockLight - shade);
+        skyLight = Math.max(0, skyLight - shade);
+        int fixedLight = (blockLight << 4) | (skyLight << 20);
+
+        blockRenderDispatcher.getModelRenderer().renderModel(poseStack.last(), vertexConsumer, stateForRender, blockRenderDispatcher.getBlockModel(stateForRender), r, g, b, fixedLight, overlay);
         poseStack.popPose();
     }
 
