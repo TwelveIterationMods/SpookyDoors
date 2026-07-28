@@ -4,15 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
 public class ModDataGenerator implements DataGeneratorEntrypoint {
-
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-        final var pack = fabricDataGenerator.createPack();
-
-        pack.addProvider(SpookyDoorsLootTableProvider::new);
-        pack.addProvider(SpookyDoorsModelProvider::new);
-        pack.addProvider(SpookyDoorsBlockTagsProvider::new);
-        pack.addProvider(SpookyDoorsItemTagsProvider::new);
-        pack.addProvider(SpookyDoorsRecipeProvider::new);
     }
 }

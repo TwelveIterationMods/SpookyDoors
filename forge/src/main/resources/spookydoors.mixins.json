@@ -5,8 +5,12 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "spookydoors.refmap.json",
   "mixins": [
+    "BlockMixin",
+    "DoorBlockMixin"
   ],
   "client": [
+    "client.ClientPacketListenerMixin",
+    "client.LevelRendererMixin",
     "MouseHandlerMixin"
   ],
   "injectors": {

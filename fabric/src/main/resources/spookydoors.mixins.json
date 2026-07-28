@@ -4,8 +4,12 @@
   "package": "net.blay09.mods.spookydoors.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BlockMixin",
+    "DoorBlockMixin"
   ],
   "client": [
+    "client.ClientPacketListenerMixin",
+    "client.LevelRendererMixin",
     "MouseHandlerMixin"
   ],
   "injectors": {

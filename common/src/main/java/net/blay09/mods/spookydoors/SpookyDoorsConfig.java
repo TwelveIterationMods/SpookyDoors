@@ -1,14 +1,16 @@
 package net.blay09.mods.spookydoors;
 
 import net.blay09.mods.balm.api.Balm;
+import net.blay09.mods.balm.api.config.reflection.Config;
 
+@Config(SpookyDoors.MOD_ID)
 public class SpookyDoorsConfig {
-    public static SpookyDoorsConfigData getActive() {
-        return Balm.getConfig().getActive(SpookyDoorsConfigData.class);
+    public static SpookyDoorsConfig getActive() {
+        return Balm.getConfig().getActiveConfig(SpookyDoorsConfig.class);
     }
 
     public static void initialize() {
-        Balm.getConfig().registerConfig(SpookyDoorsConfigData.class, null);
+        Balm.getConfig().registerConfig(SpookyDoorsConfig.class);
     }
 
 }

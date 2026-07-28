@@ -6,7 +6,8 @@ import net.minecraft.resources.ResourceLocation;
 
 public class ModNetworking {
     public static void initialize(BalmNetworking networking) {
-        networking.registerServerboundPacket(id("open_close_door"), ServerboundOpenCloseDoorPacket.class, ServerboundOpenCloseDoorPacket::encode, ServerboundOpenCloseDoorPacket::decode, ServerboundOpenCloseDoorPacket::handle);
+        networking.registerServerboundPacket(id("operate_door"), ServerboundOperateDoorPacket.class, ServerboundOperateDoorPacket::encode, ServerboundOperateDoorPacket::decode, ServerboundOperateDoorPacket::handle);
+        networking.registerClientboundPacket(id("door_state"), ClientboundDoorStatePacket.class, ClientboundDoorStatePacket::encode, ClientboundDoorStatePacket::decode, ClientboundDoorStatePacket::handle);
     }
 
     private static ResourceLocation id(String name) {

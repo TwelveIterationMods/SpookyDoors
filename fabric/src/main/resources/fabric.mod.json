@@ -25,9 +25,6 @@
     "client": [
       "net.blay09.mods.spookydoors.client.FabricSpookyDoorsClient"
     ],
-    "modmenu": [
-      "net.blay09.mods.spookydoors.compat.ModMenuIntegration"
-    ],
     "fabric-datagen": [
       "net.blay09.mods.spookydoors.datagen.ModDataGenerator"
     ]
