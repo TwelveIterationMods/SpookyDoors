@@ -15,6 +15,10 @@ public class SpookyDoorsConfig {
     @Comment("Allows players to use honeycomb on spooky doors to make them non-spooky. This has no effect when Spooky Door Activation is FORCED.")
     public boolean allowHoneycombToExorciseDoors = true;
 
+    @Synced
+    @Comment("Allows players to use ghast tears on non-spooky doors to make them spooky. This has no effect when Spooky Door Activation is FORCED.")
+    public boolean allowGhastTearToHauntDoors = true;
+
     public static SpookyDoorsConfig getActive() {
         return Balm.getConfig().getActiveConfig(SpookyDoorsConfig.class);
     }

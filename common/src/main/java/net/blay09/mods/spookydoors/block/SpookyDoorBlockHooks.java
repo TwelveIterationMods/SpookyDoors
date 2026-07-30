@@ -129,6 +129,11 @@ public class SpookyDoorBlockHooks {
 
     @Nullable
     public static InteractionResult use(DoorBlock doorBlock, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
+        final var ghastTearResult = useGhastTear(state, level, pos, player, hand);
+        if (ghastTearResult != null) {
+            return ghastTearResult;
+        }
+
         if (!isSpookyDoor(state, level, pos)) {
             return null;
         }
@@ -146,6 +151,41 @@ public class SpookyDoorBlockHooks {
         final var door = SpookyDoorProvider.get(level).of(pos, state);
         door.operate(player, targetOpen ? 1f : 0f);
         level.gameEvent(player, targetOpen ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    @Nullable
+    private static InteractionResult useGhastTear(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
+        final var config = SpookyDoorsConfig.getActive();
+        if (!config.allowGhastTearToHauntDoors || config.spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.FORCED) {
+            return null;
+        }
+
+        final var itemStack = player.getItemInHand(hand);
+        if (!itemStack.is(Items.GHAST_TEAR)) {
+            return null;
+        }
+
+        final var door = SpookyDoorProvider.get(level).of(pos, state);
+        if (door.spooky()) {
+            return null;
+        }
+
+        door.spooky(true);
+
+        if (!level.isClientSide) {
+            if (door instanceof ServerSpookyDoor serverSpookyDoor) {
+                serverSpookyDoor.syncToClients();
+            }
+
+            level.playSound(null, pos, SoundEvents.GHAST_WARN, SoundSource.BLOCKS, 1f, 1f);
+            level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+            player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
+            if (!player.getAbilities().instabuild) {
+                itemStack.shrink(1);
+            }
+        }
+
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
