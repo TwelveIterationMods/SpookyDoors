@@ -7,6 +7,9 @@ import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
 import net.blay09.mods.spookydoors.item.ModItemTags;
 import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -125,7 +128,7 @@ public class SpookyDoorBlockHooks {
 
     @Nullable
     public static InteractionResult use(DoorBlock doorBlock, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
-        final var ghastTearResult = useGhastTear(state, level, pos, player, hand);
+        final var ghastTearResult = tryHaunt(state, level, pos, player, hand);
         if (ghastTearResult != null) {
             return ghastTearResult;
         }
@@ -134,7 +137,7 @@ public class SpookyDoorBlockHooks {
             return null;
         }
 
-        final var honeycombResult = useHoneycomb(state, level, pos, player, hand);
+        final var honeycombResult = tryExorcise(state, level, pos, player, hand);
         if (honeycombResult != null) {
             return honeycombResult;
         }
@@ -151,7 +154,7 @@ public class SpookyDoorBlockHooks {
     }
 
     @Nullable
-    private static InteractionResult useGhastTear(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
+    private static InteractionResult tryHaunt(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         final var config = SpookyDoorsConfig.getActive();
         if (!config.allowItemToHauntDoors || config.spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.FORCED) {
             return null;
@@ -169,12 +172,15 @@ public class SpookyDoorBlockHooks {
 
         door.spooky(true);
 
-        if (!level.isClientSide) {
+        if (level instanceof ServerLevel serverLevel) {
             if (door instanceof ServerSpookyDoor serverSpookyDoor) {
                 serverSpookyDoor.syncToClients();
             }
 
-            level.playSound(null, pos, SoundEvents.GHAST_WARN, SoundSource.BLOCKS, 1f, 1f);
+            level.playSound(null, pos, SoundEvents.GHAST_AMBIENT, SoundSource.BLOCKS, 1f, 1f);
+            final var basePos = SpookyDoorUtils.getBasePos(pos, state);
+            serverLevel.sendParticles(ParticleTypes.SOUL, basePos.getX() + 0.5, basePos.getY() + 1.0, basePos.getZ() + 0.5, 24, 0.45, 0.85, 0.45, 0.03);
+            serverLevel.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, basePos.getX() + 0.5, basePos.getY() + 1.0, basePos.getZ() + 0.5, 24, 0.45, 0.85, 0.45, 0.03);
             level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
             player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
             if (!player.getAbilities().instabuild) {
@@ -186,7 +192,7 @@ public class SpookyDoorBlockHooks {
     }
 
     @Nullable
-    private static InteractionResult useHoneycomb(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
+    private static InteractionResult tryExorcise(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         final var config = SpookyDoorsConfig.getActive();
         if (!config.allowItemToExorciseDoors || config.spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.FORCED) {
             return null;
@@ -200,12 +206,15 @@ public class SpookyDoorBlockHooks {
         final var door = SpookyDoorProvider.get(level).of(pos, state);
         door.spooky(false);
 
-        if (!level.isClientSide) {
+        if (level instanceof ServerLevel serverLevel) {
             if (door instanceof ServerSpookyDoor serverSpookyDoor) {
                 serverSpookyDoor.syncToClients();
             }
 
             level.playSound(null, pos, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.BLOCKS, 1f, 1f);
+            final var basePos = SpookyDoorUtils.getBasePos(pos, state);
+            serverLevel.sendParticles(ParticleTypes.WAX_ON, basePos.getX() + 0.5, basePos.getY() + 1.0, basePos.getZ() + 0.5, 24, 0.45, 0.85, 0.45, 0.03);
+            serverLevel.sendParticles(ParticleTypes.POOF, basePos.getX() + 0.5, basePos.getY() + 1.0, basePos.getZ() + 0.5, 24, 0.45, 0.85, 0.45, 0.03);
             level.levelEvent(player, 3003, pos, 0);
             player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
             if (!player.getAbilities().instabuild) {
