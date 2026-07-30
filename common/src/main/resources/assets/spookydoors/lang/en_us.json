@@ -7,8 +7,8 @@
   "spookydoors.configuration.title": "Spooky Doors",
   "spookydoors.configuration.spookyDoorActivation": "Spooky Door Activation",
   "spookydoors.configuration.spookyDoorActivation.tooltip": "Controls which doors Spooky Doors affects. OPTIONAL requires doors to be toggled on with the command, DEFAULT affects doors unless toggled off, and FORCED affects all doors.",
-  "spookydoors.configuration.allowHoneycombToExorciseDoors": "Honeycomb Exorcises Doors",
-  "spookydoors.configuration.allowHoneycombToExorciseDoors.tooltip": "Allows players to use honeycomb on spooky doors to make them non-spooky. This has no effect when Spooky Door Activation is FORCED.",
-  "spookydoors.configuration.allowGhastTearToHauntDoors": "Ghast Tear Haunts Doors",
-  "spookydoors.configuration.allowGhastTearToHauntDoors.tooltip": "Allows players to use ghast tears on non-spooky doors to make them spooky. This has no effect when Spooky Door Activation is FORCED."
+  "spookydoors.configuration.allowItemToExorciseDoors": "Item Exorcises Doors",
+  "spookydoors.configuration.allowItemToExorciseDoors.tooltip": "Allows players to use items in the spookydoors:exorcises_doors tag on spooky doors to make them non-spooky. By default, this is honeycomb. This has no effect when Spooky Door Activation is FORCED.",
+  "spookydoors.configuration.allowItemToHauntDoors": "Item Haunts Doors",
+  "spookydoors.configuration.allowItemToHauntDoors.tooltip": "Allows players to use items in the spookydoors:haunts_doors tag on non-spooky doors to make them spooky. By default, this is a ghast tear. This has no effect when Spooky Door Activation is FORCED."
 }

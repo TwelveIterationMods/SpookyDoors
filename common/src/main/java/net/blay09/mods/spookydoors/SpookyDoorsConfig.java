@@ -12,12 +12,12 @@ public class SpookyDoorsConfig {
     public SpookyDoorActivation spookyDoorActivation = SpookyDoorActivation.DEFAULT;
 
     @Synced
-    @Comment("Allows players to use honeycomb on spooky doors to make them non-spooky. This has no effect when Spooky Door Activation is FORCED.")
-    public boolean allowHoneycombToExorciseDoors = true;
+    @Comment("Allows players to use items in the spookydoors:exorcises_doors tag on spooky doors to make them non-spooky. By default, this is honeycomb. This has no effect when Spooky Door Activation is FORCED.")
+    public boolean allowItemToExorciseDoors = true;
 
     @Synced
-    @Comment("Allows players to use ghast tears on non-spooky doors to make them spooky. This has no effect when Spooky Door Activation is FORCED.")
-    public boolean allowGhastTearToHauntDoors = true;
+    @Comment("Allows players to use items in the spookydoors:haunts_doors tag on non-spooky doors to make them spooky. By default, this is a ghast tear. This has no effect when Spooky Door Activation is FORCED.")
+    public boolean allowItemToHauntDoors = true;
 
     public static SpookyDoorsConfig getActive() {
         return Balm.getConfig().getActiveConfig(SpookyDoorsConfig.class);

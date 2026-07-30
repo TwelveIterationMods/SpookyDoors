@@ -4,6 +4,7 @@ import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.client.SpookyDoorsClient;
 import net.blay09.mods.spookydoors.core.ServerSpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
+import net.blay09.mods.spookydoors.item.ModItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -12,7 +13,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoorBlock;
@@ -157,12 +157,12 @@ public class SpookyDoorBlockHooks {
     @Nullable
     private static InteractionResult useGhastTear(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         final var config = SpookyDoorsConfig.getActive();
-        if (!config.allowGhastTearToHauntDoors || config.spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.FORCED) {
+        if (!config.allowItemToHauntDoors || config.spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.FORCED) {
             return null;
         }
 
         final var itemStack = player.getItemInHand(hand);
-        if (!itemStack.is(Items.GHAST_TEAR)) {
+        if (!itemStack.is(ModItemTags.HAUNTS_DOORS)) {
             return null;
         }
 
@@ -192,12 +192,12 @@ public class SpookyDoorBlockHooks {
     @Nullable
     private static InteractionResult useHoneycomb(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         final var config = SpookyDoorsConfig.getActive();
-        if (!config.allowHoneycombToExorciseDoors || config.spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.FORCED) {
+        if (!config.allowItemToExorciseDoors || config.spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.FORCED) {
             return null;
         }
 
         final var itemStack = player.getItemInHand(hand);
-        if (!itemStack.is(Items.HONEYCOMB)) {
+        if (!itemStack.is(ModItemTags.EXORCISES_DOORS)) {
             return null;
         }
 
