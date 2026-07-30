@@ -88,7 +88,7 @@ public class SpookyDoorBlockHooks {
 
             door.operate(entity, percentOpen);
             if (isLocalClientPlayer) {
-                SpookyDoorsClient.setActiveDoor(level, door.pos());
+                SpookyDoorsClient.setActiveDoorAndDirty(level, door.pos());
             }
         }
     }

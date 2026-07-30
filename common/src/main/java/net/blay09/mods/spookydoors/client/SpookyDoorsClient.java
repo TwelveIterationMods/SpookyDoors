@@ -54,8 +54,9 @@ public class SpookyDoorsClient {
         }
     }
 
-    public static void setActiveDoor(Level level, BlockPos pos) {
+    public static void setActiveDoorAndDirty(Level level, BlockPos pos) {
         SpookyDoorsClient.activeDoor = SpookyDoorProvider.get(level).at(pos);
+        SpookyDoorsClient.isDirty = true;
     }
 
     public static boolean onMoveMouse(long windowPointer, double x, double y) {
@@ -154,26 +155,32 @@ public class SpookyDoorsClient {
     }
 
     private static void onClientTick(Minecraft client) {
+        ticksSinceLastSync++;
+        if (ticksSinceLastSync >= SYNC_INTERVAL) {
+            syncActiveDoorIfDirty();
+            ticksSinceLastSync = 0;
+        }
+
         if (!isDragging && activeDoor != null) {
-            final var player = Minecraft.getInstance().player;
+            final var player = client.player;
             // entityInside tracks the door as active so we send sync updates
             // so we only reset it if we're not dragging AND not inside the door's position
             if (player == null
                     || activeDoor.pos().getX() != player.getBlockX()
                     || activeDoor.pos().getZ() != player.getBlockZ()) {
+                syncActiveDoorIfDirty();
                 activeDoor = null;
             }
         }
-        ticksSinceLastSync++;
-        if (ticksSinceLastSync >= SYNC_INTERVAL) {
-            if (activeDoor instanceof ClientSpookyDoor clientSpookyDoor && isDirty) {
-                clientSpookyDoor.syncToServer();
-                isDirty = false;
-            }
-            ticksSinceLastSync = 0;
-        }
         if (uiHintTicksLeft > 0) {
             uiHintTicksLeft--;
+        }
+    }
+
+    private static void syncActiveDoorIfDirty() {
+        if (activeDoor instanceof ClientSpookyDoor clientSpookyDoor && isDirty) {
+            clientSpookyDoor.syncToServer();
+            isDirty = false;
         }
     }
 
@@ -200,11 +207,8 @@ public class SpookyDoorsClient {
                     }
                 }
             } else if (action == InputConstants.RELEASE) {
-                if (activeDoor instanceof ClientSpookyDoor clientSpookyDoor) {
-                    if (isDirty) {
-                        clientSpookyDoor.syncToServer();
-                        isDirty = false;
-                    }
+                if (activeDoor != null) {
+                    syncActiveDoorIfDirty();
                     if (accumulatedOpennessChange < 0.1) {
                         uiHintTicksLeft = UI_HINT_TICKS;
                     }
