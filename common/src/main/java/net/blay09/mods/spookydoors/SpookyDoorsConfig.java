@@ -1,9 +1,12 @@
 package net.blay09.mods.spookydoors;
 
-import net.blay09.mods.balm.api.Balm;
-import net.blay09.mods.balm.api.config.reflection.Comment;
-import net.blay09.mods.balm.api.config.reflection.Config;
-import net.blay09.mods.balm.api.config.reflection.Synced;
+import net.blay09.mods.balm.Balm;
+import net.blay09.mods.balm.platform.config.reflection.Comment;
+import net.blay09.mods.balm.platform.config.reflection.Config;
+import net.blay09.mods.balm.platform.config.reflection.Synced;
+import net.minecraft.util.StringRepresentable;
+
+import java.util.Locale;
 
 @Config(SpookyDoors.MOD_ID)
 public class SpookyDoorsConfig {
@@ -20,16 +23,21 @@ public class SpookyDoorsConfig {
     public boolean allowItemToHauntDoors = true;
 
     public static SpookyDoorsConfig getActive() {
-        return Balm.getConfig().getActiveConfig(SpookyDoorsConfig.class);
+        return Balm.config().getActiveConfig(SpookyDoorsConfig.class);
     }
 
     public static void initialize() {
-        Balm.getConfig().registerConfig(SpookyDoorsConfig.class);
+        Balm.config().registerConfig(SpookyDoorsConfig.class);
     }
 
-    public enum SpookyDoorActivation {
+    public enum SpookyDoorActivation implements StringRepresentable {
         OPTIONAL,
         DEFAULT,
-        FORCED
+        FORCED;
+
+        @Override
+        public String getSerializedName() {
+            return name().toLowerCase(Locale.ROOT);
+        }
     }
 }

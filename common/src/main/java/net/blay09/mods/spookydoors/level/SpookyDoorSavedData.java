@@ -1,5 +1,7 @@
 package net.blay09.mods.spookydoors.level;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.blay09.mods.spookydoors.SpookyDoors;
 import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.network.ClientboundDoorStatePacket;
@@ -7,82 +9,104 @@ import net.blay09.mods.spookydoors.core.ServerSpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
 import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
-import net.blay09.mods.balm.api.Balm;
-import net.minecraft.core.HolderLookup;
+import net.blay09.mods.balm.Balm;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.saveddata.SavedDataType;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider {
 
     public static final String ID = SpookyDoors.MOD_ID;
+    private static final Codec<SpookyDoorSavedData> CODEC = PersistedSpookyDoor.CODEC.listOf()
+            .fieldOf("doors")
+            .xmap(SpookyDoorSavedData::fromDoors, SpookyDoorSavedData::toDoors)
+            .codec();
+    private static final SavedDataType<SpookyDoorSavedData> TYPE = new SavedDataType<>(Identifier.fromNamespaceAndPath(SpookyDoors.MOD_ID, ID), SpookyDoorSavedData::new, CODEC, DataFixTypes.LEVEL);
 
-    private final Map<Long, Float> percentOpenByPos = new HashMap<>();
-    private final Map<Long, Boolean> spookyByPos = new HashMap<>();
-    private final Map<Long, Long> nextCreakSoundGameTimeByPos = new HashMap<>();
+    private final Map<Long, PersistedSpookyDoor> doorsByPos = new HashMap<>();
     private ServerLevel level;
 
     public static SpookyDoorSavedData get(ServerLevel level) {
-        final var factory = new SavedData.Factory<>(SpookyDoorSavedData::new, SpookyDoorSavedData::load, null);
-        final var data = level.getDataStorage().computeIfAbsent(factory, ID);
+        final var data = level.getDataStorage().computeIfAbsent(TYPE);
         data.level = level;
         return data;
     }
 
-    public static SpookyDoorSavedData load(CompoundTag tag, HolderLookup.Provider provider) {
+    private static SpookyDoorSavedData fromDoors(List<PersistedSpookyDoor> doors) {
         final var data = new SpookyDoorSavedData();
-        final var doors = tag.getList("Doors", Tag.TAG_COMPOUND);
-        for (int i = 0; i < doors.size(); i++) {
-            final var doorTag = doors.getCompound(i);
-            final var pos = doorTag.getLong("Pos");
-            if (doorTag.contains("PercentOpen", Tag.TAG_FLOAT)) {
-                data.percentOpenByPos.put(pos, doorTag.getFloat("PercentOpen"));
-            }
-            if (doorTag.contains("Spooky", Tag.TAG_BYTE)) {
-                data.spookyByPos.put(pos, doorTag.getBoolean("Spooky"));
-            }
+        for (final var door : doors) {
+            data.doorsByPos.put(door.pos.asLong(), door);
         }
         return data;
     }
 
-    @Override
-    public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
-        final var doors = new ListTag();
-        for (final var entry : percentOpenByPos.entrySet()) {
-            final var doorTag = new CompoundTag();
-            doorTag.putLong("Pos", entry.getKey());
-            doorTag.putFloat("PercentOpen", entry.getValue());
-            final var spooky = spookyByPos.get(entry.getKey());
-            if (spooky != null) {
-                doorTag.putBoolean("Spooky", spooky);
+    private static List<PersistedSpookyDoor> toDoors(SpookyDoorSavedData data) {
+        final var doors = new ArrayList<PersistedSpookyDoor>();
+        for (final var door : data.doorsByPos.values()) {
+            if (door.hasPersistedData()) {
+                doors.add(door);
             }
-            doors.add(doorTag);
         }
-        for (final var entry : spookyByPos.entrySet()) {
-            if (percentOpenByPos.containsKey(entry.getKey())) {
-                continue;
-            }
+        return doors;
+    }
 
-            final var doorTag = new CompoundTag();
-            doorTag.putLong("Pos", entry.getKey());
-            doorTag.putBoolean("Spooky", entry.getValue());
-            doors.add(doorTag);
+    private static class PersistedSpookyDoor {
+        private static final Codec<PersistedSpookyDoor> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                BlockPos.CODEC.fieldOf("pos").forGetter(PersistedSpookyDoor::getPos),
+                Codec.FLOAT.optionalFieldOf("percent_open").forGetter(PersistedSpookyDoor::getPercentOpen),
+                Codec.BOOL.optionalFieldOf("spooky").forGetter(PersistedSpookyDoor::getSpooky)
+        ).apply(instance, PersistedSpookyDoor::new));
+
+        private final BlockPos pos;
+        private @Nullable Float percentOpen;
+        private @Nullable Boolean spooky;
+        private long nextCreakSoundGameTime;
+
+        private PersistedSpookyDoor(long pos) {
+            this(BlockPos.of(pos));
         }
-        tag.put("Doors", doors);
-        return tag;
+
+        private PersistedSpookyDoor(BlockPos pos) {
+            this.pos = pos;
+        }
+
+        @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+        private PersistedSpookyDoor(BlockPos pos, Optional<Float> percentOpen, Optional<Boolean> spooky) {
+            this.pos = pos;
+            this.percentOpen = percentOpen.orElse(null);
+            this.spooky = spooky.orElse(null);
+        }
+
+        private BlockPos getPos() {
+            return pos;
+        }
+
+        private Optional<Float> getPercentOpen() {
+            return Optional.ofNullable(percentOpen);
+        }
+
+        private Optional<Boolean> getSpooky() {
+            return Optional.ofNullable(spooky);
+        }
+
+        private boolean hasPersistedData() {
+            return percentOpen != null || spooky != null;
+        }
     }
 
     @Override
@@ -98,14 +122,20 @@ public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider
 
     @Nullable
     public Float getPercentOpen(BlockPos pos) {
-        return percentOpenByPos.get(pos.asLong());
+        final var door = doorsByPos.get(pos.asLong());
+        return door != null ? door.percentOpen : null;
     }
 
     public void setPercentOpen(BlockPos pos, float percentOpen) {
+        final var key = pos.asLong();
         if (percentOpen == 0f) {
-            percentOpenByPos.remove(pos.asLong());
+            final var door = doorsByPos.get(key);
+            if (door != null) {
+                door.percentOpen = null;
+                removeIfEmpty(key, door);
+            }
         } else {
-            percentOpenByPos.put(pos.asLong(), Mth.clamp(percentOpen, 0f, 1f));
+            doorsByPos.computeIfAbsent(key, PersistedSpookyDoor::new).percentOpen = Mth.clamp(percentOpen, 0f, 1f);
         }
         setDirty();
     }
@@ -115,38 +145,43 @@ public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider
             return true;
         }
 
-        final var spooky = spookyByPos.get(pos.asLong());
-        if (spooky != null) {
-            return spooky;
+        final var door = doorsByPos.get(pos.asLong());
+        if (door != null && door.spooky != null) {
+            return door.spooky;
         }
 
         return SpookyDoorsConfig.getActive().spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.DEFAULT;
     }
 
     public void setSpooky(BlockPos pos, boolean spooky) {
-        spookyByPos.put(pos.asLong(), spooky);
+        doorsByPos.computeIfAbsent(pos.asLong(), PersistedSpookyDoor::new).spooky = spooky;
         setDirty();
     }
 
     public boolean isIndividuallySpooky(BlockPos pos) {
-        return spookyByPos.getOrDefault(pos.asLong(), SpookyDoorsConfig.getActive().spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.DEFAULT);
+        final var door = doorsByPos.get(pos.asLong());
+        if (door != null && door.spooky != null) {
+            return door.spooky;
+        }
+
+        return SpookyDoorsConfig.getActive().spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.DEFAULT;
     }
 
     public void syncDoorsInChunk(ServerPlayer player, ChunkPos chunkPos) {
-        final var positions = new HashSet<Long>();
-        positions.addAll(percentOpenByPos.keySet());
-        positions.addAll(spookyByPos.keySet());
+        for (final var entry : doorsByPos.entrySet()) {
+            if (!entry.getValue().hasPersistedData()) {
+                continue;
+            }
 
-        for (final var key : positions) {
-            final var pos = BlockPos.of(key);
-            if (pos.getX() >> 4 != chunkPos.x || pos.getZ() >> 4 != chunkPos.z) {
+            final var pos = BlockPos.of(entry.getKey());
+            if (pos.getX() >> 4 != chunkPos.x() || pos.getZ() >> 4 != chunkPos.z()) {
                 continue;
             }
 
             final var state = level.getBlockState(pos);
             if (state.getBlock() instanceof DoorBlock) {
                 final var door = new ServerSpookyDoor(level, this, pos);
-                Balm.getNetworking().sendTo(player, new ClientboundDoorStatePacket(pos, door.percentOpen(), door.spooky()));
+                Balm.networking().sendTo(player, new ClientboundDoorStatePacket(pos, door.percentOpen(), door.spooky()));
             }
         }
     }
@@ -158,20 +193,28 @@ public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider
 
     public boolean remove(BlockPos pos) {
         final var key = pos.asLong();
-        final var removedCreakTime = nextCreakSoundGameTimeByPos.remove(key) != null;
-        final var removedPercentOpen = percentOpenByPos.remove(key) != null;
-        final var removedSpooky = spookyByPos.remove(key) != null;
-        if (removedPercentOpen || removedSpooky) {
+        final var removedDoor = doorsByPos.remove(key);
+        if (removedDoor == null) {
+            return false;
+        }
+        if (removedDoor.hasPersistedData()) {
             setDirty();
         }
-        return removedCreakTime || removedPercentOpen || removedSpooky;
+        return true;
     }
 
     public long getNextCreakSoundGameTime(BlockPos pos) {
-        return nextCreakSoundGameTimeByPos.getOrDefault(pos.asLong(), 0L);
+        final var door = doorsByPos.get(pos.asLong());
+        return door != null ? door.nextCreakSoundGameTime : 0L;
     }
 
     public void setNextCreakSoundGameTime(BlockPos pos, long gameTime) {
-        nextCreakSoundGameTimeByPos.put(pos.asLong(), gameTime);
+        doorsByPos.computeIfAbsent(pos.asLong(), PersistedSpookyDoor::new).nextCreakSoundGameTime = gameTime;
+    }
+
+    private void removeIfEmpty(long key, PersistedSpookyDoor door) {
+        if (!door.hasPersistedData() && door.nextCreakSoundGameTime == 0L) {
+            doorsByPos.remove(key);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package net.blay09.mods.spookydoors.core;
 
-import net.blay09.mods.balm.api.Balm;
+import net.blay09.mods.balm.Balm;
 import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.network.ServerboundOperateDoorPacket;
 import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
@@ -80,6 +80,6 @@ public class ClientSpookyDoor implements SpookyDoor {
     }
 
     public void syncToServer() {
-        Balm.getNetworking().sendToServer(new ServerboundOperateDoorPacket(pos(), percentOpen()));
+        Balm.networking().sendToServer(new ServerboundOperateDoorPacket(pos(), percentOpen()));
     }
 }

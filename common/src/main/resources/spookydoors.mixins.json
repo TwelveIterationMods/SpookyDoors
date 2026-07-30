@@ -6,7 +6,8 @@
   "refmap": "spookydoors.refmap.json",
   "mixins": [
     "BlockMixin",
-    "DoorBlockMixin"
+    "DoorBlockMixin",
+    "LevelMixin"
   ],
   "client": [
     "MouseHandlerMixin",

@@ -3,12 +3,12 @@ package net.blay09.mods.spookydoors.mixin;
 import net.blay09.mods.spookydoors.block.SpookyDoorBlockHooks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,26 +41,22 @@ public class BlockMixin {
         }
     }
 
-    @Inject(method = "entityInside(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;)V", at = @At("HEAD"))
-    private void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo ci) {
+    @Inject(method = "entityInside(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/InsideBlockEffectApplier;Z)V", at = @At("HEAD"))
+    private void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise, CallbackInfo ci) {
         SpookyDoorBlockHooks.entityInside(state, level, pos, entity);
     }
 
     @Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
-    private void useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<ItemInteractionResult> cir) {
+    private void useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
         final var result = SpookyDoorBlockHooks.useItemOn(state, level, pos, player, hand);
         if (result != null) {
-            cir.setReturnValue(ItemInteractionResult.sidedSuccess(level.isClientSide));
+            cir.setReturnValue(result);
         }
     }
 
     @Inject(method = "onPlace(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Z)V", at = @At("HEAD"))
-    private void onPlace(BlockState state, Level level, BlockPos pos, BlockState previousState, boolean isMoving, CallbackInfo ci) {
-        SpookyDoorBlockHooks.onPlace(state, level, pos, previousState);
+    private void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston, CallbackInfo ci) {
+        SpookyDoorBlockHooks.onPlace(state, level, pos, oldState);
     }
 
-    @Inject(method = "onRemove(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Z)V", at = @At("HEAD"))
-    private void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving, CallbackInfo ci) {
-        SpookyDoorBlockHooks.onRemove(state, level, pos, newState);
-    }
 }

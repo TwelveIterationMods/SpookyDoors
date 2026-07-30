@@ -29,10 +29,10 @@ public class ClientPacketListenerMixin {
 
     @Inject(method = "handleForgetLevelChunk", at = @At("TAIL"))
     private void handleForgetLevelChunk(ClientboundForgetLevelChunkPacket packet, CallbackInfo ci) {
-        SpookyDoorClientTracking.get(level).untrackDoorsInChunk(packet.pos().x, packet.pos().z);
+        SpookyDoorClientTracking.get(level).untrackDoorsInChunk(packet.pos().x(), packet.pos().z());
     }
 
-    @Inject(method = "handleBlockUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/util/thread/BlockableEventLoop;)V", shift = At.Shift.AFTER))
+    @Inject(method = "handleBlockUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/network/PacketProcessor;)V", shift = At.Shift.AFTER))
     private void beforeHandleBlockUpdate(ClientboundBlockUpdatePacket packet, CallbackInfo ci) {
         if (!(packet.getBlockState().getBlock() instanceof DoorBlock)) {
             final var previousState = level.getBlockState(packet.getPos());
@@ -50,7 +50,7 @@ public class ClientPacketListenerMixin {
         }
     }
 
-    @Inject(method = "handleChunkBlocksUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/util/thread/BlockableEventLoop;)V", shift = At.Shift.AFTER))
+    @Inject(method = "handleChunkBlocksUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/network/PacketProcessor;)V", shift = At.Shift.AFTER))
     private void beforeHandleChunkBlocksUpdate(ClientboundSectionBlocksUpdatePacket packet, CallbackInfo ci) {
         packet.runUpdates((pos, state) -> {
             if (!(state.getBlock() instanceof DoorBlock)) {

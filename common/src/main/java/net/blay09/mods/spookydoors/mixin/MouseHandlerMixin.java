@@ -2,6 +2,7 @@ package net.blay09.mods.spookydoors.mixin;
 
 import net.blay09.mods.spookydoors.client.SpookyDoorsClient;
 import net.minecraft.client.MouseHandler;
+import net.minecraft.client.input.MouseButtonInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -11,17 +12,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MouseHandlerMixin {
 
     @Inject(method = "onMove", at = @At("HEAD"), cancellable = true)
-    private void onMove(long windowPointer, double x, double y, CallbackInfo ci) {
-        if (SpookyDoorsClient.onMoveMouse(windowPointer, x, y)) {
+    private void onMove(long handle, double xpos, double ypos, CallbackInfo ci) {
+        if (SpookyDoorsClient.onMoveMouse(handle, xpos, ypos)) {
             //noinspection DataFlowIssue
             ((MouseHandler) (Object) this).setIgnoreFirstMove();
             ci.cancel();
         }
     }
 
-    @Inject(method = "onPress", at = @At("HEAD"), cancellable = true)
-    private void onPress(long windowPointer, int button, int action, int flags, CallbackInfo ci) {
-        if (SpookyDoorsClient.onMouseInput(button, action)) {
+    @Inject(method = "onButton", at = @At("HEAD"), cancellable = true)
+    private void onButton(long handle, MouseButtonInfo rawButtonInfo, int action, CallbackInfo ci) {
+        if (SpookyDoorsClient.onMouseInput(rawButtonInfo.button(), action)) {
             ci.cancel();
         }
     }

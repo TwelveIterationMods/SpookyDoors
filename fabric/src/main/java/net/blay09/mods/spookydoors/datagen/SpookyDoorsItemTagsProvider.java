@@ -1,23 +1,21 @@
 package net.blay09.mods.spookydoors.datagen;
 
-import net.blay09.mods.spookydoors.ModBlocks;
+import net.blay09.mods.spookydoors.item.ModItemTags;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import java.util.concurrent.CompletableFuture;
 
-public class SpookyDoorsItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
-    public SpookyDoorsItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, Registries.ITEM, registriesFuture, (item) -> item.builtInRegistryHolder().key());
+public class SpookyDoorsItemTagsProvider extends FabricTagsProvider.ItemTagsProvider {
+    public SpookyDoorsItemTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
+        super(output, registryLookupFuture);
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
-        final var woodenDoors = tag(ItemTags.WOODEN_DOORS);
-        ModBlocks.spookyDoors.forEach((type, block) -> woodenDoors.add(block.asItem()));
+    protected void addTags(HolderLookup.Provider registries) {
+        valueLookupBuilder(ModItemTags.HAUNTS_DOORS).add(Items.GHAST_TEAR);
+        valueLookupBuilder(ModItemTags.EXORCISES_DOORS).add(Items.HONEYCOMB);
     }
 }

@@ -71,8 +71,8 @@ public class SpookyDoorBlockHooks {
             return;
         }
 
-        final var isLocalClientPlayer = level.isClientSide && entity instanceof Player player && player.isLocalPlayer();
-        final var isRemoteMob = !level.isClientSide && !(entity instanceof Player);
+        final var isLocalClientPlayer = level.isClientSide() && entity instanceof Player player && player.isLocalPlayer();
+        final var isRemoteMob = !level.isClientSide() && !(entity instanceof Player);
         if (!isLocalClientPlayer && !isRemoteMob) {
             return;
         }
@@ -81,7 +81,7 @@ public class SpookyDoorBlockHooks {
         final var door = SpookyDoorProvider.get(level).of(pos, state);
         var percentOpen = door.percentOpen();
         if (percentOpen > 0 && percentOpen < 1) {
-            final var doorFacingDirection = Vec3.atLowerCornerOf(facing.getNormal()).normalize();
+            final var doorFacingDirection = facing.getUnitVec3();
             final var entityPosition = entity.position();
             final var doorPosition = Vec3.atCenterOf(pos);
             final var doorToEntity = entityPosition.subtract(doorPosition).normalize();
@@ -154,7 +154,7 @@ public class SpookyDoorBlockHooks {
         final var door = SpookyDoorProvider.get(level).of(pos, state);
         door.operate(player, targetOpen ? 1f : 0f);
         level.gameEvent(player, targetOpen ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
@@ -171,7 +171,7 @@ public class SpookyDoorBlockHooks {
         final var door = SpookyDoorProvider.get(level).of(pos, state);
         door.operate(player, targetOpen ? 1f : 0f);
         level.gameEvent(player, targetOpen ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
@@ -209,7 +209,7 @@ public class SpookyDoorBlockHooks {
             }
         }
 
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
@@ -243,7 +243,7 @@ public class SpookyDoorBlockHooks {
             }
         }
 
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 
     public static void setOpen(DoorBlock doorBlock, Level level, BlockState state, BlockPos pos, boolean open) {
@@ -283,4 +283,5 @@ public class SpookyDoorBlockHooks {
     public static boolean isSpookyDoor(BlockState state, Level level, BlockPos pos) {
         return isDoor(state) && SpookyDoorProvider.get(level).of(pos, state).spooky();
     }
+
 }

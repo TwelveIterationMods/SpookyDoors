@@ -1,14 +1,12 @@
 package net.blay09.mods.spookydoors.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.blay09.mods.balm.api.Balm;
-import net.blay09.mods.balm.api.event.ChunkLoadingEvent;
-import net.blay09.mods.balm.api.event.TickPhase;
-import net.blay09.mods.balm.api.event.TickType;
-import net.blay09.mods.balm.api.event.client.BlockHighlightDrawEvent;
-import net.blay09.mods.balm.api.event.client.GuiDrawEvent;
+import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.blay09.mods.balm.client.BalmClientRegistrars;
+import net.blay09.mods.balm.client.platform.event.callback.ClientTickCallback;
+import net.blay09.mods.balm.client.platform.event.callback.RenderCallback;
+import net.blay09.mods.balm.platform.event.callback.LevelCallback;
 import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.SpookyDoors;
 import net.blay09.mods.spookydoors.client.render.SpookyDoorRenderer;
@@ -17,21 +15,30 @@ import net.blay09.mods.spookydoors.core.SpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
 import net.blay09.mods.spookydoors.item.ModItemTags;
 import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.MouseButtonInfo;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.ShapeRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
+import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 public class SpookyDoorsClient {
 
-    private static final ResourceLocation UI_HINT_TEXTURE = SpookyDoors.id("textures/gui/door_ui_hint.png");
+    private static final Identifier UI_HINT_TEXTURE = SpookyDoors.id("textures/gui/door_ui_hint.png");
     private static final int UI_HINT_TICKS = 20;
 
     private static final int SYNC_INTERVAL = 1;
@@ -46,16 +53,15 @@ public class SpookyDoorsClient {
     private static int uiHintTicksLeft = 0;
 
     public static void initialize(BalmClientRegistrars registrars) {
-        Balm.getEvents().onEvent(GuiDrawEvent.Post.class, SpookyDoorsClient::onDrawGui);
-        Balm.getEvents().onEvent(BlockHighlightDrawEvent.class, SpookyDoorsClient::onDrawHighlight);
-        Balm.getEvents().onEvent(ChunkLoadingEvent.Unload.class, SpookyDoorsClient::onChunkUnload);
-        Balm.getEvents().onTickEvent(TickType.Client, TickPhase.End, SpookyDoorsClient::onClientTick);
+        RenderCallback.Gui.AFTER.register(SpookyDoorsClient::onDrawGui);
+        RenderCallback.BlockHighlight.EVENT.register(SpookyDoorsClient::onDrawHighlight);
+        LevelCallback.Chunk.UNLOAD.register(SpookyDoorsClient::onChunkUnload);
+        ClientTickCallback.AFTER.register(SpookyDoorsClient::onClientTick);
     }
 
-    private static void onChunkUnload(ChunkLoadingEvent.Unload event) {
-        if (event.getLevel() instanceof Level level && level.isClientSide()) {
-            final var chunkPos = event.getChunkPos();
-            SpookyDoorClientTracking.get(level).untrackDoorsInChunk(chunkPos.x, chunkPos.z);
+    private static void onChunkUnload(LevelAccessor levelAccessor, ChunkAccess chunk, ChunkPos chunkPos) {
+        if (levelAccessor instanceof Level level && level.isClientSide()) {
+            SpookyDoorClientTracking.get(level).untrackDoorsInChunk(chunkPos.x(), chunkPos.z());
         }
     }
 
@@ -107,41 +113,35 @@ public class SpookyDoorsClient {
         return false;
     }
 
-    private static void onDrawGui(GuiDrawEvent.Post event) {
-        if (event.getElement() == GuiDrawEvent.Element.ALL) {
-            if (uiHintTicksLeft > 0) {
-                final var guiGraphics = event.getGuiGraphics();
-                final var poseStack = guiGraphics.pose();
-                RenderSystem.enableBlend();
-                poseStack.pushPose();
-                final var screenCenterX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
-                final var screenCenterY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
-                poseStack.translate(screenCenterX, screenCenterY, 0);
-                poseStack.scale(0.4f, 0.4f, 0.4f);
-                final var alpha = uiHintTicksLeft / (float) UI_HINT_TICKS;
-                guiGraphics.setColor(1f, 1f, 1f, alpha);
-                guiGraphics.blit(UI_HINT_TEXTURE, -23, -16 - 38, 0, 0, 46, 32, 46, 32);
-                poseStack.popPose();
-            }
+    private static void onDrawGui(GuiGraphicsExtractor guiGraphics, Window window) {
+        if (uiHintTicksLeft > 0) {
+            final var poseStack = guiGraphics.pose();
+            poseStack.pushMatrix();
+            final var screenCenterX = window.getGuiScaledWidth() / 2;
+            final var screenCenterY = window.getGuiScaledHeight() / 2;
+            poseStack.translate(screenCenterX, screenCenterY);
+            poseStack.scale(0.4f, 0.4f);
+            final var alpha = Math.round(uiHintTicksLeft / (float) UI_HINT_TICKS * 255f) << 24;
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, UI_HINT_TEXTURE, -23, -16 - 38, 0, 0, 46, 32, 46, 32, alpha | 0xFFFFFF);
+            poseStack.popMatrix();
         }
     }
 
-    private static void onDrawHighlight(BlockHighlightDrawEvent event) {
+    private static boolean onDrawHighlight(BlockHitResult hitResult, PoseStack poseStack, MultiBufferSource multiBufferSource, Camera camera, int color, float lineWidth) {
         final var level = Minecraft.getInstance().level;
         if (level == null) {
-            return;
+            return true;
         }
 
-        final var pos = event.getHitResult().getBlockPos();
+        final var pos = hitResult.getBlockPos();
         final var state = level.getBlockState(pos);
         if (state.getBlock() instanceof DoorBlock) {
             if (level.getWorldBorder().isWithinBounds(pos)) {
-                final var cameraVec = event.getCamera().getPosition();
+                final var cameraVec = camera.position();
                 final var cameraX = cameraVec.x();
                 final var cameraY = cameraVec.y();
                 final var cameraZ = cameraVec.z();
-                final var vertexConsumer = event.getMultiBufferSource().getBuffer(RenderType.lines());
-                final var poseStack = event.getPoseStack();
+                final var vertexConsumer = multiBufferSource.getBuffer(RenderTypes.lines());
                 poseStack.pushPose();
                 poseStack.translate(pos.getX() - cameraX,
                         pos.getY() - cameraY,
@@ -152,11 +152,13 @@ public class SpookyDoorsClient {
                         state.getValue(DoorBlock.FACING),
                         state.getValue(DoorBlock.HINGE));
                 final var shape = SpookyDoorRenderer.getOutlineShape(state);
-                LevelRenderer.renderVoxelShape(poseStack, vertexConsumer, shape, 0, 0, 0, 0f, 0f, 0f, 0.4f, false);
+                ShapeRenderer.renderShape(poseStack, vertexConsumer, shape, 0, 0, 0, 0x66000000, lineWidth);
                 poseStack.popPose();
             }
-            event.setCanceled(true);
+            return false;
         }
+
+        return true;
     }
 
     private static void onClientTick(Minecraft client) {
@@ -191,7 +193,7 @@ public class SpookyDoorsClient {
 
     public static boolean onMouseInput(int button, int action) {
         final var minecraft = Minecraft.getInstance();
-        if (minecraft.options.keyUse.matchesMouse(button)) {
+        if (minecraft.options.keyUse.matchesMouse(new MouseButtonEvent(minecraft.mouseHandler.xpos(), minecraft.mouseHandler.ypos(), new MouseButtonInfo(button, 0)))) {
             if (action == InputConstants.PRESS) {
                 final var hitResult = minecraft.hitResult;
                 if (hitResult != null && hitResult.getType() == HitResult.Type.BLOCK) {

@@ -2,7 +2,6 @@ package net.blay09.mods.spookydoors.mixin;
 
 import net.blay09.mods.spookydoors.block.SpookyDoorBlockHooks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -11,6 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -42,12 +42,12 @@ public class DoorBlockMixin {
     }
 
     @Inject(method = "setOpen", at = @At("RETURN"))
-    private void setOpen(@Nullable Entity entity, Level level, BlockState state, BlockPos pos, boolean open, CallbackInfo ci) {
-        SpookyDoorBlockHooks.setOpen((DoorBlock) (Object) this, level, state, pos, open);
+    private void setOpen(@Nullable Entity sourceEntity, Level level, BlockState state, BlockPos pos, boolean shouldOpen, CallbackInfo ci) {
+        SpookyDoorBlockHooks.setOpen((DoorBlock) (Object) this, level, state, pos, shouldOpen);
     }
 
     @Inject(method = "neighborChanged", at = @At("RETURN"))
-    private void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos neighborPos, boolean isMoving, CallbackInfo ci) {
+    private void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, Orientation orientation, boolean movedByPiston, CallbackInfo ci) {
         SpookyDoorBlockHooks.neighborChanged((DoorBlock) (Object) this, level, state, pos);
     }
 

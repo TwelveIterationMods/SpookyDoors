@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "${mod_id}",
+  "id": "spookydoors",
   "version": "${version}",
 
   "name": "${mod_name}",
@@ -15,7 +15,7 @@
   },
 
   "license": "${license}",
-  "icon": "${mod_id}.png",
+  "icon": "spookydoors.png",
 
   "environment": "*",
   "entrypoints": {
@@ -34,18 +34,18 @@
     "spookydoors.fabric.mixins.json"
   ],
   "depends": {
-    "balm-fabric": ">=7.0.0",
-    "fabricloader": ">=0.14.21",
-    "fabric-api": "*",
-    "minecraft": ">=1.20",
-    "java": ">=17"
+    "java": ">=${java_version}",
+    "minecraft": "${fabric_minecraft_version_range}",
+    "fabricloader": ">=${fabric_loader_version}",
+    "fabric-api": ">=${fabric_api_version}",
+    "balm": ">=${balm_version}"
   },
   "suggests": {
   },
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/VAfZ2Nau6j"
+        "modmenu.discord": "${discord}"
       }
     }
   }

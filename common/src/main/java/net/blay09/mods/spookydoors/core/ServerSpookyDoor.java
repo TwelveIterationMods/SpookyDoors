@@ -1,6 +1,6 @@
 package net.blay09.mods.spookydoors.core;
 
-import net.blay09.mods.balm.api.Balm;
+import net.blay09.mods.balm.Balm;
 import net.blay09.mods.spookydoors.level.SpookyDoorSavedData;
 import net.blay09.mods.spookydoors.network.ClientboundDoorStatePacket;
 import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
@@ -44,7 +44,7 @@ public record ServerSpookyDoor(ServerLevel level, SpookyDoorSavedData savedData,
     }
 
     public void syncToClients() {
-        Balm.getNetworking().sendToTracking(level, pos, new ClientboundDoorStatePacket(pos, percentOpen(), spooky()));
+        Balm.networking().sendToTracking(level, pos, new ClientboundDoorStatePacket(pos, percentOpen(), spooky()));
     }
 
     @Override
