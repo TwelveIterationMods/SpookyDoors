@@ -6,5 +6,7 @@
   "commands.spookydoors.state.on": "on",
   "spookydoors.configuration.title": "Spooky Doors",
   "spookydoors.configuration.spookyDoorActivation": "Spooky Door Activation",
-  "spookydoors.configuration.spookyDoorActivation.tooltip": "Controls which doors Spooky Doors affects. OPTIONAL requires doors to be toggled on with the command, DEFAULT affects doors unless toggled off, and FORCED affects all doors."
+  "spookydoors.configuration.spookyDoorActivation.tooltip": "Controls which doors Spooky Doors affects. OPTIONAL requires doors to be toggled on with the command, DEFAULT affects doors unless toggled off, and FORCED affects all doors.",
+  "spookydoors.configuration.allowHoneycombToExorciseDoors": "Honeycomb Exorcises Doors",
+  "spookydoors.configuration.allowHoneycombToExorciseDoors.tooltip": "Allows players to use honeycomb on spooky doors to make them non-spooky. This has no effect when Spooky Door Activation is FORCED."
 }

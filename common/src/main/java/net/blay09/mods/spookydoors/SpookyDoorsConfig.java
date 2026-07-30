@@ -11,6 +11,10 @@ public class SpookyDoorsConfig {
     @Comment("Controls which doors Spooky Doors affects. OPTIONAL requires doors to be toggled on with the command, DEFAULT affects doors unless toggled off, and FORCED affects all doors.")
     public SpookyDoorActivation spookyDoorActivation = SpookyDoorActivation.DEFAULT;
 
+    @Synced
+    @Comment("Allows players to use honeycomb on spooky doors to make them non-spooky. This has no effect when Spooky Door Activation is FORCED.")
+    public boolean allowHoneycombToExorciseDoors = true;
+
     public static SpookyDoorsConfig getActive() {
         return Balm.getConfig().getActiveConfig(SpookyDoorsConfig.class);
     }

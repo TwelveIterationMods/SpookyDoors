@@ -1,12 +1,18 @@
 package net.blay09.mods.spookydoors.block;
 
+import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.client.SpookyDoorsClient;
 import net.blay09.mods.spookydoors.core.ServerSpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoorBlock;
@@ -122,9 +128,14 @@ public class SpookyDoorBlockHooks {
     }
 
     @Nullable
-    public static InteractionResult use(DoorBlock doorBlock, BlockState state, Level level, BlockPos pos, Player player) {
+    public static InteractionResult use(DoorBlock doorBlock, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         if (!isSpookyDoor(state, level, pos)) {
             return null;
+        }
+
+        final var honeycombResult = useHoneycomb(state, level, pos, player, hand);
+        if (honeycombResult != null) {
+            return honeycombResult;
         }
 
         if (!doorBlock.type().canOpenByHand()) {
@@ -135,6 +146,37 @@ public class SpookyDoorBlockHooks {
         final var door = SpookyDoorProvider.get(level).of(pos, state);
         door.operate(player, targetOpen ? 1f : 0f);
         level.gameEvent(player, targetOpen ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    @Nullable
+    private static InteractionResult useHoneycomb(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
+        final var config = SpookyDoorsConfig.getActive();
+        if (!config.allowHoneycombToExorciseDoors || config.spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.FORCED) {
+            return null;
+        }
+
+        final var itemStack = player.getItemInHand(hand);
+        if (!itemStack.is(Items.HONEYCOMB)) {
+            return null;
+        }
+
+        final var door = SpookyDoorProvider.get(level).of(pos, state);
+        door.spooky(false);
+
+        if (!level.isClientSide) {
+            if (door instanceof ServerSpookyDoor serverSpookyDoor) {
+                serverSpookyDoor.syncToClients();
+            }
+
+            level.playSound(null, pos, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.BLOCKS, 1f, 1f);
+            level.levelEvent(player, 3003, pos, 0);
+            player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
+            if (!player.getAbilities().instabuild) {
+                itemStack.shrink(1);
+            }
+        }
+
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 

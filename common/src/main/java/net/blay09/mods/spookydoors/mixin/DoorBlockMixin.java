@@ -34,7 +34,7 @@ public class DoorBlockMixin {
 
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
-        final var result = SpookyDoorBlockHooks.use((DoorBlock) (Object) this, state, level, pos, player);
+        final var result = SpookyDoorBlockHooks.use((DoorBlock) (Object) this, state, level, pos, player, hand);
         if (result != null) {
             cir.setReturnValue(result);
         }
