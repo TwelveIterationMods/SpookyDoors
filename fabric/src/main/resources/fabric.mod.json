@@ -34,7 +34,7 @@
     "spookydoors.fabric.mixins.json"
   ],
   "depends": {
-    "balm": ">=7.0.0",
+    "balm": ">=${minimum_balm_version}",
     "fabricloader": ">=0.14.21",
     "fabric-api": "*",
     "minecraft": ">=1.20",
