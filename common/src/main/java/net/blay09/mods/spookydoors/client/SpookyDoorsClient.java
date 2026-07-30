@@ -8,17 +8,20 @@ import net.blay09.mods.balm.api.event.TickPhase;
 import net.blay09.mods.balm.api.event.TickType;
 import net.blay09.mods.balm.api.event.client.BlockHighlightDrawEvent;
 import net.blay09.mods.balm.api.event.client.GuiDrawEvent;
+import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.SpookyDoors;
 import net.blay09.mods.spookydoors.client.render.SpookyDoorRenderer;
 import net.blay09.mods.spookydoors.core.ClientSpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
+import net.blay09.mods.spookydoors.item.ModItemTags;
 import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
@@ -201,6 +204,10 @@ public class SpookyDoorsClient {
                             if (entity != null) {
                                 final var door = SpookyDoorProvider.get(level).of(pos, state);
                                 if (door.spooky()) {
+                                    if (shouldBypassDragging(minecraft, door)) {
+                                        return false;
+                                    }
+
                                     lastMouseX = minecraft.mouseHandler.xpos();
                                     activeDoor = door;
                                     isDragging = true;
@@ -223,6 +230,31 @@ public class SpookyDoorsClient {
                 activeDoor = null;
             }
         }
+        return false;
+    }
+
+    private static boolean shouldBypassDragging(Minecraft client, SpookyDoor door) {
+        final var player = client.player;
+        if (player == null) {
+            return false;
+        }
+
+        final var config = SpookyDoorsConfig.getActive();
+        if (config.spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.FORCED) {
+            return false;
+        }
+
+        for (final var hand : InteractionHand.values()) {
+            final var itemStack = player.getItemInHand(hand);
+            if (config.allowItemToHauntDoors && !door.spooky() && itemStack.is(ModItemTags.HAUNTS_DOORS)) {
+                return true;
+            }
+
+            if (config.allowItemToExorciseDoors && door.spooky() && itemStack.is(ModItemTags.EXORCISES_DOORS)) {
+                return true;
+            }
+        }
+
         return false;
     }
 }

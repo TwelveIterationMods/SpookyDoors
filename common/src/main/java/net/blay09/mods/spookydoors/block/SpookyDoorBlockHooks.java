@@ -101,16 +101,16 @@ public class SpookyDoorBlockHooks {
     }
 
     public static void onPlace(BlockState state, Level level, BlockPos pos, BlockState previousState) {
-        if (!state.hasProperty(DoorBlock.POWERED) || !previousState.hasProperty(DoorBlock.POWERED)
-                || previousState.getValue(DoorBlock.POWERED) == state.getValue(DoorBlock.POWERED)) {
-            return;
-        }
-
-        if (!isSpookyDoor(state, level, pos)) {
+        if (!isDoor(state)) {
             return;
         }
 
         final var door = SpookyDoorProvider.get(level).of(pos, state);
+        if (door.spooky() && (!state.hasProperty(DoorBlock.POWERED) || !previousState.hasProperty(DoorBlock.POWERED)
+                || previousState.getValue(DoorBlock.POWERED) == state.getValue(DoorBlock.POWERED))) {
+            return;
+        }
+
         door.percentOpen(state.getValue(DoorBlock.OPEN) ? 1f : 0f);
         if (door instanceof ServerSpookyDoor serverSpookyDoor) {
             serverSpookyDoor.syncToClients();
