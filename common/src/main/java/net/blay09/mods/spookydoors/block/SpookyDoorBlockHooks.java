@@ -100,24 +100,19 @@ public class SpookyDoorBlockHooks {
     }
 
     public static void onPlace(BlockState state, Level level, BlockPos pos, BlockState previousState) {
+        if (!state.hasProperty(DoorBlock.POWERED) || !previousState.hasProperty(DoorBlock.POWERED)
+                || previousState.getValue(DoorBlock.POWERED) == state.getValue(DoorBlock.POWERED)) {
+            return;
+        }
+
         if (!isSpookyDoor(state, level, pos)) {
             return;
         }
 
-        // TODO Is this really necessary?
-        float openness = -1f;
-        if (!previousState.is(state.getBlock())) {
-            openness = state.getValue(DoorBlock.OPEN) ? 1f : 0f;
-        } else if (state.hasProperty(DoorBlock.POWERED) && previousState.hasProperty(DoorBlock.POWERED)) {
-            final var previouslyPowered = previousState.getValue(DoorBlock.POWERED);
-            final var powered = state.getValue(DoorBlock.POWERED);
-            if (powered != previouslyPowered) {
-                openness = state.getValue(DoorBlock.OPEN) ? 1f : 0f;
-            }
-        }
-
-        if (openness != -1f) {
-            SpookyDoorProvider.get(level).of(pos, state).percentOpen(openness);
+        final var door = SpookyDoorProvider.get(level).of(pos, state);
+        door.percentOpen(state.getValue(DoorBlock.OPEN) ? 1f : 0f);
+        if (door instanceof ServerSpookyDoor serverSpookyDoor) {
+            serverSpookyDoor.syncToClients();
         }
     }
 
