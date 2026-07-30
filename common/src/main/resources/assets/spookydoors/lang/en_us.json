@@ -1,12 +1,14 @@
 {
-  "itemGroup.spookydoors.spookydoors": "Spooky Doors",
-  "block.spookydoors.spooky_oak_door": "Spooky Oak Door",
-  "block.spookydoors.spooky_spruce_door": "Spooky Spruce Door",
-  "block.spookydoors.spooky_birch_door": "Spooky Birch Door",
-  "block.spookydoors.spooky_jungle_door": "Spooky Jungle Door",
-  "block.spookydoors.spooky_acacia_door": "Spooky Acacia Door",
-  "block.spookydoors.spooky_cherry_door": "Spooky Cherry Door",
-  "block.spookydoors.spooky_dark_oak_door": "Spooky Dark Oak Door",
-  "block.spookydoors.spooky_mangrove_door": "Spooky Mangrove Door",
-  "block.spookydoors.spooky_bamboo_door": "Spooky Bamboo Door"
+  "commands.spookydoors.not_door": "Block at %s is not a door.",
+  "commands.spookydoors.set": "Door spooky state set to %s.",
+  "commands.spookydoors.set_forced": "Door spooky state set to %s. FORCED config currently ignores this state.",
+  "commands.spookydoors.state.off": "off",
+  "commands.spookydoors.state.on": "on",
+  "spookydoors.configuration.title": "Spooky Doors",
+  "spookydoors.configuration.spookyDoorActivation": "Spooky Door Activation",
+  "spookydoors.configuration.spookyDoorActivation.tooltip": "Controls which doors Spooky Doors affects. OPTIONAL requires doors to be toggled on with the command, DEFAULT affects doors unless toggled off, and FORCED affects all doors.",
+  "spookydoors.configuration.allowItemToExorciseDoors": "Item Exorcises Doors",
+  "spookydoors.configuration.allowItemToExorciseDoors.tooltip": "Allows players to use items in the spookydoors:exorcises_doors tag on spooky doors to make them non-spooky. By default, this is honeycomb. This has no effect when Spooky Door Activation is FORCED.",
+  "spookydoors.configuration.allowItemToHauntDoors": "Item Haunts Doors",
+  "spookydoors.configuration.allowItemToHauntDoors.tooltip": "Allows players to use items in the spookydoors:haunts_doors tag on non-spooky doors to make them spooky. By default, this is a ghast tear. This has no effect when Spooky Door Activation is FORCED."
 }
