@@ -1,8 +1,9 @@
-package net.blay09.mods.spookydoors.client;
+package net.blay09.mods.spookydoors.fabric.client;
 
 import net.blay09.mods.balm.client.BalmClient;
 import net.blay09.mods.balm.fabric.platform.runtime.FabricLoadContext;
 import net.blay09.mods.spookydoors.SpookyDoors;
+import net.blay09.mods.spookydoors.client.SpookyDoorsClient;
 import net.fabricmc.api.ClientModInitializer;
 
 public class FabricSpookyDoorsClient implements ClientModInitializer {

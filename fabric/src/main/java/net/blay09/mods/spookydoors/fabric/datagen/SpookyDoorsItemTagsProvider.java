@@ -1,4 +1,4 @@
-package net.blay09.mods.spookydoors.datagen;
+package net.blay09.mods.spookydoors.fabric.datagen;
 
 import net.blay09.mods.spookydoors.item.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
