@@ -1,4 +1,4 @@
-package net.blay09.mods.spookydoors.mixin;
+package net.blay09.mods.spookydoors.mixin.client;
 
 import net.blay09.mods.spookydoors.client.SpookyDoorsClient;
 import net.minecraft.client.MouseHandler;

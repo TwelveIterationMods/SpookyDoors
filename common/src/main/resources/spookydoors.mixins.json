@@ -9,7 +9,7 @@
     "LevelMixin"
   ],
   "client": [
-    "MouseHandlerMixin",
+    "client.MouseHandlerMixin",
     "client.ClientPacketListenerMixin",
     "client.LevelRendererMixin"
   ],
