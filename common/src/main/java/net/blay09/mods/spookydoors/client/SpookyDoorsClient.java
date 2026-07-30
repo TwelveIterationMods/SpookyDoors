@@ -210,6 +210,9 @@ public class SpookyDoorsClient {
 
                                     lastMouseX = minecraft.mouseHandler.xpos();
                                     activeDoor = door;
+                                    if (activeDoor instanceof ClientSpookyDoor clientSpookyDoor) {
+                                        clientSpookyDoor.locallyControlled(true);
+                                    }
                                     isDragging = true;
                                     return true;
                                 }
@@ -225,6 +228,9 @@ public class SpookyDoorsClient {
                         uiHintTicksLeft = UI_HINT_TICKS;
                     }
                     accumulatedOpennessChange = 0f;
+                    if (activeDoor instanceof ClientSpookyDoor clientSpookyDoor) {
+                        clientSpookyDoor.locallyControlled(false);
+                    }
                 }
                 isDragging = false;
                 activeDoor = null;

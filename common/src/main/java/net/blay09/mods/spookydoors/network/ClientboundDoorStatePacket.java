@@ -1,5 +1,6 @@
 package net.blay09.mods.spookydoors.network;
 
+import net.blay09.mods.spookydoors.core.ClientSpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -27,7 +28,10 @@ public record ClientboundDoorStatePacket(BlockPos pos, float openness, boolean s
         if (state.getBlock() instanceof DoorBlock) {
             final var door = SpookyDoorProvider.get(level).of(message.pos, state);
             door.spooky(message.spooky);
-            door.percentOpen(message.openness);
+            final var isLocallyControlled = door instanceof ClientSpookyDoor clientSpookyDoor && clientSpookyDoor.locallyControlled();
+            if (!isLocallyControlled) {
+                door.percentOpen(message.openness);
+            }
         }
     }
 }
