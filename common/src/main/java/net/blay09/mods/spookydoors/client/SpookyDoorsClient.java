@@ -7,25 +7,25 @@ import net.blay09.mods.balm.client.BalmClientRegistrars;
 import net.blay09.mods.balm.client.platform.event.callback.ClientTickCallback;
 import net.blay09.mods.balm.client.platform.event.callback.RenderCallback;
 import net.blay09.mods.balm.platform.event.callback.LevelCallback;
-import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.SpookyDoors;
+import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.client.render.SpookyDoorRenderer;
 import net.blay09.mods.spookydoors.core.ClientSpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
 import net.blay09.mods.spookydoors.item.ModItemTags;
 import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.input.MouseButtonInfo;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.ShapeRenderer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -54,7 +54,6 @@ public class SpookyDoorsClient {
 
     public static void initialize(BalmClientRegistrars registrars) {
         RenderCallback.Gui.AFTER.register(SpookyDoorsClient::onDrawGui);
-        RenderCallback.BlockHighlight.EVENT.register(SpookyDoorsClient::onDrawHighlight);
         LevelCallback.Chunk.UNLOAD.register(SpookyDoorsClient::onChunkUnload);
         ClientTickCallback.AFTER.register(SpookyDoorsClient::onClientTick);
     }
@@ -127,36 +126,43 @@ public class SpookyDoorsClient {
         }
     }
 
-    private static boolean onDrawHighlight(BlockHitResult hitResult, PoseStack poseStack, MultiBufferSource multiBufferSource, Camera camera, int color, float lineWidth) {
+    public static boolean submitBlockOutline(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, LevelRenderState levelRenderState) {
         final var level = Minecraft.getInstance().level;
         if (level == null) {
-            return true;
-        }
-
-        final var pos = hitResult.getBlockPos();
-        final var state = level.getBlockState(pos);
-        if (state.getBlock() instanceof DoorBlock) {
-            if (level.getWorldBorder().isWithinBounds(pos)) {
-                final var cameraVec = camera.position();
-                final var cameraX = cameraVec.x();
-                final var cameraY = cameraVec.y();
-                final var cameraZ = cameraVec.z();
-                final var vertexConsumer = multiBufferSource.getBuffer(RenderTypes.lines());
-                poseStack.pushPose();
-                poseStack.translate(pos.getX() - cameraX,
-                        pos.getY() - cameraY,
-                        pos.getZ() - cameraZ);
-                SpookyDoorRenderer.applyDoorPose(
-                        poseStack,
-                        SpookyDoorProvider.get(level).at(pos).percentOpen(),
-                        state.getValue(DoorBlock.FACING),
-                        state.getValue(DoorBlock.HINGE));
-                final var shape = SpookyDoorRenderer.getOutlineShape(state);
-                ShapeRenderer.renderShape(poseStack, vertexConsumer, shape, 0, 0, 0, 0x66000000, lineWidth);
-                poseStack.popPose();
-            }
             return false;
         }
+
+        final var blockOutlineRenderState = levelRenderState.blockOutlineRenderState;
+        if (blockOutlineRenderState == null) {
+            return false;
+        }
+
+        final var pos = blockOutlineRenderState.pos();
+        final var state = level.getBlockState(pos);
+        if (!(state.getBlock() instanceof DoorBlock)) {
+            return false;
+        }
+
+        final var cameraPos = levelRenderState.cameraRenderState.pos;
+        final var lineWidth = Minecraft.getInstance().gameRenderer.gameRenderState().windowRenderState.appropriateLineWidth;
+        final var isTranslucent = blockOutlineRenderState.isTranslucent();
+
+        poseStack.pushPose();
+        poseStack.translate(pos.getX() - cameraPos.x(), pos.getY() - cameraPos.y(), pos.getZ() - cameraPos.z());
+        SpookyDoorRenderer.applyDoorPose(
+                poseStack,
+                SpookyDoorProvider.get(level).at(pos).percentOpen(),
+                state.getValue(DoorBlock.FACING),
+                state.getValue(DoorBlock.HINGE));
+        final var shape = SpookyDoorRenderer.getOutlineShape(state);
+
+        if (blockOutlineRenderState.highContrast()) {
+            submitNodeCollector.submitShapeOutline(poseStack, shape, RenderTypes.secondaryBlockOutline(), -16777216, 7f, isTranslucent);
+        }
+
+        final var color = blockOutlineRenderState.highContrast() ? -11010079 : ARGB.black(102);
+        submitNodeCollector.submitShapeOutline(poseStack, shape, RenderTypes.lines(), color, lineWidth, isTranslucent);
+        poseStack.popPose();
 
         return true;
     }
