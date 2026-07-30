@@ -18,6 +18,7 @@ public class ClientSpookyDoor implements SpookyDoor {
     private float percentOpen;
     @Nullable
     private Boolean spooky;
+    private boolean locallyControlled;
     private long nextCreakSoundGameTime;
 
     public ClientSpookyDoor(WeakReference<Level> level, BlockPos basePos) {
@@ -49,6 +50,14 @@ public class ClientSpookyDoor implements SpookyDoor {
     @Override
     public void percentOpen(float percentOpen) {
         this.percentOpen = Mth.clamp(percentOpen, 0f, 1f);
+    }
+
+    public boolean locallyControlled() {
+        return locallyControlled;
+    }
+
+    public void locallyControlled(boolean locallyControlled) {
+        this.locallyControlled = locallyControlled;
     }
 
     @Override
