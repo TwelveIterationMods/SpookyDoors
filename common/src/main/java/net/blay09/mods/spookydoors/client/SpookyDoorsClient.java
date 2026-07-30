@@ -8,6 +8,7 @@ import net.blay09.mods.balm.api.event.TickPhase;
 import net.blay09.mods.balm.api.event.TickType;
 import net.blay09.mods.balm.api.event.client.BlockHighlightDrawEvent;
 import net.blay09.mods.balm.api.event.client.GuiDrawEvent;
+import net.blay09.mods.balm.client.BalmClientRegistrars;
 import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.SpookyDoors;
 import net.blay09.mods.spookydoors.client.render.SpookyDoorRenderer;
@@ -30,7 +31,7 @@ import net.minecraft.world.phys.HitResult;
 
 public class SpookyDoorsClient {
 
-    private static final ResourceLocation UI_HINT_TEXTURE = new ResourceLocation(SpookyDoors.MOD_ID, "textures/gui/door_ui_hint.png");
+    private static final ResourceLocation UI_HINT_TEXTURE = SpookyDoors.id("textures/gui/door_ui_hint.png");
     private static final int UI_HINT_TICKS = 20;
 
     private static final int SYNC_INTERVAL = 1;
@@ -44,7 +45,7 @@ public class SpookyDoorsClient {
 
     private static int uiHintTicksLeft = 0;
 
-    public static void initialize() {
+    public static void initialize(BalmClientRegistrars registrars) {
         Balm.getEvents().onEvent(GuiDrawEvent.Post.class, SpookyDoorsClient::onDrawGui);
         Balm.getEvents().onEvent(BlockHighlightDrawEvent.class, SpookyDoorsClient::onDrawHighlight);
         Balm.getEvents().onEvent(ChunkLoadingEvent.Unload.class, SpookyDoorsClient::onChunkUnload);

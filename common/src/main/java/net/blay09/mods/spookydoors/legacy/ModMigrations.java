@@ -1,23 +1,18 @@
 package net.blay09.mods.spookydoors.legacy;
 
-import net.blay09.mods.balm.api.Balm;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.blay09.mods.balm.core.BalmRegistrar;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
 import static net.blay09.mods.spookydoors.SpookyDoors.id;
 
 public class ModMigrations {
-    public static void initialize() {
+    public static void initialize(BalmRegistrar registrar) {
         WoodType.values().forEach(woodType -> {
-            addDoorAlias(BuiltInRegistries.BLOCK, woodType);
-            addDoorAlias(BuiltInRegistries.ITEM, woodType);
+            String doorName = woodType.name() + "_door";
+            registrar.addAlias(Registries.BLOCK, id("spooky_" + doorName), ResourceLocation.withDefaultNamespace(doorName));
+            registrar.addAlias(Registries.ITEM, id("spooky_" + doorName), ResourceLocation.withDefaultNamespace(doorName));
         });
-    }
-
-    private static <T> void addDoorAlias(Registry<T> registry, WoodType woodType) {
-        String doorName = woodType.name() + "_door";
-        Balm.getRegistries().addAlias(registry, id("spooky_" + doorName), new ResourceLocation(doorName));
     }
 }

@@ -1,12 +1,12 @@
 package net.blay09.mods.spookydoors.datagen;
 
-import net.blay09.mods.spookydoors.ModBlocks;
+import net.blay09.mods.spookydoors.item.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -17,15 +17,7 @@ public class SpookyDoorsItemTagsProvider extends FabricTagProvider<Item> {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        getOrCreateTagBuilder(ItemTags.WOODEN_DOORS)
-                .add(ModBlocks.spookyOakDoor.asItem(),
-                        ModBlocks.spookySpruceDoor.asItem(),
-                        ModBlocks.spookyBirchDoor.asItem(),
-                        ModBlocks.spookyJungleDoor.asItem(),
-                        ModBlocks.spookyAcaciaDoor.asItem(),
-                        ModBlocks.spookyCherryDoor.asItem(),
-                        ModBlocks.spookyDarkOakDoor.asItem(),
-                        ModBlocks.spookyMangroveDoor.asItem(),
-                        ModBlocks.spookyBambooDoor.asItem());
+        getOrCreateTagBuilder(ModItemTags.HAUNTS_DOORS).add(Items.GHAST_TEAR);
+        getOrCreateTagBuilder(ModItemTags.EXORCISES_DOORS).add(Items.HONEYCOMB);
     }
 }

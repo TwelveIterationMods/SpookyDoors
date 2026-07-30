@@ -1,20 +1,26 @@
 package net.blay09.mods.spookydoors.network;
 
+import net.blay09.mods.spookydoors.SpookyDoors;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.DoorBlock;
 
-public record ClientboundDoorStatePacket(BlockPos pos, float openness, boolean spooky) {
+public record ClientboundDoorStatePacket(BlockPos pos, float openness, boolean spooky) implements CustomPacketPayload {
 
-    public static void encode(ClientboundDoorStatePacket message, FriendlyByteBuf buf) {
+    public static final Type<ClientboundDoorStatePacket> TYPE = new Type<>(SpookyDoors.id("door_state"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundDoorStatePacket> STREAM_CODEC = StreamCodec.of(ClientboundDoorStatePacket::encode, ClientboundDoorStatePacket::decode);
+
+    public static void encode(RegistryFriendlyByteBuf buf, ClientboundDoorStatePacket message) {
         buf.writeBlockPos(message.pos);
         buf.writeBoolean(message.spooky);
         buf.writeFloat(message.openness);
     }
 
-    public static ClientboundDoorStatePacket decode(FriendlyByteBuf buf) {
+    public static ClientboundDoorStatePacket decode(RegistryFriendlyByteBuf buf) {
         final var pos = buf.readBlockPos();
         final var spooky = buf.readBoolean();
         final var openness = buf.readFloat();
@@ -29,5 +35,10 @@ public record ClientboundDoorStatePacket(BlockPos pos, float openness, boolean s
             door.spooky(message.spooky);
             door.percentOpen(message.openness);
         }
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

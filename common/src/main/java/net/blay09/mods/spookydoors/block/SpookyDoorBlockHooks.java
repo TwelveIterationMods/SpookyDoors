@@ -7,7 +7,6 @@ import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
 import net.blay09.mods.spookydoors.item.ModItemTags;
 import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -23,6 +22,7 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -127,7 +127,11 @@ public class SpookyDoorBlockHooks {
     }
 
     @Nullable
-    public static InteractionResult use(DoorBlock doorBlock, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
+    public static InteractionResult useItemOn(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
+        if (!isDoor(state)) {
+            return null;
+        }
+
         final var ghastTearResult = tryHaunt(state, level, pos, player, hand);
         if (ghastTearResult != null) {
             return ghastTearResult;
@@ -140,6 +144,23 @@ public class SpookyDoorBlockHooks {
         final var honeycombResult = tryExorcise(state, level, pos, player, hand);
         if (honeycombResult != null) {
             return honeycombResult;
+        }
+
+        if (!SpookyDoorUtils.canOperate(state)) {
+            return null;
+        }
+
+        final var targetOpen = !state.getValue(DoorBlock.OPEN);
+        final var door = SpookyDoorProvider.get(level).of(pos, state);
+        door.operate(player, targetOpen ? 1f : 0f);
+        level.gameEvent(player, targetOpen ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    @Nullable
+    public static InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult blockHitResult) {
+        if (!isDoor(state)) {
+            return null;
         }
 
         if (!SpookyDoorUtils.canOperate(state)) {

@@ -34,7 +34,7 @@ public class SpookyDoorSounds {
         } else if (level.getGameTime() >= door.nextCreakSoundGameTime()) {
             level.playSound(entity,
                     basePos,
-                    ModSounds.doorCreak.get(),
+                    ModSounds.doorCreak.value(),
                     SoundSource.BLOCKS,
                     level.getRandom().nextFloat() * 0.2f + 0.5f,
                     level.getRandom().nextFloat() * 0.4f + 0.8f);

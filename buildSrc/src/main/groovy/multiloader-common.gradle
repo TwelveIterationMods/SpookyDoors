@@ -27,6 +27,7 @@ repositories {
         filter { includeGroupAndSubgroups("org.spongepowered") }
     }
     maven { url "https://maven.twelveiterations.com/repository/maven-public/" }
+    maven { url "https://maven.twelveiterations.com/repository/maven-snapshots/" }
     exclusiveContent {
         forRepositories(
                 maven {

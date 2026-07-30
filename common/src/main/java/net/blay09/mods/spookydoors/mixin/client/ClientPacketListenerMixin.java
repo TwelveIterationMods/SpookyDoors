@@ -29,7 +29,7 @@ public class ClientPacketListenerMixin {
 
     @Inject(method = "handleForgetLevelChunk", at = @At("TAIL"))
     private void handleForgetLevelChunk(ClientboundForgetLevelChunkPacket packet, CallbackInfo ci) {
-        SpookyDoorClientTracking.get(level).untrackDoorsInChunk(packet.getX(), packet.getZ());
+        SpookyDoorClientTracking.get(level).untrackDoorsInChunk(packet.pos().x, packet.pos().z);
     }
 
     @Inject(method = "handleBlockUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/util/thread/BlockableEventLoop;)V", shift = At.Shift.AFTER))

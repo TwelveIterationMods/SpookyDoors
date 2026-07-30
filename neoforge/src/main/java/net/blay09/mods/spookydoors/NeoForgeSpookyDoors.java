@@ -10,6 +10,6 @@ public class NeoForgeSpookyDoors {
 
     public NeoForgeSpookyDoors(IEventBus modEventBus) {
         final var context = new NeoForgeLoadContext(modEventBus);
-        Balm.initialize(SpookyDoors.MOD_ID, context, SpookyDoors::initialize);
+        Balm.initializeMod(SpookyDoors.MOD_ID, context, SpookyDoors::initialize);
     }
 }

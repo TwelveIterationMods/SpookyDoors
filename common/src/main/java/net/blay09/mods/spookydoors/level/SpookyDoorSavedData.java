@@ -8,6 +8,7 @@ import net.blay09.mods.spookydoors.core.SpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
 import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.blay09.mods.balm.api.Balm;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -35,12 +36,13 @@ public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider
     private ServerLevel level;
 
     public static SpookyDoorSavedData get(ServerLevel level) {
-        final var data = level.getDataStorage().computeIfAbsent(SpookyDoorSavedData::load, SpookyDoorSavedData::new, ID);
+        final var factory = new SavedData.Factory<>(SpookyDoorSavedData::new, SpookyDoorSavedData::load, null);
+        final var data = level.getDataStorage().computeIfAbsent(factory, ID);
         data.level = level;
         return data;
     }
 
-    public static SpookyDoorSavedData load(CompoundTag tag) {
+    public static SpookyDoorSavedData load(CompoundTag tag, HolderLookup.Provider provider) {
         final var data = new SpookyDoorSavedData();
         final var doors = tag.getList("Doors", Tag.TAG_COMPOUND);
         for (int i = 0; i < doors.size(); i++) {
@@ -57,7 +59,7 @@ public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider
     }
 
     @Override
-    public CompoundTag save(CompoundTag tag) {
+    public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
         final var doors = new ListTag();
         for (final var entry : percentOpenByPos.entrySet()) {
             final var doorTag = new CompoundTag();

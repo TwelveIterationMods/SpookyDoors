@@ -9,7 +9,7 @@ public class FabricSpookyDoorsClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        BalmClient.initialize(SpookyDoors.MOD_ID, EmptyLoadContext.INSTANCE, SpookyDoorsClient::initialize);
+        BalmClient.initializeMod(SpookyDoors.MOD_ID, EmptyLoadContext.INSTANCE, SpookyDoorsClient::initialize);
     }
 }
 

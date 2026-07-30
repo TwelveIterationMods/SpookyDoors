@@ -33,9 +33,9 @@ public class DoorBlockMixin {
         }
     }
 
-    @Inject(method = "use", at = @At("HEAD"), cancellable = true)
-    private void use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
-        final var result = SpookyDoorBlockHooks.use((DoorBlock) (Object) this, state, level, pos, player, hand);
+    @Inject(method = "useWithoutItem", at = @At("HEAD"), cancellable = true)
+    private void useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
+        final var result = SpookyDoorBlockHooks.useWithoutItem(state, level, pos, player, hitResult);
         if (result != null) {
             cir.setReturnValue(result);
         }
