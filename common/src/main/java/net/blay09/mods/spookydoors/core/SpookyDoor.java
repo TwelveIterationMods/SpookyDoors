@@ -21,6 +21,10 @@ public interface SpookyDoor {
 
     void percentOpen(float percentOpen);
 
+    boolean spooky();
+
+    void spooky(boolean spooky);
+
     long nextCreakSoundGameTime();
 
     void nextCreakSoundGameTime(long gameTime);

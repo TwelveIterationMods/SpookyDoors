@@ -28,7 +28,7 @@ public class SpookyDoorBlockHooks {
 
     @Nullable
     public static VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos) {
-        if (isDoor(state) && level instanceof Level worldLevel) {
+        if (level instanceof Level worldLevel && isSpookyDoor(state, worldLevel, pos)) {
             final var openness = SpookyDoorProvider.get(worldLevel).of(pos, state).percentOpen();
             final var closedShape = SpookyDoorShapes.getDoorGeometry(state, false).shape();
             if (openness <= 0f) {
@@ -47,7 +47,7 @@ public class SpookyDoorBlockHooks {
 
     @Nullable
     public static VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
-        if (level instanceof Level worldLevel) {
+        if (level instanceof Level worldLevel && isSpookyDoor(state, worldLevel, pos)) {
             final var door = SpookyDoorProvider.get(worldLevel).of(pos, state);
             final var openness = door.percentOpen();
             return SpookyDoorShapes.getInteractionShape(state, openness);
@@ -57,7 +57,7 @@ public class SpookyDoorBlockHooks {
     }
 
     public static void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (!isDoor(state)) {
+        if (!isSpookyDoor(state, level, pos)) {
             return;
         }
 
@@ -94,7 +94,7 @@ public class SpookyDoorBlockHooks {
     }
 
     public static void onPlace(BlockState state, Level level, BlockPos pos, BlockState previousState) {
-        if (!isDoor(state)) {
+        if (!isSpookyDoor(state, level, pos)) {
             return;
         }
 
@@ -123,6 +123,10 @@ public class SpookyDoorBlockHooks {
 
     @Nullable
     public static InteractionResult use(DoorBlock doorBlock, BlockState state, Level level, BlockPos pos, Player player) {
+        if (!isSpookyDoor(state, level, pos)) {
+            return null;
+        }
+
         if (!doorBlock.type().canOpenByHand()) {
             return null;
         }
@@ -135,7 +139,7 @@ public class SpookyDoorBlockHooks {
     }
 
     public static void setOpen(DoorBlock doorBlock, Level level, BlockState state, BlockPos pos, boolean open) {
-        if (state.is(doorBlock) && state.getValue(DoorBlock.OPEN) != open) {
+        if (state.is(doorBlock) && isSpookyDoor(state, level, pos) && state.getValue(DoorBlock.OPEN) != open) {
             final var openness = open ? 1f : 0f;
             final var door = SpookyDoorProvider.get(level).of(pos, state);
             door.percentOpen(openness);
@@ -147,5 +151,9 @@ public class SpookyDoorBlockHooks {
 
     private static boolean isDoor(BlockState state) {
         return state.getBlock() instanceof DoorBlock;
+    }
+
+    public static boolean isSpookyDoor(BlockState state, Level level, BlockPos pos) {
+        return isDoor(state) && SpookyDoorProvider.get(level).of(pos, state).spooky();
     }
 }

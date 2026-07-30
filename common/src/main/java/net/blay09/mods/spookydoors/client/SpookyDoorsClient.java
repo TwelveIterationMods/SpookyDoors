@@ -198,10 +198,14 @@ public class SpookyDoorsClient {
                         if (state.getBlock() instanceof DoorBlock) {
                             final var entity = minecraft.getCameraEntity();
                             if (entity != null) {
-                                lastMouseX = minecraft.mouseHandler.xpos();
-                                activeDoor = SpookyDoorProvider.get(level).of(pos, state);
-                                isDragging = true;
-                                return true;
+                                final var door = SpookyDoorProvider.get(level).of(pos, state);
+                                if (door.spooky()) {
+                                    lastMouseX = minecraft.mouseHandler.xpos();
+                                    activeDoor = door;
+                                    isDragging = true;
+                                    return true;
+                                }
+                                return false;
                             }
                         }
                     }

@@ -14,13 +14,23 @@ public record ServerSpookyDoor(ServerLevel level, SpookyDoorSavedData savedData,
 
     @Override
     public float percentOpen() {
-        final var percentOpen = savedData.getOpenness(pos);
+        final var percentOpen = savedData.getPercentOpen(pos);
         return percentOpen != null ? percentOpen : SpookyDoorUtils.getDefaultOpenness(state());
     }
 
     @Override
     public void percentOpen(float percentOpen) {
-        savedData.setOpenness(pos, percentOpen);
+        savedData.setPercentOpen(pos, percentOpen);
+    }
+
+    @Override
+    public boolean spooky() {
+        return savedData.isSpooky(pos);
+    }
+
+    @Override
+    public void spooky(boolean spooky) {
+        savedData.setSpooky(pos, spooky);
     }
 
     @Override
@@ -34,7 +44,7 @@ public record ServerSpookyDoor(ServerLevel level, SpookyDoorSavedData savedData,
     }
 
     public void syncToClients() {
-        Balm.getNetworking().sendToTracking(level, pos, new ClientboundDoorStatePacket(pos, percentOpen()));
+        Balm.getNetworking().sendToTracking(level, pos, new ClientboundDoorStatePacket(pos, percentOpen(), spooky()));
     }
 
     @Override

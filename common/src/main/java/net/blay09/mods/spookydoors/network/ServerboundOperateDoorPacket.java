@@ -42,7 +42,9 @@ public record ServerboundOperateDoorPacket(BlockPos pos, float openness) {
         if (state.getBlock() instanceof DoorBlock) {
             player.resetLastActionTime();
             final var door = SpookyDoorProvider.get(level).of(message.pos, state);
-            door.operate(player, message.openness);
+            if (door.spooky()) {
+                door.operate(player, message.openness);
+            }
         }
     }
 

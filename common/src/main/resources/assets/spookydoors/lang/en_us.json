@@ -1,0 +1,10 @@
+{
+  "commands.spookydoors.not_door": "Block at %s is not a door.",
+  "commands.spookydoors.set": "Door spooky state set to %s.",
+  "commands.spookydoors.set_forced": "Door spooky state set to %s. FORCED config currently ignores this state.",
+  "commands.spookydoors.state.off": "off",
+  "commands.spookydoors.state.on": "on",
+  "spookydoors.configuration.title": "Spooky Doors",
+  "spookydoors.configuration.spookyDoorActivation": "Spooky Door Activation",
+  "spookydoors.configuration.spookyDoorActivation.tooltip": "Controls which doors Spooky Doors affects. OPTIONAL requires doors to be toggled on with the command, DEFAULT affects doors unless toggled off, and FORCED affects all doors."
+}
