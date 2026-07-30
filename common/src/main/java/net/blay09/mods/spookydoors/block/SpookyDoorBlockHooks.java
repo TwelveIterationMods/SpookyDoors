@@ -5,6 +5,7 @@ import net.blay09.mods.spookydoors.client.SpookyDoorsClient;
 import net.blay09.mods.spookydoors.core.ServerSpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
 import net.blay09.mods.spookydoors.item.ModItemTags;
+import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -63,7 +64,7 @@ public class SpookyDoorBlockHooks {
     }
 
     public static void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (!isSpookyDoor(state, level, pos)) {
+        if (!isSpookyDoor(state, level, pos) || !SpookyDoorUtils.canOperate(state)) {
             return;
         }
 
@@ -138,7 +139,7 @@ public class SpookyDoorBlockHooks {
             return honeycombResult;
         }
 
-        if (!doorBlock.type().canOpenByHand()) {
+        if (!SpookyDoorUtils.canOperate(state)) {
             return null;
         }
 

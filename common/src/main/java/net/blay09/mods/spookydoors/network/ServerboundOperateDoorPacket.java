@@ -1,11 +1,11 @@
 package net.blay09.mods.spookydoors.network;
 
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
+import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.block.DoorBlock;
 
 public record ServerboundOperateDoorPacket(BlockPos pos, float openness) {
 
@@ -39,7 +39,7 @@ public record ServerboundOperateDoorPacket(BlockPos pos, float openness) {
         }
 
         final var state = level.getBlockState(message.pos);
-        if (state.getBlock() instanceof DoorBlock) {
+        if (SpookyDoorUtils.canOperate(state)) {
             player.resetLastActionTime();
             final var door = SpookyDoorProvider.get(level).of(message.pos, state);
             if (door.spooky()) {

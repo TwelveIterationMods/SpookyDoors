@@ -13,6 +13,7 @@ import net.blay09.mods.spookydoors.client.render.SpookyDoorRenderer;
 import net.blay09.mods.spookydoors.core.ClientSpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
+import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderType;
@@ -195,7 +196,7 @@ public class SpookyDoorsClient {
                     final var level = minecraft.level;
                     if (level != null) {
                         final var state = level.getBlockState(pos);
-                        if (state.getBlock() instanceof DoorBlock) {
+                        if (SpookyDoorUtils.canOperate(state)) {
                             final var entity = minecraft.getCameraEntity();
                             if (entity != null) {
                                 final var door = SpookyDoorProvider.get(level).of(pos, state);
