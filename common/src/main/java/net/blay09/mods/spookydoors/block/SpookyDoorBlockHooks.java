@@ -231,6 +231,25 @@ public class SpookyDoorBlockHooks {
         }
     }
 
+    public static void neighborChanged(DoorBlock doorBlock, Level level, BlockState previousState, BlockPos pos) {
+        final var state = level.getBlockState(pos);
+        if (!previousState.is(doorBlock) || !state.is(doorBlock) || !isSpookyDoor(state, level, pos)) {
+            return;
+        }
+
+        final var wasOpen = previousState.getValue(DoorBlock.OPEN);
+        final var isOpen = state.getValue(DoorBlock.OPEN);
+        if (wasOpen == isOpen) {
+            return;
+        }
+
+        final var door = SpookyDoorProvider.get(level).of(pos, state);
+        door.percentOpen(isOpen ? 1f : 0f);
+        if (door instanceof ServerSpookyDoor serverSpookyDoor) {
+            serverSpookyDoor.syncToClients();
+        }
+    }
+
     private static boolean isDoor(BlockState state) {
         return state.getBlock() instanceof DoorBlock;
     }

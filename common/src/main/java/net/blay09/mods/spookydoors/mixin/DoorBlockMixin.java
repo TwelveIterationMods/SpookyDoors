@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -43,6 +44,11 @@ public class DoorBlockMixin {
     @Inject(method = "setOpen", at = @At("RETURN"))
     private void setOpen(@Nullable Entity entity, Level level, BlockState state, BlockPos pos, boolean open, CallbackInfo ci) {
         SpookyDoorBlockHooks.setOpen((DoorBlock) (Object) this, level, state, pos, open);
+    }
+
+    @Inject(method = "neighborChanged", at = @At("RETURN"))
+    private void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos neighborPos, boolean isMoving, CallbackInfo ci) {
+        SpookyDoorBlockHooks.neighborChanged((DoorBlock) (Object) this, level, state, pos);
     }
 
 }
