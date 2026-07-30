@@ -12,6 +12,6 @@ public class NeoForgeSpookyDoorsClient {
 
     public NeoForgeSpookyDoorsClient(IEventBus modEventBus) {
         final var context = new NeoForgeLoadContext(modEventBus);
-        BalmClient.initialize(SpookyDoors.MOD_ID, context, SpookyDoorsClient::initialize);
+        BalmClient.initializeMod(SpookyDoors.MOD_ID, context, SpookyDoorsClient::initialize);
     }
 }
