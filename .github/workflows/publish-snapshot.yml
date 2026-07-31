@@ -2,16 +2,37 @@ name: publish-snapshot
 on:
   push:
     branches:
-      - '**'
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+'
 
 jobs:
+  prepare-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.result }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - name: Preparing matrix
+        id: set-matrix
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3
+        with:
+          script: |
+            const fs = require('fs');
+            const gradleProperties = fs.readFileSync('gradle.properties', 'utf8');
+            const includeFabric = gradleProperties.match(/^(?!#)include_fabric\s*=\s*true/m);
+            const includeForge = gradleProperties.match(/^(?!#)include_forge\s*=\s*true/m);
+            const includeNeoForge = gradleProperties.match(/^(?!#)include_neoforge\s*=\s*true/m);
+            const mavenSnapshots = gradleProperties.match(/^(?!#)maven_snapshots\s*=\s*(.+)/m);
+            return {
+              loader: ['common', includeFabric ? 'fabric' : false, includeForge ? 'forge' : false, includeNeoForge ? 'neoforge' : false].filter(Boolean),
+              task: [mavenSnapshots ? 'publish' : 'build']
+            };
   publish-snapshot:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
+    environment: Snapshots
     strategy:
-      matrix:
-        loader: [common, fabric, forge, neoforge]
+      matrix: ${{fromJson(needs.prepare-matrix.outputs.matrix)}}
       fail-fast: false
     steps:
       - name: Checkout repository
@@ -27,7 +48,7 @@ jobs:
         run: chmod +x ./gradlew
       - name: Extracting version from properties
         shell: bash
-        run: echo "version=$(cat gradle.properties | grep -w "\bversion" | cut -d= -f2)" >> $GITHUB_OUTPUT
+        run: echo "version=$(cat gradle.properties | grep -w "\bversion\s*=" | cut -d= -f2)" >> $GITHUB_OUTPUT
         id: extract-version
       - name: Bumping version
         uses: TwelveIterations/bump-version@86901cde5897b550e2e98fbe8962afc401c23c8f
@@ -36,4 +57,5 @@ jobs:
           bump: patch
         id: bump-version
       - name: Publish
-        run: ./gradlew :${{ matrix.loader }}:publish '-Pversion=${{ steps.bump-version.outputs.version }}-SNAPSHOT' '-PtwelveIterationsNexusUsername=${{ secrets.NEXUS_USER }}' '-PtwelveIterationsNexusPassword=${{ secrets.NEXUS_PASSWORD }}'
+        run: ./gradlew :${{ matrix.loader }}:${{ matrix.task }} '-Pversion=${{ steps.bump-version.outputs.version }}-SNAPSHOT' '-PmavenUsername=${{ secrets.MAVEN_USER }}' '-PmavenPassword=${{ secrets.MAVEN_PASSWORD }}'
+    needs: prepare-matrix
