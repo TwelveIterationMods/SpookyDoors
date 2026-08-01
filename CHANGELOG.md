@@ -1,3 +1,7 @@
+- Hotfixed crash when mods adding custom WoodTypes are installed
+
+---
+
 This is a full rewrite of the mod and will change how it behaves in existing worlds.
 
 - All doors are now spooky by default
