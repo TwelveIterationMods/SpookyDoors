@@ -1,13 +1,18 @@
 package net.blay09.mods.spookydoors.util;
 
+import net.blay09.mods.spookydoors.block.ModBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class SpookyDoorUtils {
+    public static boolean isSupportedDoor(BlockState state) {
+        return state.is(ModBlockTags.DOORS) && !state.is(ModBlockTags.EXCLUDED_DOORS);
+    }
+
     public static boolean canOperate(BlockState state) {
-        return state.getBlock() instanceof DoorBlock doorBlock && doorBlock.type().canOpenByHand();
+        return isSupportedDoor(state) && state.getBlock() instanceof DoorBlock doorBlock && doorBlock.type().canOpenByHand();
     }
 
     public static BlockPos getBasePos(BlockPos pos, BlockState state) {

@@ -77,7 +77,7 @@ public final class SpookyDoorClientTracking implements SpookyDoorProvider {
         final var sections = chunk.getSections();
         for (var sectionIndex = 0; sectionIndex < sections.length; sectionIndex++) {
             final var section = sections[sectionIndex];
-            if (section == null || section.hasOnlyAir() || !section.maybeHas(state -> state.getBlock() instanceof DoorBlock)) {
+            if (section == null || section.hasOnlyAir() || !section.maybeHas(SpookyDoorUtils::isSupportedDoor)) {
                 continue;
             }
 
@@ -86,7 +86,9 @@ public final class SpookyDoorClientTracking implements SpookyDoorProvider {
                 for (var localZ = 0; localZ < 16; localZ++) {
                     for (var localX = 0; localX < 16; localX++) {
                         final var state = section.getBlockState(localX, localY, localZ);
-                        if (state.getBlock() instanceof DoorBlock && state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER) {
+                        if (SpookyDoorUtils.isSupportedDoor(state)
+                                && state.hasProperty(DoorBlock.HALF)
+                                && state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER) {
                             final var pos = new BlockPos(minX + localX, minY + localY, minZ + localZ);
                             get(level).of(pos, state);
                         }

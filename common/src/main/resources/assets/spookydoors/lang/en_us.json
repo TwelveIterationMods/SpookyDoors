@@ -1,5 +1,5 @@
 {
-  "commands.spookydoors.not_door": "Block at %s is not a door.",
+  "commands.spookydoors.not_door": "Block at %s is not a supported door.",
   "commands.spookydoors.set": "Door spooky state set to %s.",
   "commands.spookydoors.set_forced": "Door spooky state set to %s. FORCED config currently ignores this state.",
   "commands.spookydoors.state.off": "off",

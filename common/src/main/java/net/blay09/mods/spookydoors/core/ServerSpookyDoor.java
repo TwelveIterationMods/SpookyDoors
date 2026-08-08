@@ -57,7 +57,7 @@ public record ServerSpookyDoor(ServerLevel level, SpookyDoorSavedData savedData,
 
     private void updateBlockState(boolean open) {
         final var state = state();
-        if (state.getBlock() instanceof DoorBlock && state.getValue(DoorBlock.OPEN) != open) {
+        if (state.hasProperty(DoorBlock.OPEN) && state.getValue(DoorBlock.OPEN) != open) {
             level.setBlock(pos, state.setValue(DoorBlock.OPEN, open), 10);
         }
     }
