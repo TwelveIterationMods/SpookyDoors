@@ -7,8 +7,8 @@ import net.blay09.mods.balm.client.BalmClientRegistrars;
 import net.blay09.mods.balm.client.platform.event.callback.ClientTickCallback;
 import net.blay09.mods.balm.client.platform.event.callback.RenderCallback;
 import net.blay09.mods.balm.platform.event.callback.LevelCallback;
-import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.SpookyDoors;
+import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.client.render.SpookyDoorRenderer;
 import net.blay09.mods.spookydoors.core.ClientSpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoor;
@@ -73,6 +73,10 @@ public class SpookyDoorsClient {
     public static boolean onMoveMouse(long windowPointer, double x, double y) {
         if (activeDoor != null && isDragging) {
             final var state = activeDoor.state();
+            if (!state.hasProperty(DoorBlock.FACING) || !state.hasProperty(DoorBlock.HINGE)) {
+                return false;
+            }
+
             final var facing = state.getValue(DoorBlock.FACING);
             final var hinge = state.getValue(DoorBlock.HINGE);
             var openness = activeDoor.percentOpen();
@@ -135,7 +139,11 @@ public class SpookyDoorsClient {
 
         final var pos = hitResult.getBlockPos();
         final var state = level.getBlockState(pos);
-        if (state.getBlock() instanceof DoorBlock) {
+        if (!state.hasProperty(DoorBlock.FACING) || !state.hasProperty(DoorBlock.HINGE)) {
+            return true;
+        }
+
+        if (SpookyDoorUtils.isSupportedDoor(state)) {
             if (level.getWorldBorder().isWithinBounds(pos)) {
                 final var cameraVec = camera.position();
                 final var cameraX = cameraVec.x();

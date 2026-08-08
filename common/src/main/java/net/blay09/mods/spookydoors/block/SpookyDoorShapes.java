@@ -26,8 +26,8 @@ public class SpookyDoorShapes {
     }
 
     public static DoorGeometry getDoorGeometry(BlockState state, boolean open) {
-        final var direction = state.getValue(DoorBlock.FACING);
-        final var rightHinge = state.getValue(DoorBlock.HINGE) == DoorHingeSide.RIGHT;
+        final var direction = state.hasProperty(DoorBlock.FACING) ? state.getValue(DoorBlock.FACING) : Direction.NORTH;
+        final var rightHinge = state.hasProperty(DoorBlock.HINGE) && state.getValue(DoorBlock.HINGE) == DoorHingeSide.RIGHT;
         return switch (direction) {
             case EAST -> !open ? EAST_SHAPE : rightHinge ? NORTH_SHAPE : SOUTH_SHAPE;
             case SOUTH -> !open ? SOUTH_SHAPE : rightHinge ? EAST_SHAPE : WEST_SHAPE;
@@ -39,8 +39,8 @@ public class SpookyDoorShapes {
 
     private static VoxelShape getRotatedShape(BlockState state, float openness) {
         final var segments = 8;
-        final var facing = state.getValue(DoorBlock.FACING);
-        final var hinge = state.getValue(DoorBlock.HINGE);
+        final var facing = state.hasProperty(DoorBlock.FACING) ? state.getValue(DoorBlock.FACING) : Direction.NORTH;
+        final var hinge = state.hasProperty(DoorBlock.HINGE) ? state.getValue(DoorBlock.HINGE) : DoorHingeSide.LEFT;
         final var angle = openness * Math.PI / 2 * (hinge == DoorHingeSide.LEFT ? 1 : -1);
         final var pivot = getPivot(facing, hinge);
         final var bounds = getDoorGeometry(state, false).bounds();
