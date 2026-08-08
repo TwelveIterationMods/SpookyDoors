@@ -1,3 +1,56 @@
 {
-  "values": []
+  "values": [
+    {
+      "id": "create:andesite_door",
+      "required": false
+    },
+    {
+      "id": "create:brass_door",
+      "required": false
+    },
+    {
+      "id": "create:copper_door",
+      "required": false
+    },
+    {
+      "id": "create:framed_glass_door",
+      "required": false
+    },
+    {
+      "id": "create:train_door",
+      "required": false
+    },
+    {
+      "id": "framedblocks:framed_door",
+      "required": false
+    },
+    {
+      "id": "framedblocks:framed_iron_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:sliding_glass_door",
+      "required": false
+    },
+    {
+      "id": "pneumaticcraft:pneumatic_door",
+      "required": false
+    },
+    {
+      "id": "twilightforest:blue_castle_door",
+      "required": false
+    },
+    {
+      "id": "twilightforest:pink_castle_door",
+      "required": false
+    },
+    {
+      "id": "twilightforest:violet_castle_door",
+      "required": false
+    },
+    {
+      "id": "twilightforest:yellow_castle_door",
+      "required": false
+    }
+  ]
 }

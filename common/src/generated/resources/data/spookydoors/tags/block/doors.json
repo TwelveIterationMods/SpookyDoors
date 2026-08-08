@@ -18,6 +18,3198 @@
     "minecraft:waxed_copper_door",
     "minecraft:waxed_exposed_copper_door",
     "minecraft:waxed_weathered_copper_door",
-    "minecraft:waxed_oxidized_copper_door"
+    "minecraft:waxed_oxidized_copper_door",
+    {
+      "id": "aether:skyroot_door",
+      "required": false
+    },
+    {
+      "id": "allthemodium:ancient_door",
+      "required": false
+    },
+    {
+      "id": "allthemodium:demonic_door",
+      "required": false
+    },
+    {
+      "id": "allthemodium:soul_door",
+      "required": false
+    },
+    {
+      "id": "ars_additions:polished_sourcestone_door",
+      "required": false
+    },
+    {
+      "id": "ars_additions:sourcestone_door",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:archwood_door",
+      "required": false
+    },
+    {
+      "id": "bellsandwhistles:folding_metro_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:aspen_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:baobab_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:blue_enchanted_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:cika_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:cypress_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:ebony_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:fir_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:florus_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:green_enchanted_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:holly_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:ironwood_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:jacaranda_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:mahogany_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:maple_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:palm_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:pine_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:rainbow_eucalyptus_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:redwood_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:sakura_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:skyris_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:spirit_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:white_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:willow_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:witch_hazel_door",
+      "required": false
+    },
+    {
+      "id": "biomeswevegone:zelkova_door",
+      "required": false
+    },
+    {
+      "id": "chipped:barred_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:barred_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:barred_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:barred_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:barred_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:barred_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:barred_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:barred_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:barred_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:barred_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:beach_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:beach_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:beach_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:beach_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:beach_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:beach_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:beach_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:beach_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:beach_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:beach_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:boarded_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:boarded_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:boarded_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:boarded_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:boarded_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:boarded_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:boarded_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:boarded_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:boarded_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:boarded_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:dual_paneled_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:dual_paneled_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:dual_paneled_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:dual_paneled_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:dual_paneled_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:dual_paneled_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:dual_paneled_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:dual_paneled_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:dual_paneled_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:dual_paneled_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:dual_paneled_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:fortified_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:fortified_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:fortified_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:fortified_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:fortified_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:fortified_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:fortified_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:fortified_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:fortified_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:fortified_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:fortified_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:gated_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:gated_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:gated_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:gated_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:gated_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:gated_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:gated_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:gated_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:gated_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:gated_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:gated_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:glass_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:glass_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:glass_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:glass_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:glass_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:glass_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:glass_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:glass_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:glass_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:glass_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:glass_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:heavy_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:heavy_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:heavy_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:heavy_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:heavy_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:heavy_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:heavy_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:heavy_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:heavy_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:heavy_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:heavy_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:overgrown_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:overgrown_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:overgrown_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:overgrown_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:overgrown_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:overgrown_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:overgrown_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:overgrown_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:overgrown_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:overgrown_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paneled_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paneled_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paneled_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paneled_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paneled_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paneled_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paneled_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paneled_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paneled_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paneled_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paper_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paper_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paper_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paper_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paper_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paper_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paper_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paper_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paper_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:paper_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:pressed_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:pressed_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:pressed_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:pressed_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:pressed_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:pressed_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:pressed_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:pressed_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:pressed_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:pressed_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:pressed_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:screen_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:screen_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:screen_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:screen_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:screen_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:screen_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:screen_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:screen_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:screen_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:screen_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:secret_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:secret_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:secret_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:secret_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:secret_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:secret_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:secret_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:secret_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:secret_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:secret_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:secret_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:shack_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:shack_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:shack_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:shack_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:shack_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:shack_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:shack_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:shack_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:shack_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:shack_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:supported_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:supported_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:supported_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:supported_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:supported_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:supported_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:supported_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:supported_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:supported_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:supported_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tile_windowed_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tile_windowed_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tile_windowed_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tile_windowed_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tile_windowed_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tile_windowed_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tile_windowed_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tile_windowed_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tile_windowed_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tile_windowed_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tile_windowed_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tiled_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tiled_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tiled_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tiled_cherry_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tiled_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tiled_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tiled_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tiled_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tiled_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:tiled_warped_door",
+      "required": false
+    },
+    {
+      "id": "chipped:windowed_acacia_door",
+      "required": false
+    },
+    {
+      "id": "chipped:windowed_birch_door",
+      "required": false
+    },
+    {
+      "id": "chipped:windowed_crimson_door",
+      "required": false
+    },
+    {
+      "id": "chipped:windowed_dark_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:windowed_jungle_door",
+      "required": false
+    },
+    {
+      "id": "chipped:windowed_mangrove_door",
+      "required": false
+    },
+    {
+      "id": "chipped:windowed_oak_door",
+      "required": false
+    },
+    {
+      "id": "chipped:windowed_spruce_door",
+      "required": false
+    },
+    {
+      "id": "chipped:windowed_warped_door",
+      "required": false
+    },
+    {
+      "id": "deeperdarker:bloom_door",
+      "required": false
+    },
+    {
+      "id": "deeperdarker:echo_door",
+      "required": false
+    },
+    {
+      "id": "domum_ornamentum:fancy_door",
+      "required": false
+    },
+    {
+      "id": "enderio:dark_steel_door",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:banyin_door",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:cradlewood_door",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:jinglestem_door",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:lunar_door",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:northland_door",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:scarlet_door",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:torreya_door",
+      "required": false
+    },
+    {
+      "id": "forbidden_arcanus:arcane_edelwood_door",
+      "required": false
+    },
+    {
+      "id": "forbidden_arcanus:aurum_door",
+      "required": false
+    },
+    {
+      "id": "forbidden_arcanus:deorum_door",
+      "required": false
+    },
+    {
+      "id": "forbidden_arcanus:edelwood_door",
+      "required": false
+    },
+    {
+      "id": "forbidden_arcanus:fungyss_door",
+      "required": false
+    },
+    {
+      "id": "glassential:acacia_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:bamboo_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:birch_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:black_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:blue_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:brown_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:cherry_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:crimson_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:cyan_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:dark_ethereal_door",
+      "required": false
+    },
+    {
+      "id": "glassential:dark_ethereal_reverse_door",
+      "required": false
+    },
+    {
+      "id": "glassential:dark_oak_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:ethereal_door",
+      "required": false
+    },
+    {
+      "id": "glassential:ethereal_reverse_door",
+      "required": false
+    },
+    {
+      "id": "glassential:ghostly_door",
+      "required": false
+    },
+    {
+      "id": "glassential:glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:gray_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:green_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:iron_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:jungle_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:light_blue_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:light_door",
+      "required": false
+    },
+    {
+      "id": "glassential:light_gray_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:lime_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:magenta_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:mangrove_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:oak_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:obsidian_door",
+      "required": false
+    },
+    {
+      "id": "glassential:orange_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:pink_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:purple_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:red_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:redstone_door",
+      "required": false
+    },
+    {
+      "id": "glassential:spruce_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:tinted_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:warped_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:white_glass_door",
+      "required": false
+    },
+    {
+      "id": "glassential:yellow_glass_door",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:steel_door",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:treated_door",
+      "required": false
+    },
+    {
+      "id": "integrateddynamics:menril_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_barn_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_barn_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_beach_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_classic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_cottage_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_four_panel_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_japanese2_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_japanese_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_modern_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_mystic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_nether_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_paper_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_stable_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_stable_head_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_swamp_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_waffle_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_western_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:acacia_whispering_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_barn_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_barn_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_beach_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_classic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_cottage_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_four_panel_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_japanese2_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_japanese_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_modern_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_mystic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_nether_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_paper_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_stable_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_stable_head_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_swamp_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_tropical_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_waffle_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_western_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:bamboo_whispering_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_barn_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_barn_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_beach_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_classic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_cottage_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_four_panel_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_japanese2_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_japanese_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_modern_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_mystic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_nether_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_stable_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_stable_head_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_swamp_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_tropical_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_waffle_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_western_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:birch_whispering_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_barn_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_barn_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_beach_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_classic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_cottage_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_four_panel_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_japanese2_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_japanese_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_modern_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_mystic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_nether_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_paper_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_stable_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_stable_head_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_swamp_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_tropical_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_waffle_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_western_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:cherry_whispering_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_barn_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_barn_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_beach_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_classic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_cottage_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_four_panel_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_japanese2_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_japanese_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_modern_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_mystic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_paper_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_stable_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_stable_head_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_swamp_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_tropical_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_waffle_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_western_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:crimson_whispering_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_barn_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_barn_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_beach_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_classic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_cottage_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_japanese2_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_japanese_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_modern_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_mystic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_nether_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_paper_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_stable_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_stable_head_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_swamp_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_tropical_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_waffle_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_western_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:dark_oak_whispering_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jail_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_barn_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_barn_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_classic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_cottage_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_four_panel_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_japanese2_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_japanese_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_modern_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_mystic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_nether_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_paper_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_stable_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_stable_head_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_swamp_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_tropical_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_waffle_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_western_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:jungle_whispering_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_barn_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_barn_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_beach_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_classic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_cottage_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_four_panel_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_japanese2_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_japanese_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_modern_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_mystic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_nether_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_paper_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_stable_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_stable_head_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_tropical_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_waffle_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_western_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:mangrove_whispering_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:metal_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:metal_hospital_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:metal_reinforced_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:metal_warning_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:metal_windowed_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_barn_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_barn_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_beach_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_cottage_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_four_panel_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_japanese2_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_japanese_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_modern_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_mystic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_nether_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_paper_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_stable_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_stable_head_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_swamp_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_tropical_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_waffle_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_western_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:oak_whispering_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_barn_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_barn_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_beach_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_classic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_four_panel_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_japanese2_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_japanese_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_modern_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_mystic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_nether_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_paper_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_stable_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_stable_head_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_swamp_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_tropical_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_waffle_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_western_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:spruce_whispering_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:store_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_bamboo_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_barn_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_barn_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_beach_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_classic_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_cottage_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_four_panel_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_glass_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_japanese2_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_japanese_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_modern_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_nether_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_paper_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_stable_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_stable_head_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_swamp_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_tropical_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_waffle_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_western_door",
+      "required": false
+    },
+    {
+      "id": "mcwdoors:warped_whispering_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:acacia_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:acacia_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:acacia_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:acacia_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:acacia_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:aged_pine_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:aged_pine_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:aged_pine_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:aged_pine_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:aged_pine_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:bamboo_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:bamboo_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:bamboo_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:bamboo_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:bamboo_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:birch_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:birch_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:birch_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:birch_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:birch_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:cherry_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:cherry_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:cherry_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:cherry_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:cherry_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:crimson_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:crimson_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:crimson_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:crimson_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:crimson_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:dark_oak_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:dark_oak_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:dark_oak_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:dark_oak_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:dark_oak_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:exposed_pine_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:exposed_pine_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:exposed_pine_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:exposed_pine_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:exposed_pine_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:iron_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:iron_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:iron_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:iron_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:iron_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:jungle_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:jungle_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:jungle_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:jungle_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:jungle_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:mangrove_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:mangrove_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:mangrove_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:mangrove_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:mangrove_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:oak_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:oak_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:oak_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:oak_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:oak_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:pine_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:pine_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:pine_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:pine_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:pine_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:spruce_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:spruce_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:spruce_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:spruce_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:spruce_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:warped_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:warped_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:warped_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:warped_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:warped_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:weathered_pine_lit_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:weathered_pine_lit_wreath_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:weathered_pine_wreath_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:weathered_pine_wreath_lights_multi_door",
+      "required": false
+    },
+    {
+      "id": "merrymaking:weathered_pine_wreath_lights_white_door",
+      "required": false
+    },
+    {
+      "id": "occultism:otherplanks_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:alder_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:allspice_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:almond_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:apricot_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:aquilaria_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:asai_palm_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:ash_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:aspen_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:avocado_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:balsa_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:balsam_fir_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:banana_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:bay_leaf_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:beech_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:beliy_naliv_apple_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:black_cherry_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:black_ember_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:black_locust_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:blackthorn_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:blue_mahoe_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:blue_yonder_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:boxwood_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:brazil_nut_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:brazilwood_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:breadfruit_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:brown_amber_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:buddhas_hand_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:bull_pine_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:butternut_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:cacao_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:candlenut_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:carob_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:cashew_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:cave_dweller_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:cedar_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:cempedak_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:ceylon_ebony_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:cherry_plum_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:cinnamon_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:citron_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:clove_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:cocobolo_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:coconut_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:coffea_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:copoazu_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:copper_beech_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:cork_oak_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:cultivated_pear_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:date_palm_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:dogwood_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:douglas_fir_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:elderberry_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:elm_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:european_larch_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:finger_lime_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:firecracker_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:flickering_sun_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:flowering_crabapple_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:foggy_blast_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:ginkgo_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:golden_delicious_apple_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:grandidiers_baobab_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:granny_smith_apple_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:grapefruit_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:great_sallow_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:greenheart_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:hawthorn_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:hazel_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:holly_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:hornbeam_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:ipe_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:iroko_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:jackfruit_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:juniper_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:kapok_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:key_lime_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:kumquat_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:lawson_cypress_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:lemon_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:lime_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:loblolly_pine_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:logwood_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:mahogany_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:mandarin_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:mango_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:monkey_puzzle_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:moonlight_magic_crepe_myrtle_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:myrtle_ebony_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:nectarine_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:night_fuchsia_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:nutmeg_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:old_fustic_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:olive_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:orange_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:osage_orange_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:padauk_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:pandanus_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:papaya_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:peach_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:pecan_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:persimmon_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:pink_ipe_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:pink_ivory_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:pistachio_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:plantain_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:plum_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:pomegranate_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:pomelo_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:prairie_crabapple_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:purple_blackthorn_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:purple_crepe_myrtle_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:purple_ipe_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:purple_spiral_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:purpleheart_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:rainbow_gum_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:red_banana_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:red_crepe_myrtle_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:red_delicious_apple_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:red_maple_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:rippling_willow_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:rose_gum_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:rosewood_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:rowan_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:rubber_tree_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:salak_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:sand_pear_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:sandalwood_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:satsuma_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:sequoia_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:silver_fir_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:silver_lime_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:slimy_delight_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:socotra_dragon_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:soul_tree_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:sour_cherry_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:soursop_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:sparkle_cherry_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:star_anise_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:star_fruit_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:sugar_apple_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:sugar_maple_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:swamp_gum_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:sweet_chestnut_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:sweet_crabapple_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:sweetgum_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:sycamore_fig_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:tangerine_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:teak_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:thunder_bolt_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:time_traveller_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:tuscarora_crepe_myrtle_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:walnut_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:water_wonder_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:wenge_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:western_hemlock_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:white_ipe_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:white_poplar_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:white_willow_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:whitebeam_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:wild_cherry_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:yellow_meranti_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:yew_door",
+      "required": false
+    },
+    {
+      "id": "productivetrees:zebrano_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:baobab_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:blackwood_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:blue_bioshroom_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:brimwood_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:cobalt_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:cypress_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:dead_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:eucalyptus_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:green_bioshroom_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:joshua_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:kapok_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:larch_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:magnolia_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:maple_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:mauve_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:palm_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:pine_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:pink_bioshroom_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:redwood_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:socotra_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:willow_door",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:yellow_bioshroom_door",
+      "required": false
+    },
+    {
+      "id": "securitycraft:keypad_door",
+      "required": false
+    },
+    {
+      "id": "securitycraft:scanner_door",
+      "required": false
+    },
+    {
+      "id": "silentgear:netherwood_door",
+      "required": false
+    },
+    {
+      "id": "supplementaries:gold_door",
+      "required": false
+    },
+    {
+      "id": "supplementaries:netherite_door",
+      "required": false
+    },
+    {
+      "id": "twilightforest:canopy_door",
+      "required": false
+    },
+    {
+      "id": "twilightforest:dark_door",
+      "required": false
+    },
+    {
+      "id": "twilightforest:mangrove_door",
+      "required": false
+    },
+    {
+      "id": "twilightforest:mining_door",
+      "required": false
+    },
+    {
+      "id": "twilightforest:sorting_door",
+      "required": false
+    },
+    {
+      "id": "twilightforest:time_door",
+      "required": false
+    },
+    {
+      "id": "twilightforest:transformation_door",
+      "required": false
+    },
+    {
+      "id": "twilightforest:twilight_oak_door",
+      "required": false
+    },
+    {
+      "id": "undergarden:ancient_root_door",
+      "required": false
+    },
+    {
+      "id": "undergarden:grongle_door",
+      "required": false
+    },
+    {
+      "id": "undergarden:smogstem_door",
+      "required": false
+    },
+    {
+      "id": "undergarden:wigglewood_door",
+      "required": false
+    }
   ]
 }
