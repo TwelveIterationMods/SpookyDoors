@@ -17,7 +17,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.Nullable;
@@ -144,7 +143,7 @@ public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider
             }
 
             final var state = level.getBlockState(pos);
-            if (state.getBlock() instanceof DoorBlock) {
+            if (SpookyDoorUtils.isSupportedDoor(state)) {
                 final var door = new ServerSpookyDoor(level, this, pos);
                 Balm.getNetworking().sendTo(player, new ClientboundDoorStatePacket(pos, door.percentOpen(), door.spooky()));
             }

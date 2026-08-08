@@ -3,12 +3,12 @@ package net.blay09.mods.spookydoors.network;
 import net.blay09.mods.spookydoors.SpookyDoors;
 import net.blay09.mods.spookydoors.core.ClientSpookyDoor;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
+import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.DoorBlock;
 
 public record ClientboundDoorStatePacket(BlockPos pos, float openness, boolean spooky) implements CustomPacketPayload {
 
@@ -31,7 +31,7 @@ public record ClientboundDoorStatePacket(BlockPos pos, float openness, boolean s
     public static void handle(Player player, ClientboundDoorStatePacket message) {
         final var level = player.level();
         final var state = level.getBlockState(message.pos);
-        if (state.getBlock() instanceof DoorBlock) {
+        if (SpookyDoorUtils.isSupportedDoor(state)) {
             final var door = SpookyDoorProvider.get(level).of(message.pos, state);
             door.spooky(message.spooky);
             final var isLocallyControlled = door instanceof ClientSpookyDoor clientSpookyDoor && clientSpookyDoor.locallyControlled();

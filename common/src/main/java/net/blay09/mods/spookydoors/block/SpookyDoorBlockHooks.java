@@ -33,7 +33,7 @@ public class SpookyDoorBlockHooks {
 
     @Nullable
     public static RenderShape getRenderShape(BlockState state) {
-        return isDoor(state) ? RenderShape.INVISIBLE : null;
+        return SpookyDoorUtils.isSupportedDoor(state) ? RenderShape.INVISIBLE : null;
     }
 
     @Nullable
@@ -77,6 +77,10 @@ public class SpookyDoorBlockHooks {
             return;
         }
 
+        if (!state.hasProperty(DoorBlock.FACING)) {
+            return;
+        }
+
         final var facing = state.getValue(DoorBlock.FACING);
         final var door = SpookyDoorProvider.get(level).of(pos, state);
         var percentOpen = door.percentOpen();
@@ -104,7 +108,7 @@ public class SpookyDoorBlockHooks {
     }
 
     public static void onPlace(BlockState state, Level level, BlockPos pos, BlockState previousState) {
-        if (!isDoor(state)) {
+        if (!SpookyDoorUtils.isSupportedDoor(state)) {
             return;
         }
 
@@ -114,21 +118,21 @@ public class SpookyDoorBlockHooks {
             return;
         }
 
-        door.percentOpen(state.getValue(DoorBlock.OPEN) ? 1f : 0f);
+        door.percentOpen(state.getOptionalValue(DoorBlock.OPEN).orElse(false) ? 1f : 0f);
         if (door instanceof ServerSpookyDoor serverSpookyDoor) {
             serverSpookyDoor.syncToClients();
         }
     }
 
     public static void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState) {
-        if (isDoor(state) && !state.is(newState.getBlock())) {
+        if (SpookyDoorUtils.isSupportedDoor(state) && !state.is(newState.getBlock())) {
             SpookyDoorProvider.get(level).remove(pos, state);
         }
     }
 
     @Nullable
     public static InteractionResult useItemOn(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
-        if (!isDoor(state)) {
+        if (!SpookyDoorUtils.isSupportedDoor(state)) {
             return null;
         }
 
@@ -150,7 +154,7 @@ public class SpookyDoorBlockHooks {
             return null;
         }
 
-        final var targetOpen = !state.getValue(DoorBlock.OPEN);
+        final var targetOpen = !state.getOptionalValue(DoorBlock.OPEN).orElse(false);
         final var door = SpookyDoorProvider.get(level).of(pos, state);
         door.operate(player, targetOpen ? 1f : 0f);
         level.gameEvent(player, targetOpen ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
@@ -159,7 +163,7 @@ public class SpookyDoorBlockHooks {
 
     @Nullable
     public static InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult blockHitResult) {
-        if (!isDoor(state)) {
+        if (!SpookyDoorUtils.isSupportedDoor(state)) {
             return null;
         }
 
@@ -167,7 +171,7 @@ public class SpookyDoorBlockHooks {
             return null;
         }
 
-        final var targetOpen = !state.getValue(DoorBlock.OPEN);
+        final var targetOpen = !state.getOptionalValue(DoorBlock.OPEN).orElse(false);
         final var door = SpookyDoorProvider.get(level).of(pos, state);
         door.operate(player, targetOpen ? 1f : 0f);
         level.gameEvent(player, targetOpen ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
@@ -247,7 +251,7 @@ public class SpookyDoorBlockHooks {
     }
 
     public static void setOpen(DoorBlock doorBlock, Level level, BlockState state, BlockPos pos, boolean open) {
-        if (state.is(doorBlock) && isSpookyDoor(state, level, pos) && state.getValue(DoorBlock.OPEN) != open) {
+        if (state.is(doorBlock) && isSpookyDoor(state, level, pos) && state.getOptionalValue(DoorBlock.OPEN).orElse(false) != open) {
             final var openness = open ? 1f : 0f;
             final var door = SpookyDoorProvider.get(level).of(pos, state);
             door.percentOpen(openness);
@@ -263,8 +267,8 @@ public class SpookyDoorBlockHooks {
             return;
         }
 
-        final var wasOpen = previousState.getValue(DoorBlock.OPEN);
-        final var isOpen = state.getValue(DoorBlock.OPEN);
+        final var wasOpen = previousState.getOptionalValue(DoorBlock.OPEN).orElse(false);
+        final var isOpen = state.getOptionalValue(DoorBlock.OPEN).orElse(false);
         if (wasOpen == isOpen) {
             return;
         }
@@ -276,11 +280,7 @@ public class SpookyDoorBlockHooks {
         }
     }
 
-    private static boolean isDoor(BlockState state) {
-        return state.getBlock() instanceof DoorBlock;
-    }
-
     public static boolean isSpookyDoor(BlockState state, Level level, BlockPos pos) {
-        return isDoor(state) && SpookyDoorProvider.get(level).of(pos, state).spooky();
+        return SpookyDoorUtils.isSupportedDoor(state) && SpookyDoorProvider.get(level).of(pos, state).spooky();
     }
 }

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.blay09.mods.spookydoors.block.SpookyDoorShapes;
 import net.blay09.mods.spookydoors.client.SpookyDoorClientTracking;
 import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
+import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
@@ -34,7 +35,7 @@ public class SpookyDoorRenderer {
         final var blockRenderDispatcher = Minecraft.getInstance().getBlockRenderer();
         for (final var basePos : SpookyDoorClientTracking.get(level).doorPositions()) {
             final var baseState = level.getBlockState(basePos);
-            if (!(baseState.getBlock() instanceof DoorBlock)) {
+            if (!SpookyDoorUtils.isSupportedDoor(baseState)) {
                 continue;
             }
 
@@ -42,13 +43,19 @@ public class SpookyDoorRenderer {
 
             final var upperPos = basePos.above();
             final var upperState = level.getBlockState(upperPos);
-            if (upperState.getBlock() instanceof DoorBlock && upperState.getValue(DoorBlock.HALF) == DoubleBlockHalf.UPPER) {
+            if (SpookyDoorUtils.isSupportedDoor(upperState)
+                    && upperState.hasProperty(DoorBlock.HALF)
+                    && upperState.getValue(DoorBlock.HALF) == DoubleBlockHalf.UPPER) {
                 renderDoorHalf(level, blockRenderDispatcher, poseStack, bufferSource, cameraPosition, upperPos, upperState, basePos);
             }
         }
     }
 
     private static void renderDoorHalf(Level level, BlockRenderDispatcher blockRenderDispatcher, PoseStack poseStack, MultiBufferSource bufferSource, Vec3 cameraPosition, BlockPos pos, BlockState state, BlockPos basePos) {
+        if (!state.hasProperty(DoorBlock.OPEN) || !state.hasProperty(DoorBlock.FACING) || !state.hasProperty(DoorBlock.HINGE)) {
+            return;
+        }
+
         final var openness = SpookyDoorProvider.get(level).at(basePos).percentOpen();
         final var stateForRender = state.setValue(DoorBlock.OPEN, false);
         final var vertexConsumer = bufferSource.getBuffer(RenderType.cutout());
