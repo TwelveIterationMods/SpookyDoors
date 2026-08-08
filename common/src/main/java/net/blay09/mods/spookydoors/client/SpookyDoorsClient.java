@@ -72,6 +72,10 @@ public class SpookyDoorsClient {
     public static boolean onMoveMouse(long windowPointer, double x, double y) {
         if (activeDoor != null && isDragging) {
             final var state = activeDoor.state();
+            if (!state.hasProperty(DoorBlock.FACING) || !state.hasProperty(DoorBlock.HINGE)) {
+                return false;
+            }
+
             final var facing = state.getValue(DoorBlock.FACING);
             final var hinge = state.getValue(DoorBlock.HINGE);
             var openness = activeDoor.percentOpen();
@@ -139,8 +143,8 @@ public class SpookyDoorsClient {
 
         final var pos = blockOutlineRenderState.pos();
         final var state = level.getBlockState(pos);
-        if (!(state.getBlock() instanceof DoorBlock)) {
-            return false;
+        if (!state.hasProperty(DoorBlock.FACING) || !state.hasProperty(DoorBlock.HINGE)) {
+            return true;
         }
 
         final var cameraPos = levelRenderState.cameraRenderState.pos;

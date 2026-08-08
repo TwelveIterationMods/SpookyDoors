@@ -8,6 +8,7 @@ import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.core.ServerSpookyDoor;
 import net.blay09.mods.spookydoors.level.SpookyDoorSavedData;
 import net.blay09.mods.spookydoors.network.ClientboundDoorStatePacket;
+import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -16,7 +17,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.Permissions;
-import net.minecraft.world.level.block.DoorBlock;
 
 import static net.blay09.mods.spookydoors.SpookyDoors.id;
 
@@ -43,7 +43,7 @@ public class SpookyDoorsCommand {
     private static int toggleDoorSpooky(CommandSourceStack source, BlockPos pos) {
         final var level = source.getLevel();
         final var state = level.getBlockState(pos);
-        if (!(state.getBlock() instanceof DoorBlock)) {
+        if (!SpookyDoorUtils.isSupportedDoor(state)) {
             source.sendFailure(Component.translatable("commands.spookydoors.not_door", pos.toShortString()));
             return 0;
         }
@@ -57,7 +57,7 @@ public class SpookyDoorsCommand {
     private static int setDoorSpooky(CommandSourceStack source, BlockPos pos, boolean newActive) {
         final var level = source.getLevel();
         final var state = level.getBlockState(pos);
-        if (!(state.getBlock() instanceof DoorBlock)) {
+        if (!SpookyDoorUtils.isSupportedDoor(state)) {
             source.sendFailure(Component.translatable("commands.spookydoors.not_door", pos.toShortString()));
             return 0;
         }
