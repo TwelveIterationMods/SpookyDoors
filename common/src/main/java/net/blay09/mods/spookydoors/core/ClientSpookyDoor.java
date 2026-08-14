@@ -1,7 +1,6 @@
 package net.blay09.mods.spookydoors.core;
 
 import net.blay09.mods.balm.api.Balm;
-import net.blay09.mods.spookydoors.SpookyDoorsConfig;
 import net.blay09.mods.spookydoors.network.ServerboundOperateDoorPacket;
 import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.minecraft.core.BlockPos;
@@ -62,15 +61,7 @@ public class ClientSpookyDoor implements SpookyDoor {
 
     @Override
     public boolean spooky() {
-        if (SpookyDoorsConfig.getActive().spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.FORCED) {
-            return true;
-        }
-
-        if (spooky != null) {
-            return spooky;
-        }
-
-        return SpookyDoorsConfig.getActive().spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.DEFAULT;
+        return spooky != null && spooky;
     }
 
     @Override
