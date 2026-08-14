@@ -68,7 +68,7 @@ public class SpookyDoorsClient {
     public static boolean onMoveMouse(long windowPointer, double x, double y) {
         if (activeDoor != null && isDragging) {
             final var state = activeDoor.state();
-            if (!state.hasProperty(DoorBlock.HINGE) || !state.hasProperty(DoorBlock.HINGE)) {
+            if (!state.hasProperty(DoorBlock.FACING) || !state.hasProperty(DoorBlock.HINGE)) {
                 return false;
             }
 
@@ -146,7 +146,7 @@ public class SpookyDoorsClient {
 
         final var pos = event.getHitResult().getBlockPos();
         final var state = level.getBlockState(pos);
-        if (!state.hasProperty(DoorBlock.HINGE) || !state.hasProperty(DoorBlock.HINGE)) {
+        if (!state.hasProperty(DoorBlock.FACING) || !state.hasProperty(DoorBlock.HINGE)) {
             return;
         }
 

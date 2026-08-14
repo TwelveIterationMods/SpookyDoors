@@ -76,7 +76,7 @@ public class SpookyDoorBlockHooks {
             return;
         }
 
-        if (state.hasProperty(DoorBlock.FACING)) {
+        if (!state.hasProperty(DoorBlock.FACING)) {
             return;
         }
 
