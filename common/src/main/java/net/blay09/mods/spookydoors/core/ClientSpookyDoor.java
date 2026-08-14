@@ -62,15 +62,7 @@ public class ClientSpookyDoor implements SpookyDoor {
 
     @Override
     public boolean spooky() {
-        if (SpookyDoorsConfig.getActive().spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.FORCED) {
-            return true;
-        }
-
-        if (spooky != null) {
-            return spooky;
-        }
-
-        return SpookyDoorsConfig.getActive().spookyDoorActivation == SpookyDoorsConfig.SpookyDoorActivation.DEFAULT;
+        return spooky != null && spooky;
     }
 
     @Override
