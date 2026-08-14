@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoorBlock;
@@ -33,6 +34,7 @@ public class SpookyDoorsClient {
 
     private static final ResourceLocation UI_HINT_TEXTURE = SpookyDoors.id("textures/gui/door_ui_hint.png");
     private static final int UI_HINT_TICKS = 20;
+    private static final float CAMERA_DRAG_FACTOR = 0.2f;
 
     private static final int SYNC_INTERVAL = 1;
 
@@ -73,11 +75,13 @@ public class SpookyDoorsClient {
 
             final var facing = state.getValue(DoorBlock.FACING);
             final var hinge = state.getValue(DoorBlock.HINGE);
-            var openness = activeDoor.percentOpen();
-
-            double deltaX = x - lastMouseX;
-
+            final var rawDeltaX = x - lastMouseX;
+            double deltaX = rawDeltaX;
             final var player = Minecraft.getInstance().player;
+            if (player == null) {
+                return false;
+            }
+
             final var doorPos = activeDoor.pos();
 
             final double relativeX = player.getX() - doorPos.getX();
@@ -98,12 +102,17 @@ public class SpookyDoorsClient {
             deltaX = hinge == DoorHingeSide.LEFT ? -deltaX : deltaX;
 
             final double sensitivity = 0.005;
-            openness += (float) (deltaX * sensitivity);
-
             final var currentOpenness = activeDoor.percentOpen();
-            accumulatedOpennessChange += Math.abs(openness - currentOpenness);
+            final var openness = Mth.clamp(currentOpenness + (float) (deltaX * sensitivity), 0f, 1f);
+            final var opennessDelta = openness - currentOpenness;
+            accumulatedOpennessChange += Math.abs(opennessDelta);
             activeDoor.operate(player, openness);
-            isDirty = true;
+            if (opennessDelta != 0f) {
+                if (SpookyDoorsConfig.getActive().moveCameraWithDoor) {
+                    player.turn(rawDeltaX * CAMERA_DRAG_FACTOR, 0);
+                }
+                isDirty = true;
+            }
             lastMouseX = x;
 
             return true;
