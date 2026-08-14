@@ -1,4 +1,3 @@
-- Added `spookydoors:doors` and `spookydoors:excluded_doors` tags for better control over which doors are supported
-  - This should fix certain modded doors from being invisible
-  - However, in return, since those doors depend on their own custom rendering, they will not support being spooky
-  - By default, Vanilla doors and many modded doors are automatically included; others can be added to the tag manually *if* they don't depend on custom rendering
+- Added `moveCameraWithDoor` option (default: `true`) to move camera along with door slightly, avoiding immersion-breaking hard stops
+- Fixed desync due to client using its own spooky fallback instead of relying on server state
+- Fixed possible desync when door state arrives before chunk data is available
