@@ -44,7 +44,7 @@ public class ClientSpookyDoor implements SpookyDoor {
 
     @Override
     public float percentOpen() {
-        return percentOpen;
+        return spooky() ? percentOpen : SpookyDoorUtils.getDefaultOpenness(state());
     }
 
     @Override
