@@ -9,9 +9,11 @@
     "LevelMixin"
   ],
   "client": [
+    "client.KeyboardHandlerMixin",
     "client.MouseHandlerMixin",
     "client.ClientPacketListenerMixin",
-    "client.LevelRendererMixin"
+    "client.LevelRendererMixin",
+    "client.MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1
