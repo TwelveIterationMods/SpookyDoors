@@ -18,6 +18,7 @@ import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.input.MouseButtonInfo;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -47,6 +48,7 @@ public class SpookyDoorsClient {
 
     private static double lastMouseX;
     private static boolean isDragging;
+    private static int rightClickDelayAfterDragging;
     private static float accumulatedOpennessChange;
     private static SpookyDoor activeDoor;
     private static int ticksSinceLastSync;
@@ -199,6 +201,9 @@ public class SpookyDoorsClient {
         if (uiHintTicksLeft > 0) {
             uiHintTicksLeft--;
         }
+        if (rightClickDelayAfterDragging > 0) {
+            rightClickDelayAfterDragging--;
+        }
     }
 
     private static void syncActiveDoorIfDirty() {
@@ -208,53 +213,72 @@ public class SpookyDoorsClient {
         }
     }
 
-    public static boolean onMouseInput(int button, int action) {
-        final var minecraft = Minecraft.getInstance();
-        if (minecraft.options.keyUse.matchesMouse(new MouseButtonEvent(minecraft.mouseHandler.xpos(), minecraft.mouseHandler.ypos(), new MouseButtonInfo(button, 0)))) {
-            if (action == InputConstants.PRESS) {
-                final var hitResult = minecraft.hitResult;
-                if (hitResult != null && hitResult.getType() == HitResult.Type.BLOCK) {
-                    final var blockHitResult = ((BlockHitResult) hitResult);
-                    final var pos = blockHitResult.getBlockPos();
-                    final var level = minecraft.level;
-                    if (level != null) {
-                        final var state = level.getBlockState(pos);
-                        if (SpookyDoorUtils.canOperate(state)) {
-                            final var entity = minecraft.getCameraEntity();
-                            if (entity != null) {
-                                final var door = SpookyDoorProvider.get(level).of(pos, state);
-                                if (door.spooky()) {
-                                    if (shouldBypassDragging(minecraft, door)) {
-                                        return false;
-                                    }
+    public static boolean captureUseKey() {
+        if (isDragging) {
+            rightClickDelayAfterDragging = 4;
+        }
+        // Prevent use key from interacting with the door while dragging
+        //noinspection StatementWithEmptyBody
+        while ((isDragging || rightClickDelayAfterDragging > 0) && Minecraft.getInstance().options.keyUse.consumeClick()) {
+        }
+        // We also set a rightClickDelay as part of the Mixin, so return true if dragging
+        return isDragging;
+    }
 
-                                    lastMouseX = minecraft.mouseHandler.xpos();
-                                    activeDoor = door;
-                                    if (activeDoor instanceof ClientSpookyDoor clientSpookyDoor) {
-                                        clientSpookyDoor.locallyControlled(true);
-                                    }
-                                    isDragging = true;
-                                    return true;
+    public static boolean onKeyPress(int action, KeyEvent event) {
+        return Minecraft.getInstance().options.keyUse.matches(event) && handleUseInput(action);
+    }
+
+    public static boolean onMouseInput(int button, int action) {
+        final Minecraft minecraft = Minecraft.getInstance();
+        return minecraft.options.keyUse.matchesMouse(new MouseButtonEvent(minecraft.mouseHandler.xpos(), minecraft.mouseHandler.ypos(), new MouseButtonInfo(button, 0))) && handleUseInput(action);
+    }
+
+    public static boolean handleUseInput(int action) {
+        final var minecraft = Minecraft.getInstance();
+        if (action == InputConstants.PRESS) {
+            final var hitResult = minecraft.hitResult;
+            if (hitResult != null && hitResult.getType() == HitResult.Type.BLOCK) {
+                final var blockHitResult = ((BlockHitResult) hitResult);
+                final var pos = blockHitResult.getBlockPos();
+                final var level = minecraft.level;
+                if (level != null) {
+                    final var state = level.getBlockState(pos);
+                    if (SpookyDoorUtils.canOperate(state)) {
+                        final var entity = minecraft.getCameraEntity();
+                        if (entity != null) {
+                            final var door = SpookyDoorProvider.get(level).of(pos, state);
+                            if (door.spooky()) {
+                                if (shouldBypassDragging(minecraft, door)) {
+                                    return false;
                                 }
-                                return false;
+
+                                lastMouseX = minecraft.mouseHandler.xpos();
+                                activeDoor = door;
+                                if (activeDoor instanceof ClientSpookyDoor clientSpookyDoor) {
+                                    clientSpookyDoor.locallyControlled(true);
+                                }
+                                isDragging = true;
+                                return true;
                             }
+                            return false;
                         }
                     }
                 }
-            } else if (action == InputConstants.RELEASE) {
-                if (activeDoor != null) {
-                    syncActiveDoorIfDirty();
-                    if (accumulatedOpennessChange < 0.1) {
-                        uiHintTicksLeft = UI_HINT_TICKS;
-                    }
-                    accumulatedOpennessChange = 0f;
-                    if (activeDoor instanceof ClientSpookyDoor clientSpookyDoor) {
-                        clientSpookyDoor.locallyControlled(false);
-                    }
-                }
-                isDragging = false;
-                activeDoor = null;
             }
+        } else if (action == InputConstants.RELEASE) {
+            if (activeDoor != null) {
+                syncActiveDoorIfDirty();
+                if (accumulatedOpennessChange < 0.1) {
+                    uiHintTicksLeft = UI_HINT_TICKS;
+                }
+                accumulatedOpennessChange = 0f;
+                if (activeDoor instanceof ClientSpookyDoor clientSpookyDoor) {
+                    clientSpookyDoor.locallyControlled(false);
+                }
+            }
+            isDragging = false;
+            activeDoor = null;
         }
         return false;
     }
