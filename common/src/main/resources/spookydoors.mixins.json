@@ -9,9 +9,11 @@
     "DoorBlockMixin"
   ],
   "client": [
+    "KeyboardHandlerMixin",
     "MouseHandlerMixin",
     "client.ClientPacketListenerMixin",
-    "client.LevelRendererMixin"
+    "client.LevelRendererMixin",
+    "client.MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1
