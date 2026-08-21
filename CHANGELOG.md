@@ -1,3 +1,3 @@
-- Added `moveCameraWithDoor` option (default: `true`) to move camera along with door slightly, avoiding immersion-breaking hard stops
-- Fixed desync due to client using its own spooky fallback instead of relying on server state
-- Fixed possible desync when door state arrives before chunk data is available
+- Added support for operating doors with Use being mapped to keyboard
+- Fixed incorrect open state on non-spooky doors
+- Fixed newly placed doors not being considered spooky immediately on the client
