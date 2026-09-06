@@ -22,11 +22,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider {
 
@@ -167,12 +163,13 @@ public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider
     }
 
     public void syncDoorsInChunk(ServerPlayer player, ChunkPos chunkPos) {
-        for (final var entry : doorsByPos.entrySet()) {
-            if (!entry.getValue().hasPersistedData()) {
-                continue;
-            }
+        final var positions = new HashSet<>(doorsByPos.keySet());
 
-            final var pos = BlockPos.of(entry.getKey());
+        final var chunk = level.getChunk(chunkPos.x(), chunkPos.z());
+        SpookyDoorUtils.forEachSupportedDoor(level, chunk, (pos, _) -> positions.add(pos.asLong()));
+
+        for (final var key : positions) {
+            final var pos = BlockPos.of(key);
             if (pos.getX() >> 4 != chunkPos.x() || pos.getZ() >> 4 != chunkPos.z()) {
                 continue;
             }
