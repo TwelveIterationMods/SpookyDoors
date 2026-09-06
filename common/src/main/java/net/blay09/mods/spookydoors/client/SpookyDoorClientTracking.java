@@ -6,9 +6,7 @@ import net.blay09.mods.spookydoors.core.SpookyDoorProvider;
 import net.blay09.mods.spookydoors.util.SpookyDoorUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.chunk.LevelChunk;
 import org.jetbrains.annotations.Nullable;
 
@@ -71,30 +69,6 @@ public final class SpookyDoorClientTracking implements SpookyDoorProvider {
 
     public void trackDoorsInChunk(LevelChunk chunk) {
         final var level = Objects.requireNonNull(this.level.get());
-        final var chunkPos = chunk.getPos();
-        final var minX = chunkPos.getMinBlockX();
-        final var minZ = chunkPos.getMinBlockZ();
-        final var sections = chunk.getSections();
-        for (var sectionIndex = 0; sectionIndex < sections.length; sectionIndex++) {
-            final var section = sections[sectionIndex];
-            if (section == null || section.hasOnlyAir() || !section.maybeHas(SpookyDoorUtils::isSupportedDoor)) {
-                continue;
-            }
-
-            final var minY = level.getSectionYFromSectionIndex(sectionIndex) << 4;
-            for (var localY = 0; localY < 16; localY++) {
-                for (var localZ = 0; localZ < 16; localZ++) {
-                    for (var localX = 0; localX < 16; localX++) {
-                        final var state = section.getBlockState(localX, localY, localZ);
-                        if (SpookyDoorUtils.isSupportedDoor(state)
-                                && state.hasProperty(DoorBlock.HALF)
-                                && state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER) {
-                            final var pos = new BlockPos(minX + localX, minY + localY, minZ + localZ);
-                            get(level).of(pos, state);
-                        }
-                    }
-                }
-            }
-        }
+        SpookyDoorUtils.forEachSupportedDoor(level, chunk, (pos, state) -> get(level).of(pos, state));
     }
 }
