@@ -136,6 +136,9 @@ public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider
         positions.addAll(percentOpenByPos.keySet());
         positions.addAll(spookyByPos.keySet());
 
+        final var chunk = level.getChunk(chunkPos.x, chunkPos.z);
+        SpookyDoorUtils.forEachSupportedDoor(level, chunk, (pos, state) -> positions.add(pos.asLong()));
+
         for (final var key : positions) {
             final var pos = BlockPos.of(key);
             if (pos.getX() >> 4 != chunkPos.x || pos.getZ() >> 4 != chunkPos.z) {
