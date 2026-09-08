@@ -1,3 +1,1 @@
-- Added support for operating doors with Use being mapped to keyboard
-- Fixed incorrect open state on non-spooky doors
-- Fixed newly placed doors not being considered spooky immediately on the client
+- Fixed spooky doors still sometimes being non-spooky until first interaction
